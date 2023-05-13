@@ -25,12 +25,12 @@ const ressources = [
   },
 ];
 
-function Layout() {
+function StatusBar() {
   return (
     <Grid container alignItems='center' sx={{ padding: 1 }}>
       {ressources.map((ressource) => (
         <Grid item xs={1} key={ressource.name}>
-          <Card sx={{ width: 80 }}>
+          <Card sx={{ width: 80 }} style={{ borderRadius: 0, border: 'solid 1px turquoise' }}>
             <CardMedia sx={{ height: 45, width: ressource.width, margin: 'auto' }} image={ressource.icon} title={ressource.name} />
             <CardContent style={{ padding: '5px', paddingBottom: '5px', textAlign: 'center' }}>
               <Typography variant='caption'>{ressource.value}</Typography>
@@ -42,4 +42,4 @@ function Layout() {
   );
 }
 
-export default Layout;
+export default StatusBar;
