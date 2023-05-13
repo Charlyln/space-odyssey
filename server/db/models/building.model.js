@@ -10,6 +10,14 @@ const Building = sequelize.define('Building', {
     type: DataTypes.STRING(),
     allowNull: true,
   },
+  type: {
+    type: DataTypes.STRING(),
+    allowNull: true,
+  },
+  level: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
 });
 
 module.exports = {
