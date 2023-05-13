@@ -25,6 +25,10 @@ const links = [
     name: 'Ressources',
   },
   {
+    to: '/research',
+    name: 'Research',
+  },
+  {
     to: '/planet',
     name: 'Planet',
   },
@@ -33,8 +37,11 @@ const links = [
 export default function Router() {
   return (
     <BrowserRouter>
-      <Box sx={{ display: 'flex' }}>
-        <AppBar position='fixed' sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, background: 'none', boxShadow: 'none' }}>
+      <Box>
+        <AppBar
+          position='fixed'
+          sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, background: 'none', boxShadow: 'none' }}
+        >
           <StatusBar />
         </AppBar>
         <Drawer
@@ -49,18 +56,21 @@ export default function Router() {
           variant='permanent'
           anchor='left'
         >
-          <Divider style={{ marginTop: '96px' }} />
+          <div>
+            <CustomButton name={'Charly'} />
+          </div>
+          <Divider style={{ marginTop: '30px' }} />
           <List>
             {links.map((link) => (
               <Link to={link.to} key={link.to}>
-                <CustomButton key={link.to} name={link.name} />
+                <CustomButton key={link.to} name={link.name} color={240} />
               </Link>
             ))}
           </List>
           <Divider style={{ marginTop: '15px' }} />
         </Drawer>
 
-        <Box component='main' sx={{ p: 3 }}>
+        <Box sx={{ p: 3, marginLeft: '235px', marginTop: '20px' }}>
           <Toolbar />
 
           <Routes>
