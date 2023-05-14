@@ -25,10 +25,8 @@ function Login({ getUserData }) {
 
   const register = async () => {
     try {
+      window.localStorage.setItem('userId', '');
       const user = await axios.post(`http://${hostname}:${port}/v1/users`, { name });
-
-      console.log(user.data.id);
-
       window.localStorage.setItem('userId', user.data.id);
       await getUserData(user.data.id);
     } catch (error) {

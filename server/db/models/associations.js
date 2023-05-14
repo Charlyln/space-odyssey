@@ -4,6 +4,7 @@ const { Ressource } = require('./ressource.model');
 const { Building } = require('./building.model');
 const { Battle } = require('./battle.model');
 const { Mission } = require('./mission.model');
+const { Info } = require('./info.model');
 const { Research } = require('./research.model');
 const { Spaceship } = require('./spaceship.model');
 
@@ -26,6 +27,9 @@ Battle.belongsTo(User, options);
 
 User.hasMany(Mission, options);
 Mission.belongsTo(User, options);
+
+User.hasMany(Info, options);
+Info.belongsTo(User, options);
 
 User.hasMany(Research, options);
 Research.belongsTo(User, options);

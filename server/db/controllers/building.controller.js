@@ -1,6 +1,7 @@
 const { User } = require('../models/user.model');
 const { Ressource } = require('../models/ressource.model');
 const { Building } = require('../models/building.model');
+const { Info } = require('../models/info.model');
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
@@ -33,10 +34,21 @@ module.exports = {
 
     building.update({ upgrading: true });
 
-    global.io.emit('info', {
-      id: uuidv4(),
+    const infoId = uuidv4();
+
+    const infoData = {
+      id: infoId,
       message: `${building.name} start upgrade`,
       severity: 'info',
+    };
+
+    global.io.emit('info', {
+      ...infoData,
+    });
+
+    await Info.create({
+      ...infoData,
+      UserId: user.id,
     });
 
     try {
