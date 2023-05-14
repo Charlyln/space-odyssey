@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Toolbar, Box } from '@mui/material';
+import { Box } from '@mui/material';
 
 import Overview from '../pages/Overview';
 import Ressources from '../pages/Ressources';

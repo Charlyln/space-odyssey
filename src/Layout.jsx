@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { BrowserRouter } from 'react-router-dom';
+import { Route, useNavigate, Routes } from 'react-router-dom';
 import { Box, Divider } from '@mui/material';
 
 import { Context } from './utils/AppContext';
@@ -11,6 +11,7 @@ import StatusBar from './layout/StatusBar';
 import Menu from './layout/Menu';
 import Infos from './layout/Infos';
 import Pages from './layout/Pages';
+import Login from './pages/Login';
 
 import { socket } from './utils/socket';
 
@@ -20,6 +21,41 @@ const infosWidth = 300;
 export default function Layout() {
   const { setStore } = useContext(Context);
   const [loading, setLoading] = useState(true);
+  const [registered, setRegistered] = useState(false);
+
+  const localUserId = window.localStorage.getItem('userId');
+
+  const getUserData = async (newUserid) => {
+    try {
+      const userId = newUserid || localUserId;
+      if (userId) {
+        const userData = await axios.get(`http://${hostname}:${port}/v1/users/${userId}`);
+
+        setStore((prevState) => ({
+          ...prevState,
+          user: userData.data,
+          ressources: userData.data.Ressources,
+          buildings: userData.data.Buildings,
+          socket,
+        }));
+
+        setLoading(false);
+        setRegistered(true);
+      } else {
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    async function fetchData() {
+      await getUserData();
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     function onConnect() {
@@ -49,47 +85,17 @@ export default function Layout() {
     };
   }, []);
 
-  const userId = window.localStorage.getItem('userId');
+  if (loading) return 'loading...';
 
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      await getUserData();
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const getUserData = async () => {
-    try {
-      const userData = await axios.get(`http://${hostname}:${port}/v1/users/${userId}`);
-
-      setStore((prevState) => ({
-        ...prevState,
-        user: userData.data,
-        ressources: userData.data.Ressources,
-        buildings: userData.data.Buildings,
-        socket,
-      }));
-
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
+  if (!registered) return <Login getUserData={getUserData} />;
 
   return (
-    <BrowserRouter>
-      <Box>
-        {!loading && (
-          <>
-            <StatusBar menuWidth={menuWidth} infosWidth={infosWidth} />
-            <Divider/>
-            <Menu width={menuWidth} />
-            <Pages menuWidth={menuWidth} infosWidth={infosWidth} />
-            <Infos width={infosWidth} />
-          </>
-        )}
-      </Box>
-    </BrowserRouter>
+    <Box>
+      <StatusBar menuWidth={menuWidth} infosWidth={infosWidth} />
+      <Divider />
+      <Menu width={menuWidth} />
+      <Pages menuWidth={menuWidth} infosWidth={infosWidth} />
+      <Infos width={infosWidth} />
+    </Box>
   );
 }
