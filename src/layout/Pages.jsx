@@ -11,8 +11,7 @@ import Market from '../pages/Market';
 
 export default function Pages({ menuWidth, infosWidth }) {
   return (
-    <Box sx={{ p: 3, marginLeft: `${menuWidth}px`, marginRight: `${infosWidth}px`, marginTop: '20px' }}>
-      <Toolbar />
+    <Box sx={{ marginLeft: `${menuWidth}px`, marginRight: `${infosWidth}px`, padding: '8px' }}>
       <Routes>
         <Route path='/' element={<Overview />} />
         <Route path='/ressources' element={<Ressources />} />

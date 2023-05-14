@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { BrowserRouter } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 
 import { Context } from './utils/AppContext';
 import { hostname, port } from './utils/config';
@@ -82,7 +82,8 @@ export default function Layout() {
       <Box>
         {!loading && (
           <>
-            <StatusBar menuWidth={menuWidth} />
+            <StatusBar menuWidth={menuWidth} infosWidth={infosWidth} />
+            <Divider/>
             <Menu width={menuWidth} />
             <Pages menuWidth={menuWidth} infosWidth={infosWidth} />
             <Infos width={infosWidth} />
