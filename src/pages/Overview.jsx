@@ -10,6 +10,9 @@ const items = [
   {
     name: 'Research',
   },
+  {
+    name: 'Actions',
+  },
 ];
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
