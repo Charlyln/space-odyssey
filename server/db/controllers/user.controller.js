@@ -9,7 +9,6 @@ const { Info } = require('../models/info.model');
 const { Research } = require('../models/research.model');
 const { Spaceship } = require('../models/spaceship.model');
 const { Planet } = require('../models/planet.model');
-const { Galaxy } = require('../models/galaxy.model');
 
 module.exports = {
   async get_user(req, res) {
@@ -18,6 +17,7 @@ module.exports = {
     try {
       const user = await User.findOne({
         where: { id },
+        order: [[{ model: Info }, 'createdAt', 'DESC']],
         include: [
           {
             model: Ressource,

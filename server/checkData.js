@@ -1,17 +1,43 @@
 const { v4: uuidv4 } = require('uuid');
+
 const { User } = require('./db/models/user.model');
 const { Ressource } = require('./db/models/ressource.model');
 const { Building } = require('./db/models/building.model');
+const { Battle } = require('./db/models/battle.model');
+const { Mission } = require('./db/models/mission.model');
 const { Info } = require('./db/models/info.model');
+const { Research } = require('./db/models/research.model');
+const { Spaceship } = require('./db/models/spaceship.model');
+const { Planet } = require('./db/models/planet.model');
 
 async function checkEngine() {
   const usersData = await User.findAll({
+    order: [[{ model: Info }, 'createdAt', 'DESC']],
     include: [
       {
         model: Ressource,
       },
       {
         model: Building,
+      },
+      {
+        model: Battle,
+      },
+      {
+        model: Mission,
+      },
+      {
+        model: Info,
+        order: [['createdAt', 'ASC']],
+      },
+      {
+        model: Research,
+      },
+      {
+        model: Spaceship,
+      },
+      {
+        model: Planet,
       },
     ],
   });
@@ -37,7 +63,7 @@ async function checkEngine() {
                 severity: 'success',
               };
 
-              global.io.emit('info', {
+              global.io.to(global.socketIds[user.id]).emit('info', {
                 ...infoData,
               });
 
@@ -59,6 +85,10 @@ async function checkEngine() {
           }
         }),
       );
+
+      if (global.socketIds[user.id]) {
+        global.io.to(global.socketIds[user.id]).emit('userData', user);
+      }
     }),
   );
 }
@@ -66,7 +96,7 @@ async function checkEngine() {
 let checkInterval;
 
 async function startCheck() {
-  checkInterval = setInterval(checkEngine, 2000);
+  checkInterval = setInterval(checkEngine, 4000);
 }
 
 module.exports = {

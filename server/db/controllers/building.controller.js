@@ -1,8 +1,14 @@
+const { v4: uuidv4 } = require('uuid');
+
 const { User } = require('../models/user.model');
 const { Ressource } = require('../models/ressource.model');
 const { Building } = require('../models/building.model');
+const { Battle } = require('../models/battle.model');
+const { Mission } = require('../models/mission.model');
 const { Info } = require('../models/info.model');
-const { v4: uuidv4 } = require('uuid');
+const { Research } = require('../models/research.model');
+const { Spaceship } = require('../models/spaceship.model');
+const { Planet } = require('../models/planet.model');
 
 module.exports = {
   async update_building(req, res) {
@@ -14,12 +20,32 @@ module.exports = {
 
     const user = await User.findOne({
       where: { id: building.UserId },
+      order: [[{ model: Info }, 'createdAt', 'DESC']],
       include: [
         {
           model: Ressource,
         },
         {
           model: Building,
+        },
+        {
+          model: Battle,
+        },
+        {
+          model: Mission,
+        },
+        {
+          model: Info,
+          order: [['createdAt', 'ASC']],
+        },
+        {
+          model: Research,
+        },
+        {
+          model: Spaceship,
+        },
+        {
+          model: Planet,
         },
       ],
     });
@@ -42,7 +68,7 @@ module.exports = {
       severity: 'info',
     };
 
-    global.io.emit('info', {
+    global.io.to(global.socketIds[user.id]).emit('info', {
       ...infoData,
     });
 

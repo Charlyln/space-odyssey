@@ -6,7 +6,7 @@ import { Box, Divider } from '@mui/material';
 
 import { Context } from './utils/AppContext';
 import { hostname, port } from './utils/config';
-
+import _ from 'lodash';
 import StatusBar from './layout/StatusBar';
 import Menu from './layout/Menu';
 import Infos from './layout/Infos';
@@ -31,18 +31,22 @@ export default function Layout() {
       if (userId) {
         const userData = await axios.get(`http://${hostname}:${port}/v1/users/${userId}`);
 
+        if (userData.data.id) {
+          socket.emit('register', userData.data.id);
+        }
+
         setStore((prevState) => ({
           ...prevState,
           user: userData.data,
           socket,
-          ressources: userData.data.Ressources,
-          buildings: userData.data.Buildings,
-          infos: userData.data.Infos,
-          battles: userData.data.Battles,
-          missions: userData.data.Missions,
-          researchs: userData.data.Researchs,
-          spaceships: userData.data.Spaceships,
-          planets: userData.data.Planets,
+          // ressources: userData.data.Ressources,
+          // buildings: userData.data.Buildings,
+          // infos: userData.data.Infos,
+          // battles: userData.data.Battles,
+          // missions: userData.data.Missions,
+          // researchs: userData.data.Researchs,
+          // spaceships: userData.data.Spaceships,
+          // planets: userData.data.Planets,
         }));
 
         setLoading(false);
@@ -72,22 +76,33 @@ export default function Layout() {
       console.log('Disconnected');
     }
 
-    function onFooEvent(value) {
-      console.log('receive message', value);
+    function onInfoEvent(value) {
       setStore((prevState) => ({
         ...prevState,
-        infos: [value, ...prevState.infos],
+        user: {
+          ...prevState.user,
+          Infos: [value, ...prevState.user.Infos],
+        },
+      }));
+    }
+
+    function onUserDataEvent(data) {
+      setStore((prevState) => ({
+        ...prevState,
+        user: data,
       }));
     }
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
-    socket.on('info', onFooEvent);
+    socket.on('info', onInfoEvent);
+    socket.on('userData', onUserDataEvent);
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
-      socket.off('info', onFooEvent);
+      socket.off('info', onInfoEvent);
+      socket.off('userData', onUserDataEvent);
     };
   }, []);
 
