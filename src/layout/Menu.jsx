@@ -21,6 +21,10 @@ const links = [
     to: '/planet',
     name: 'Planet',
   },
+  {
+    to: '/missions',
+    name: 'Missions',
+  },
 ];
 
 export default function Menu({ width }) {

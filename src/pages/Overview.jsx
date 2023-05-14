@@ -1,19 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card, Typography, Grid, CardContent, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import { Context } from '../utils/AppContext';
 
-const items = [
-  {
-    name: 'Buildings',
-  },
-  {
-    name: 'Research',
-  },
-  {
-    name: 'Actions',
-  },
-];
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -28,6 +18,25 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 }));
 
 function Overview() {
+  const {
+    store: { buildings },
+  } = useContext(Context);
+
+  const items = [
+    {
+      name: 'Buildings',
+      tasks: buildings.filter((building) => building.upgrading),
+    },
+    {
+      name: 'Research',
+      tasks: [],
+    },
+    {
+      name: 'Missions',
+      tasks: [],
+    },
+  ];
+
   return (
     <Grid container alignItems='center'>
       {items.map((item) => (
@@ -39,19 +48,31 @@ function Overview() {
               </Typography>
 
               <Grid container alignItems='center' sx={{ padding: 1 }}>
-                <Grid item xs={4}>
-                  Steel mine
-                </Grid>
-                <Grid item xs={8}>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Box sx={{ width: '100%', mr: 1 }}>
-                      <BorderLinearProgress variant='determinate' value={50} />
-                    </Box>
-                    <Box sx={{ minWidth: 35 }}>
-                      <Typography variant='body2' color='text.secondary'>{`50%`}</Typography>
-                    </Box>
-                  </Box>
-                </Grid>
+                {item.tasks.length === 0 ? (
+                  <Grid item xs={4}>
+                    No tasks
+                  </Grid>
+                ) : (
+                  <>
+                    {item.tasks.map((task) => (
+                      <>
+                        <Grid item xs={4}>
+                          {task.name}
+                        </Grid>
+                        <Grid item xs={8}>
+                          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Box sx={{ width: '100%', mr: 1 }}>
+                              <BorderLinearProgress variant='determinate' value={task.progress} />
+                            </Box>
+                            <Box sx={{ minWidth: 35 }}>
+                              <Typography variant='body2' color='text.secondary'>{`${task.progress}%`}</Typography>
+                            </Box>
+                          </Box>
+                        </Grid>
+                      </>
+                    ))}
+                  </>
+                )}
               </Grid>
             </CardContent>
           </Card>
