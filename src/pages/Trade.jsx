@@ -1,12 +1,12 @@
 import React from 'react';
 import { Grid } from '@mui/material';
 
-function Market() {
+function Trade() {
   return (
     <Grid container alignItems='center' sx={{ padding: 1 }}>
-      Market
+      Trade
     </Grid>
   );
 }
 
-export default Market;
+export default Trade;

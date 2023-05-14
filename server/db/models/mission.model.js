@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../sequelize');
 
-const Ressource = sequelize.define('Ressource', {
+const Mission = sequelize.define('Mission', {
   id: {
     type: DataTypes.UUIDV4,
     primaryKey: true,
@@ -10,20 +10,27 @@ const Ressource = sequelize.define('Ressource', {
     type: DataTypes.STRING(),
     allowNull: true,
   },
-  value: {
-    type: DataTypes.NUMBER(),
+  type: {
+    type: DataTypes.STRING(),
     allowNull: true,
   },
-  production: {
+  level: {
     type: DataTypes.NUMBER(),
     allowNull: true,
+    defaultValue: 0,
   },
-  stockage: {
+  ongoing: {
+    type: DataTypes.BOOLEAN(),
+    allowNull: true,
+    defaultValue: false,
+  },
+  progress: {
     type: DataTypes.NUMBER(),
     allowNull: true,
+    defaultValue: 0,
   },
 });
 
 module.exports = {
-  Ressource,
+  Mission,
 };

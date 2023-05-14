@@ -7,7 +7,7 @@ import Ressources from '../pages/Ressources';
 import Planet from '../pages/Planet';
 import Research from '../pages/Research';
 import Missions from '../pages/Missions';
-import Market from '../pages/Market';
+import Trade from '../pages/Trade';
 
 export default function Pages({ menuWidth, infosWidth }) {
   return (
@@ -18,7 +18,7 @@ export default function Pages({ menuWidth, infosWidth }) {
         <Route path='/planet' element={<Planet />} />
         <Route path='/research' element={<Research />} />
         <Route path='/missions' element={<Missions />} />
-        <Route path='/market' element={<Market />} />
+        <Route path='/trade' element={<Trade />} />
       </Routes>
     </Box>
   );
