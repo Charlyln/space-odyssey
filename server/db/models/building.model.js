@@ -24,6 +24,11 @@ const Building = sequelize.define('Building', {
     allowNull: true,
     defaultValue: false,
   },
+  progress: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+    defaultValue: 0,
+  },
 });
 
 module.exports = {

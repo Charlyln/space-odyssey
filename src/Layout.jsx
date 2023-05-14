@@ -22,10 +22,10 @@ export default function Layout() {
   const userId = window.localStorage.getItem('userId');
 
   useEffect(() => {
-    async function fetchData() {
+    const interval = setInterval(async () => {
       await getUserData();
-    }
-    fetchData();
+    }, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   const getUserData = async () => {

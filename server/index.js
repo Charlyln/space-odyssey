@@ -9,6 +9,7 @@ const { PORT } = require('./config');
 const logger = require('./logger');
 const userRoutes = require('./db/routes/user.route');
 const buildingRoutes = require('./db/routes/building.route');
+const { startCheck } = require('./checkData');
 
 require('./db/models/associations');
 
@@ -19,6 +20,7 @@ const server = http.createServer(app);
 (async () => {
   await db.connect();
   await sequelize.connect();
+  await startCheck();
 })();
 
 app.get('/v1', function (req, res) {

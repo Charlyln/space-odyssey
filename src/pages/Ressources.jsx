@@ -43,15 +43,6 @@ function Ressources() {
   const upgrade = async (item) => {
     try {
       await axios.put(`http://${hostname}:${port}/v1/buildings/${item.id}`);
-      const userData = await axios.get(`http://${hostname}:${port}/v1/users/${user.id}`);
-
-      console.log(userData);
-
-      setStore((prevState) => ({
-        ...prevState,
-        ressources: userData.data.Ressources,
-        buildings: userData.data.Buildings,
-      }));
     } catch (error) {
       console.log(error);
     }
@@ -61,7 +52,7 @@ function Ressources() {
     <Grid container alignItems='center'>
       {buildings.map((item) => (
         <Grid item xs={4} key={item.name} sx={{ padding: 1 }}>
-          <Card style={{ border: 'solid 1px', opacity: item.upgrading ? 0.5 : 1 }}>
+          <Card style={{ border: item.upgrading ? 'solid 1px grey' : 'solid 1px' }}>
             <CardHeader
               title={item.name}
               action={
@@ -71,7 +62,12 @@ function Ressources() {
               }
             />
 
-            <CardMedia style={{ width: '100px', margin: 'auto' }} component='img' image={getImg(item.name)} alt={item.name} />
+            <CardMedia
+              style={{ width: '100px', margin: 'auto', opacity: item.upgrading ? 0.3 : 1 }}
+              component='img'
+              image={getImg(item.name)}
+              alt={item.name}
+            />
 
             <CardContent>
               <Typography sx={{ fontSize: 14, float: 'right' }} color='text.secondary'>
@@ -85,10 +81,10 @@ function Ressources() {
                 <Grid item xs={8}>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Box sx={{ width: '100%', mr: 1 }}>
-                      <BorderLinearProgress variant='determinate' value={0} />
+                      <BorderLinearProgress variant='determinate' value={item.progress} />
                     </Box>
                     <Box sx={{ minWidth: 35 }}>
-                      <Typography variant='body2' color='text.secondary'>{`0%`}</Typography>
+                      <Typography variant='body2' color='text.secondary'>{`${item.progress}%`}</Typography>
                     </Box>
                   </Box>
                 </Grid>
