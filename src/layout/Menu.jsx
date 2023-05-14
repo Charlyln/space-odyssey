@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Drawer, List, Divider } from '@mui/material';
 
 import CustomButton from '../common/CustomButton';
@@ -25,9 +25,15 @@ const links = [
     to: '/missions',
     name: 'Missions',
   },
+  {
+    to: '/market',
+    name: 'Market',
+  },
 ];
 
 export default function Menu({ width }) {
+  let location = useLocation();
+
   return (
     <Drawer
       sx={{
@@ -48,7 +54,7 @@ export default function Menu({ width }) {
       <List>
         {links.map((link) => (
           <Link to={link.to} key={link.to}>
-            <CustomButton key={link.to} name={link.name} color={240} />
+            <CustomButton key={link.to} name={link.name} color={location.pathname === link.to ? 185 : 240} />
           </Link>
         ))}
       </List>
