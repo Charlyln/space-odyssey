@@ -3,7 +3,6 @@ const { v4: uuidv4 } = require('uuid');
 const { User } = require('../models/user.model');
 const { Ressource } = require('../models/ressource.model');
 const { Building } = require('../models/building.model');
-const logger = require('../../logger');
 
 module.exports = {
   async get_user(req, res) {
