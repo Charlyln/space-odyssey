@@ -91,22 +91,6 @@ async function createUserData(name) {
       }),
     );
 
-    // await Promise.all(
-    //   spaceships.map(async (building) => {
-    //     await Spaceship.create({
-    //       id: uuidv4(),
-    //       name: building.name,
-    //       type: building.type,
-    //       capacity: building.capacity,
-    //       transport: building.transport,
-    //       attack: building.attack,
-    //       defense: building.defense,
-    //       speed: building.speed,
-    //       UserId: user.id,
-    //     });
-    //   }),
-    // );
-
     return user;
   } catch (error) {
     logger.error('createUserData', error);

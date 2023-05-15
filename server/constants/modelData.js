@@ -16,7 +16,14 @@ const ressources = [
   {
     name: 'crystal',
     type: 'production',
-    value: 1,
+    value: 0,
+    production: 0,
+    storage: 5,
+  },
+  {
+    name: 'platinum',
+    type: 'production',
+    value: 0,
     production: 0,
     storage: 5,
   },
@@ -98,6 +105,91 @@ const costs = [
     craft: 'Fighter',
     value: 20,
     ressource: 'gold',
+  },
+  {
+    craft: 'Cruiser',
+    value: 200,
+    ressource: 'steel',
+  },
+  {
+    craft: 'Cruiser',
+    value: 50,
+    ressource: 'gold',
+  },
+  {
+    craft: 'BattleShip',
+    value: 800,
+    ressource: 'steel',
+  },
+  {
+    craft: 'BattleShip',
+    value: 400,
+    ressource: 'gold',
+  },
+  {
+    craft: 'BattleShip',
+    value: 200,
+    ressource: 'platinum',
+  },
+  {
+    craft: 'Bomber',
+    value: 10000,
+    ressource: 'steel',
+  },
+  {
+    craft: 'Bomber',
+    value: 7000,
+    ressource: 'gold',
+  },
+  {
+    craft: 'Bomber',
+    value: 2500,
+    ressource: 'platinum',
+  },
+  {
+    craft: 'Bomber',
+    value: 200,
+    ressource: 'crystal',
+  },
+  {
+    craft: 'Cargo',
+    value: 200000,
+    ressource: 'steel',
+  },
+  {
+    craft: 'Cargo',
+    value: 900000,
+    ressource: 'gold',
+  },
+  {
+    craft: 'Cargo',
+    value: 25000,
+    ressource: 'platinum',
+  },
+  {
+    craft: 'Cargo',
+    value: 12000,
+    ressource: 'crystal',
+  },
+  {
+    craft: 'Crawler',
+    value: 900000,
+    ressource: 'steel',
+  },
+  {
+    craft: 'Crawler',
+    value: 700000,
+    ressource: 'gold',
+  },
+  {
+    craft: 'Crawler',
+    value: 350000,
+    ressource: 'platinum',
+  },
+  {
+    craft: 'Crawler',
+    value: 270000,
+    ressource: 'crystal',
   },
 ];
 

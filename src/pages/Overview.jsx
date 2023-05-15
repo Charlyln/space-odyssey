@@ -4,6 +4,9 @@ import { styled } from '@mui/material/styles';
 import { Context } from '../utils/AppContext';
 
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import PageHeader from '../common/PageHeader';
+
+import overview from '../assets/headers/overview.jpeg';
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -38,47 +41,52 @@ function Overview() {
   ];
 
   return (
-    <Grid container alignItems='center'>
-      {items.map((item) => (
-        <Grid item xs={4} key={item.name} sx={{ padding: 1 }}>
-          <Card style={{ border: 'solid 1px' }}>
-            <CardContent>
-              <Typography sx={{ fontSize: 14 }} color='text.secondary'>
-                {item.name}
-              </Typography>
+    <>
+      <Grid container alignItems='center' sx={{ padding: 1 }}>
+        <PageHeader height={'250px'} imgWidth={'400px'} image={overview} imageName={'overview'} title={'Overview'} />
+      </Grid>
+      <Grid container alignItems='center' sx={{ padding: 1 }}>
+        {items.map((item) => (
+          <Grid item xs={4} key={item.name} sx={{ paddingRight: '4px' }}>
+            <Card style={{ border: 'solid 1px' }}>
+              <CardContent>
+                <Typography sx={{ fontSize: 14 }} color='text.secondary'>
+                  {item.name}
+                </Typography>
 
-              <Grid container alignItems='center' sx={{ padding: 1 }}>
-                {item.tasks.length === 0 ? (
-                  <Grid item xs={4}>
-                    No tasks
-                  </Grid>
-                ) : (
-                  <>
-                    {item.tasks.map((task) => (
-                      <>
-                        <Grid item xs={4}>
-                          {task.name}
-                        </Grid>
-                        <Grid item xs={8}>
-                          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Box sx={{ width: '100%', mr: 1 }}>
-                              <BorderLinearProgress variant='determinate' value={task.progress} />
+                <Grid container alignItems='center' sx={{ padding: 1 }}>
+                  {item.tasks.length === 0 ? (
+                    <Grid item xs={4}>
+                      No tasks
+                    </Grid>
+                  ) : (
+                    <>
+                      {item.tasks.map((task) => (
+                        <>
+                          <Grid item xs={4}>
+                            {task.name}
+                          </Grid>
+                          <Grid item xs={8}>
+                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                              <Box sx={{ width: '100%', mr: 1 }}>
+                                <BorderLinearProgress variant='determinate' value={task.progress} />
+                              </Box>
+                              <Box sx={{ minWidth: 35 }}>
+                                <Typography variant='body2' color='text.secondary'>{`${task.progress}%`}</Typography>
+                              </Box>
                             </Box>
-                            <Box sx={{ minWidth: 35 }}>
-                              <Typography variant='body2' color='text.secondary'>{`${task.progress}%`}</Typography>
-                            </Box>
-                          </Box>
-                        </Grid>
-                      </>
-                    ))}
-                  </>
-                )}
-              </Grid>
-            </CardContent>
-          </Card>
-        </Grid>
-      ))}
-    </Grid>
+                          </Grid>
+                        </>
+                      ))}
+                    </>
+                  )}
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </>
   );
 }
 

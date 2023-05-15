@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Card, Typography, Grid, CardMedia, CardContent, CardActionArea } from '@mui/material';
+import { Card, Typography, Grid, CardMedia, CardContent, CardActionArea, Alert } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { Context } from '../utils/AppContext';
@@ -18,6 +18,8 @@ import shipyard from '../assets/spaceships/shipyard.jpeg';
 
 import steelIcon from '../assets/ressources/steel.webp';
 import goldIcon from '../assets/ressources/gold.webp';
+import platinumIcon from '../assets/ressources/platinum2.webp';
+import crystalIcon from '../assets/ressources/crystal.webp';
 import { spaceships } from '../utils/constants';
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
@@ -70,6 +72,12 @@ function Shipyard() {
 
       case 'gold':
         return goldIcon;
+
+      case 'platinum':
+        return platinumIcon;
+
+      case 'crystal':
+        return crystalIcon;
 
       default:
         return steelIcon;
@@ -169,7 +177,7 @@ function Shipyard() {
           <Card style={{ display: 'flex', height: '250px', position: 'relative', backgroundColor: 'unset' }} variant='outlined'>
             <CardMedia
               component='img'
-              sx={{ width: spaceshipSelected ? '320px' : '450px' }}
+              sx={{ width: spaceshipSelected ? '320px' : '400px' }}
               image={spaceshipSelected ? getImg(spaceshipSelected.name) : shipyard}
               alt='Shipyard'
             />
@@ -210,11 +218,11 @@ function Shipyard() {
                         Costs:
                       </Typography>
 
-                      <div style={{ display: 'flex', flexWrap: 'wrap' }}>{getSpaceshipCosts(spaceshipSelected)}</div>
+                      <div style={{ display: 'flex', flexWrap: 'wrap' }}>{getSpaceshipCosts(spaceshipSelected)} </div>
                     </Grid>
                   </Grid>
 
-                  <div style={{ position: 'absolute', right: '0', bottom: '0', padding: '15px' }}>
+                  <div style={{ position: 'absolute', right: '0', bottom: '0', padding: '15px', display: 'flex' }}>
                     <CustomButton name={'build'} color={500} width={120} height={40} onClick={build} disabled={disabled} />
                   </div>
                 </>
@@ -222,7 +230,6 @@ function Shipyard() {
             </CardContent>
           </Card>
         </Grid>
-
         <Grid item xs={12}>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             {spaceships.map((item, i) => (
@@ -245,7 +252,6 @@ function Shipyard() {
             ))}
           </div>
         </Grid>
-
         <Grid item xs={12} style={{ marginTop: '50px' }}>
           <Typography sx={{ fontSize: 14 }} color='text.secondary'>
             {`Stack:`}
