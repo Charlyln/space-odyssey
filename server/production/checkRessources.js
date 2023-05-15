@@ -53,7 +53,7 @@ async function checkRessources(user) {
   );
 
   if (global.socketIds[user.id]) {
-    // global.io.to(global.socketIds[user.id]).emit('userData', userData);
+    global.io.to(global.socketIds[user.id]).emit('userData', userData);
     global.io.to(global.socketIds[user.id]).emit('ressources', userData.Ressources);
   }
 }

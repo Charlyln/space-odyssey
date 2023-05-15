@@ -11,6 +11,7 @@ const logger = require('./logger');
 const userRoutes = require('./db/routes/user.route');
 const actionsRoutes = require('./db/routes/action.route');
 const { startProduction } = require('./production');
+const { createInitData } = require('./init.js');
 
 require('./db/models/associations');
 
@@ -27,6 +28,7 @@ global.io = new Server(server, {
 (async () => {
   await db.connect();
   await sequelize.connect();
+  await createInitData();
   await startProduction();
 })();
 

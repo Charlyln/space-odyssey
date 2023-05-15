@@ -88,7 +88,21 @@ const buildings = [
   },
 ];
 
+const costs = [
+  {
+    craft: 'Fighter',
+    value: 50,
+    ressource: 'steel',
+  },
+  {
+    craft: 'Fighter',
+    value: 20,
+    ressource: 'gold',
+  },
+];
+
 module.exports = {
   ressources,
   buildings,
+  costs,
 };

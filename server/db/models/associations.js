@@ -2,7 +2,6 @@ const { User } = require('./user.model');
 
 const { Ressource } = require('./ressource.model');
 const { Building } = require('./building.model');
-const { Battle } = require('./battle.model');
 const { Mission } = require('./mission.model');
 const { Info } = require('./info.model');
 const { Action } = require('./action.model');
@@ -26,9 +25,6 @@ Ressource.belongsTo(User, options);
 
 User.hasMany(Building, options);
 Building.belongsTo(User, options);
-
-User.hasMany(Battle, options);
-Battle.belongsTo(User, options);
 
 User.hasMany(Mission, options);
 Mission.belongsTo(User, options);

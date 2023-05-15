@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 
 const { Action } = require('../db/models/action.model');
-const { handleUpgradeBuilding, handleBuildSpaceship } = require('../helper/actionhelper');
+const { handleUpgradeBuilding, handleBuildSpaceship, handleDeleteSpaceship } = require('../helper/actionhelper');
 const logger = require('../logger');
 
 async function checkActions(user) {
@@ -20,6 +20,10 @@ async function checkActions(user) {
 
             case 'BuildSpaceship':
               await handleBuildSpaceship(action);
+              break;
+
+            case 'DeleteSpaceship':
+              await handleDeleteSpaceship(action);
               break;
 
             default:
