@@ -48,36 +48,43 @@ const buildings = [
     name: 'Steel Mine',
     type: 'production',
     enable: true,
+    production: 'steel',
   },
   {
     name: 'Gold Mine',
     type: 'production',
     enable: true,
+    production: 'gold',
   },
   {
     name: 'Crystal Synthesizer',
     type: 'production',
     enable: true,
+    production: 'crystal',
   },
   {
     name: 'Solar Plant',
     type: 'production',
     enable: true,
+    production: 'energy',
   },
   {
     name: 'Research Center',
     type: 'research',
     enable: true,
+    production: 'technology',
   },
   {
     name: 'Residential Sector',
     type: 'residential',
     enable: true,
+    production: 'residential',
   },
   {
     name: 'Biosphere Farm',
     type: 'farm',
     enable: true,
+    production: 'food',
   },
 ];
 

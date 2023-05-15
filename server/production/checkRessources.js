@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 const { Info } = require('../db/models/info.model');
 
 const { getUserData } = require('../helper/userhelper');
+const { updateRessource } = require('../helper/ressourcehelper');
 
 async function checkRessources(user) {
   const userData = await getUserData(user.id);
@@ -10,7 +11,7 @@ async function checkRessources(user) {
   await Promise.all(
     userData.Buildings.map(async (building) => {
       if (building.upgrading) {
-        const newProgress = building.progress + 10;
+        const newProgress = building.progress + 40;
         const updateProgress = newProgress >= 100 ? 100 : newProgress;
 
         if (newProgress < 110) {
@@ -41,16 +42,19 @@ async function checkRessources(user) {
         const production = building.level * 1;
 
         const ressource = userData.Ressources.find((ressource) => {
-          return building.name.toLowerCase().includes(ressource.name);
+          return building.production === ressource.name;
         });
 
-        ressource.update({ value: ressource.value + production });
+        if (ressource) {
+          await updateRessource(ressource.id, { value: ressource.value + production });
+        }
       }
     }),
   );
 
   if (global.socketIds[user.id]) {
-    global.io.to(global.socketIds[user.id]).emit('userData', userData);
+    // global.io.to(global.socketIds[user.id]).emit('userData', userData);
+    global.io.to(global.socketIds[user.id]).emit('ressources', userData.Ressources);
   }
 }
 
