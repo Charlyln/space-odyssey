@@ -57,7 +57,7 @@ function Login({ getUserData }) {
           onChange={(e) => setName(e.target.value)}
           helperText={error ? 'Name already taken' : ''}
         />
-        <CustomButton name={'Start'} onClick={register} />
+        <CustomButton name={'Start'} onClick={register} width={200} height={50} fontSize={20} />
       </header>
     </div>
   );

@@ -18,16 +18,16 @@ const links = [
     name: 'Storage',
   },
   {
-    to: '/factories',
-    name: 'Factories',
+    to: '/facilities',
+    name: 'Facilities',
   },
   {
     to: '/research',
     name: 'Research',
   },
   {
-    to: '/defense',
-    name: 'Defense',
+    to: '/defence',
+    name: 'Defence',
   },
   {
     to: '/planet',
@@ -38,8 +38,8 @@ const links = [
     name: 'Galaxy',
   },
   {
-    to: '/spaceships',
-    name: 'Spaceships',
+    to: '/shipyard',
+    name: 'Shipyard',
   },
   {
     to: '/missions',
@@ -48,6 +48,10 @@ const links = [
   {
     to: '/trade',
     name: 'Trade',
+  },
+  {
+    to: '/history',
+    name: 'History',
   },
 ];
 
@@ -84,13 +88,20 @@ export default function Menu({ width }) {
       anchor='left'
     >
       <div>
-        <CustomButton name={'Charly'} />
+        <CustomButton name={'Charly'} width={200} height={50} fontSize={20} />
       </div>
       <Divider style={{ marginTop: '29px' }} />
       <ContainerStyle>
         {links.map((link) => (
           <Link to={link.to} key={link.to}>
-            <CustomButton key={link.to} name={link.name} color={location.pathname === link.to ? 185 : 240} />
+            <CustomButton
+              key={link.to}
+              name={link.name}
+              width={200}
+              height={50}
+              fontSize={20}
+              color={location.pathname === link.to ? 185 : 240}
+            />
           </Link>
         ))}
       </ContainerStyle>

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Card, CardMedia, Typography, CardContent, AppBar, Stack, Grid, Divider } from '@mui/material';
+import { Card, CardMedia, Typography, CardContent, Grid } from '@mui/material';
 
 import { Context } from '../utils/AppContext';
 

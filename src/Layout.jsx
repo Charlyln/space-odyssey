@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { Route, useNavigate, Routes } from 'react-router-dom';
 import { Box, Divider } from '@mui/material';
 
 import { Context } from './utils/AppContext';
 import { hostname, port } from './utils/config';
-import _ from 'lodash';
 import StatusBar from './layout/StatusBar';
 import Menu from './layout/Menu';
 import Infos from './layout/Infos';
@@ -39,14 +37,6 @@ export default function Layout() {
           ...prevState,
           user: userData.data,
           socket,
-          // ressources: userData.data.Ressources,
-          // buildings: userData.data.Buildings,
-          // infos: userData.data.Infos,
-          // battles: userData.data.Battles,
-          // missions: userData.data.Missions,
-          // researchs: userData.data.Researchs,
-          // spaceships: userData.data.Spaceships,
-          // planets: userData.data.Planets,
         }));
 
         setLoading(false);
@@ -65,6 +55,8 @@ export default function Layout() {
       await getUserData();
     }
     fetchData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -104,6 +96,8 @@ export default function Layout() {
       socket.off('info', onInfoEvent);
       socket.off('userData', onUserDataEvent);
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) return 'loading...';
