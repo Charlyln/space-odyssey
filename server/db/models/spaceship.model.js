@@ -34,6 +34,14 @@ const Spaceship = sequelize.define('Spaceship', {
     type: DataTypes.NUMBER(),
     allowNull: true,
   },
+  building: {
+    type: DataTypes.BOOLEAN(),
+    allowNull: true,
+  },
+  enable: {
+    type: DataTypes.BOOLEAN(),
+    allowNull: true,
+  },
 });
 
 module.exports = {

@@ -12,10 +12,14 @@ const { Spaceship } = require('./spaceship.model');
 const { Planet } = require('./planet.model');
 const { Galaxy } = require('./galaxy.model');
 
+const { State } = require('./state.model');
+
 const options = {
   constraints: false,
   onDelete: 'CASCADE',
 };
+
+// User
 
 User.hasMany(Ressource, options);
 Ressource.belongsTo(User, options);
@@ -44,5 +48,10 @@ Spaceship.belongsTo(User, options);
 User.hasMany(Planet, options);
 Planet.belongsTo(User, options);
 
+// Others
+
 Galaxy.hasMany(Planet, options);
 Planet.belongsTo(Galaxy, options);
+
+Spaceship.hasOne(State, options);
+State.belongsTo(Spaceship, options);
