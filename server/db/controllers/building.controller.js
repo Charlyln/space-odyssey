@@ -1,14 +1,9 @@
 const { v4: uuidv4 } = require('uuid');
 
-const { User } = require('../models/user.model');
-const { Ressource } = require('../models/ressource.model');
 const { Building } = require('../models/building.model');
-const { Battle } = require('../models/battle.model');
-const { Mission } = require('../models/mission.model');
 const { Info } = require('../models/info.model');
-const { Research } = require('../models/research.model');
-const { Spaceship } = require('../models/spaceship.model');
-const { Planet } = require('../models/planet.model');
+
+const { getUserData } = require('../../helper/userhelper');
 
 module.exports = {
   async update_building(req, res) {
@@ -18,40 +13,7 @@ module.exports = {
       where: { id },
     });
 
-    const user = await User.findOne({
-      where: { id: building.UserId },
-      order: [
-        [{ model: Info }, 'createdAt', 'DESC'],
-        [{ model: Building }, 'createdAt', 'ASC'],
-      ],
-      include: [
-        {
-          model: Ressource,
-        },
-        {
-          model: Building,
-        },
-        {
-          model: Battle,
-        },
-        {
-          model: Mission,
-        },
-        {
-          model: Info,
-          order: [['createdAt', 'ASC']],
-        },
-        {
-          model: Research,
-        },
-        {
-          model: Spaceship,
-        },
-        {
-          model: Planet,
-        },
-      ],
-    });
+    const user = await getUserData(building.UserId);
 
     await Promise.all(
       user.Ressources.map(async (ressource) => {

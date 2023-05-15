@@ -10,6 +10,10 @@ const Ressource = sequelize.define('Ressource', {
     type: DataTypes.STRING(),
     allowNull: true,
   },
+  type: {
+    type: DataTypes.STRING(),
+    allowNull: true,
+  },
   value: {
     type: DataTypes.NUMBER(),
     allowNull: true,
@@ -18,7 +22,7 @@ const Ressource = sequelize.define('Ressource', {
     type: DataTypes.NUMBER(),
     allowNull: true,
   },
-  stockage: {
+  storage: {
     type: DataTypes.NUMBER(),
     allowNull: true,
   },
