@@ -38,6 +38,9 @@ const Building = sequelize.define('Building', {
     allowNull: true,
     defaultValue: 0,
   },
+  order: {
+    type: DataTypes.NUMBER(),
+  },
 });
 
 module.exports = {

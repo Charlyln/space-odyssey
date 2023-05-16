@@ -19,7 +19,7 @@ async function getUserData(userId) {
       where: { id: userId },
       order: [
         [{ model: Info }, 'createdAt', 'DESC'],
-        [{ model: Building }, 'createdAt', 'ASC'],
+        [{ model: Building }, 'order', 'ASC'],
         [{ model: Spaceship }, 'createdAt', 'ASC'],
       ],
       include: [
@@ -86,6 +86,7 @@ async function createUserData(name) {
           name: building.name,
           type: building.type,
           production: building.production,
+          order: building.order,
           UserId: user.id,
         });
       }),

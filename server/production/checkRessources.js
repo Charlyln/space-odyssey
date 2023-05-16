@@ -11,7 +11,7 @@ async function checkRessources(user) {
   await Promise.all(
     userData.Buildings.map(async (building) => {
       if (building.upgrading) {
-        const newProgress = building.progress + 40;
+        const newProgress = building.progress + 10;
         const updateProgress = newProgress >= 100 ? 100 : newProgress;
 
         if (newProgress < 110) {

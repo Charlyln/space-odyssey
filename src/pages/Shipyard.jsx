@@ -1,36 +1,18 @@
 import React, { useContext, useState } from 'react';
-import { Card, Typography, Grid, CardMedia, CardContent, CardActionArea, Alert } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import { Card, Typography, Grid, CardMedia, CardContent, CardActionArea } from '@mui/material';
+
 import { Context } from '../utils/AppContext';
 import axios from 'axios';
 import { hostname, port } from '../utils/config';
 
-import CustomButton from '../common/CustomButton';
+import { getImg } from '../utils/helper';
 
-import fighter from '../assets/spaceships/fighter.jpeg';
-import cruiser from '../assets/spaceships/cruiser.jpeg';
-import battleShip from '../assets/spaceships/battleship.jpeg';
-import bomber from '../assets/spaceships/bomber.jpeg';
-import cargo from '../assets/spaceships/cargo.jpeg';
-import crawler from '../assets/spaceships/crawler.jpeg';
+import CustomButton from '../common/CustomButton';
+import CardProgress from '../common/CardProgress';
+
 import shipyard from '../assets/spaceships/shipyard.jpeg';
 
-import steelIcon from '../assets/ressources/steel.webp';
-import goldIcon from '../assets/ressources/gold.webp';
-import platinumIcon from '../assets/ressources/platinum2.webp';
-import crystalIcon from '../assets/ressources/crystal.webp';
 import { spaceships } from '../utils/constants';
-
-const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: 'unset',
-  },
-  [`& .${linearProgressClasses.bar}`]: {
-    backgroundColor: 'green',
-  },
-}));
 
 function Shipyard() {
   const {
@@ -39,50 +21,6 @@ function Shipyard() {
 
   const [spaceshipSelected, setSpaceshipSelected] = useState(null);
   const [disabled, setDisabled] = useState(false);
-
-  const getImg = (spaceshipName) => {
-    switch (spaceshipName) {
-      case 'Fighter':
-        return fighter;
-
-      case 'Cruiser':
-        return cruiser;
-
-      case 'BattleShip':
-        return battleShip;
-
-      case 'Bomber':
-        return bomber;
-
-      case 'Cargo':
-        return cargo;
-
-      case 'Crawler':
-        return crawler;
-
-      default:
-        return fighter;
-    }
-  };
-
-  const getRessourceIcon = (ressourceName) => {
-    switch (ressourceName) {
-      case 'steel':
-        return steelIcon;
-
-      case 'gold':
-        return goldIcon;
-
-      case 'platinum':
-        return platinumIcon;
-
-      case 'crystal':
-        return crystalIcon;
-
-      default:
-        return steelIcon;
-    }
-  };
 
   const getSpaceshipNumber = (spaceshipName) => {
     const filter = user.Spaceships.filter((spaceship) => !spaceship.State.building && spaceship.name === spaceshipName);
@@ -117,11 +55,7 @@ function Shipyard() {
     return spaceshipCosts.map((spaceshipCost) => (
       <div style={{ paddingRight: '4px' }}>
         <Card variant='outlined' sx={{ height: '70px', width: '50px', borderRadius: 0 }}>
-          <CardMedia
-            sx={{ height: '50px', width: '50px', margin: 'auto' }}
-            image={getRessourceIcon(spaceshipCost.ressource)}
-            title={'steel'}
-          />
+          <CardMedia sx={{ height: '50px', width: '50px', margin: 'auto' }} image={getImg(spaceshipCost.ressource)} title={'steel'} />
           <CardContent style={{ padding: 0, textAlign: 'center', marginTop: '-5px' }}>
             <Typography variant='caption'>{spaceshipCost.value}</Typography>
           </CardContent>
@@ -267,7 +201,7 @@ function Shipyard() {
                       image={getImg(item.name)}
                       alt={item.name}
                     />
-                    <BorderLinearProgress variant='determinate' value={item.State.progress} />
+                    <CardProgress variant='determinate' progress={item.State.progress} />
                   </CardActionArea>
                 </Card>
               </div>
