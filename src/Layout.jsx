@@ -14,7 +14,7 @@ import Login from './pages/Login';
 import { socket } from './utils/socket';
 
 const menuWidth = 240;
-const infosWidth = 300;
+const infosWidth = 240;
 
 export default function Layout() {
   const { setStore } = useContext(Context);
@@ -68,16 +68,6 @@ export default function Layout() {
       console.log('Disconnected');
     }
 
-    function onInfoEvent(value) {
-      setStore((prevState) => ({
-        ...prevState,
-        user: {
-          ...prevState.user,
-          Infos: [value, ...prevState.user.Infos],
-        },
-      }));
-    }
-
     function onUserDataEvent(data) {
       setStore((prevState) => ({
         ...prevState,
@@ -87,13 +77,11 @@ export default function Layout() {
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
-    socket.on('info', onInfoEvent);
     socket.on('userData', onUserDataEvent);
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
-      socket.off('info', onInfoEvent);
       socket.off('userData', onUserDataEvent);
     };
 

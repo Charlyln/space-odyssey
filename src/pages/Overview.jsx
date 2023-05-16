@@ -3,8 +3,12 @@ import { Card, Typography, Grid, CardContent, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Context } from '../utils/AppContext';
 
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import PageHeader from '../common/PageHeader';
+import PageContainer from '../common/PageContainer';
+import PageContent from '../common/PageContent';
+import InfosList from '../common/InfosList';
+
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -40,50 +44,59 @@ function Overview() {
 
   return (
     <>
-      <Grid container alignItems='center' sx={{ padding: 1 }}>
+      <PageContainer>
         <PageHeader height={'250px'} imgWidth={'400px'} imageName={'overview'} title={'Overview'} />
-      </Grid>
-      <Grid container alignItems='center' sx={{ padding: 1 }}>
-        {items.map((item) => (
-          <Grid item xs={4} key={item.name} sx={{ paddingRight: '4px' }}>
-            <Card style={{ border: 'solid 1px' }}>
-              <CardContent>
-                <Typography sx={{ fontSize: 14 }} color='text.secondary'>
-                  {item.name}
-                </Typography>
-
-                <Grid container alignItems='center' sx={{ padding: 1 }}>
-                  {item.tasks.length === 0 ? (
-                    <Grid item xs={4}>
-                      No tasks
-                    </Grid>
-                  ) : (
-                    <>
-                      {item.tasks.map((task) => (
+        <PageContent borderLess>
+          <Grid container alignItems='center'>
+            {items.map((item, i) => (
+              <Grid item xs={4} key={item.name} sx={{ paddingLeft: i !== 0 ? '4px' : 'unset' }}>
+                <Card variant='outlined' style={{ height: '250px' }}>
+                  <CardContent>
+                    <Typography sx={{ fontSize: 14 }} color='text.secondary'>
+                      {item.name}
+                    </Typography>
+                    <Grid container alignItems='center' sx={{ padding: 1 }}>
+                      {item.tasks.length === 0 ? (
+                        <Grid item xs={4}>
+                          <Typography sx={{ fontSize: 12 }} color='text.secondary'>
+                            No tasks
+                          </Typography>
+                        </Grid>
+                      ) : (
                         <>
-                          <Grid item xs={4}>
-                            {task.name}
-                          </Grid>
-                          <Grid item xs={8}>
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                              <Box sx={{ width: '100%', mr: 1 }}>
-                                <BorderLinearProgress variant='determinate' value={task.progress} />
-                              </Box>
-                              <Box sx={{ minWidth: 35 }}>
-                                <Typography variant='body2' color='text.secondary'>{`${task.progress}%`}</Typography>
-                              </Box>
-                            </Box>
-                          </Grid>
+                          {item.tasks.map((task) => (
+                            <>
+                              <Grid item xs={6}>
+                                <Typography sx={{ fontSize: 12 }} color='text.secondary'>
+                                  {task.name}
+                                </Typography>
+                              </Grid>
+                              <Grid item xs={6}>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                  <Box sx={{ width: '100%', mr: 1 }}>
+                                    <BorderLinearProgress variant='determinate' value={task.progress} />
+                                  </Box>
+                                  <Box sx={{ minWidth: 35 }}>
+                                    <Typography variant='body2' color='text.secondary'>{`${task.progress}%`}</Typography>
+                                  </Box>
+                                </Box>
+                              </Grid>
+                            </>
+                          ))}
                         </>
-                      ))}
-                    </>
-                  )}
-                </Grid>
-              </CardContent>
-            </Card>
+                      )}
+                    </Grid>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
+        </PageContent>
+
+        <PageContent>
+          <InfosList height={'calc(100vh - 660px)'} />
+        </PageContent>
+      </PageContainer>
     </>
   );
 }

@@ -38,10 +38,6 @@ async function handleUpgradeBuilding(action) {
       severity: 'info',
     };
 
-    global.io.to(global.socketIds[user.id]).emit('info', {
-      ...infoData,
-    });
-
     await Info.create({
       ...infoData,
       UserId: user.id,
