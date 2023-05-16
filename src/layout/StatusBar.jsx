@@ -57,7 +57,7 @@ const ressourceItems = [
     height: 60,
   },
   {
-    name: 'galaxy',
+    name: 'galaxyicon',
     width: 60,
     height: 60,
   },
