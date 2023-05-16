@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Card, Typography, Grid, CardMedia, CardContent, CardActionArea } from '@mui/material';
+import { Card, Typography, Grid, CardMedia, CardActionArea } from '@mui/material';
 
 import { Context } from '../utils/AppContext';
 import axios from 'axios';
@@ -7,19 +7,17 @@ import { hostname, port } from '../utils/config';
 
 import { getImg } from '../utils/helper';
 
-import CustomButton from '../common/CustomButton';
 import CardProgress from '../common/CardProgress';
 
-import shipyard from '../assets/spaceships/shipyard.jpeg';
-
 import { spaceships } from '../utils/constants';
+import useSelectedElement from '../utils/customHooks/useSelectedElement';
+import PageHeader from '../common/PageHeader';
 
 function Shipyard() {
-  const {
-    store: { user, costs },
-  } = useContext(Context);
+  const { store } = useContext(Context);
+  const { user, costs } = store;
+  const [elementSelected, setElementSelected] = useSelectedElement();
 
-  const [spaceshipSelected, setSpaceshipSelected] = useState(null);
   const [disabled, setDisabled] = useState(false);
 
   const getSpaceshipNumber = (spaceshipName) => {
@@ -49,27 +47,12 @@ function Shipyard() {
     }
   };
 
-  const getSpaceshipCosts = (spaceshipSelected) => {
-    const spaceshipCosts = costs.filter((cost) => cost.craft === spaceshipSelected.name);
-
-    return spaceshipCosts.map((spaceshipCost) => (
-      <div style={{ paddingRight: '4px' }}>
-        <Card variant='outlined' sx={{ height: '70px', width: '50px', borderRadius: 0 }}>
-          <CardMedia sx={{ height: '50px', width: '50px', margin: 'auto' }} image={getImg(spaceshipCost.ressource)} title={'steel'} />
-          <CardContent style={{ padding: 0, textAlign: 'center', marginTop: '-5px' }}>
-            <Typography variant='caption'>{spaceshipCost.value}</Typography>
-          </CardContent>
-        </Card>
-      </div>
-    ));
-  };
-
   const build = async () => {
     try {
       if (!disabled) {
         setDisabled(true);
 
-        const body = { userId: user.id, type: 'BuildSpaceship', parameters: { spaceship: spaceshipSelected } };
+        const body = { userId: user.id, type: 'BuildSpaceship', parameters: { spaceship: elementSelected } };
         await axios.post(`http://${hostname}:${port}/v1/actions`, body);
 
         const timer = setTimeout(() => setDisabled(false), 1000);
@@ -92,11 +75,40 @@ function Shipyard() {
 
   const selectSpaceship = (spaceship) => {
     try {
-      if (spaceshipSelected && spaceshipSelected?.name === spaceship.name) {
-        setSpaceshipSelected(null);
+      if (elementSelected && elementSelected?.name === spaceship.name) {
+        setElementSelected(null);
       } else {
-        setSpaceshipSelected(spaceship);
+        setElementSelected(spaceship);
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getInfos = (element) => {
+    try {
+      return [
+        {
+          key: 'Attack',
+          value: element.attack,
+        },
+        {
+          key: 'Defence',
+          value: elementSelected.defense,
+        },
+        {
+          key: 'Speed',
+          value: element.speed,
+        },
+        {
+          key: 'Capacity',
+          value: element.capacity,
+        },
+        {
+          key: 'Transport',
+          value: element.transport,
+        },
+      ];
     } catch (error) {
       console.log(error);
     }
@@ -107,63 +119,20 @@ function Shipyard() {
   return (
     <>
       <Grid container alignItems='center' sx={{ padding: 1 }}>
-        <Grid item xs={12}>
-          <Card style={{ display: 'flex', height: '250px', position: 'relative', backgroundColor: 'unset' }} variant='outlined'>
-            <CardMedia
-              component='img'
-              sx={{ width: spaceshipSelected ? '320px' : '400px' }}
-              image={spaceshipSelected ? getImg(spaceshipSelected.name) : shipyard}
-              alt='Shipyard'
-            />
+        <PageHeader
+          height={'250px'}
+          imgWidth={elementSelected ? '320px' : '400px'}
+          imageName={'shipyard'}
+          title={'Shipyard'}
+          elementSelected={elementSelected}
+          setElementSelected={setElementSelected}
+          action={build}
+          actionName={'build'}
+          costs={costs}
+          headerInfosTitle={`Stats`}
+          getInfos={getInfos}
+        />
 
-            <CardContent style={{ width: '100%' }}>
-              <Typography component='div' variant='h5'>
-                Shipyard
-              </Typography>
-
-              {spaceshipSelected && (
-                <>
-                  <Typography variant='subtitle1' color='text.secondary' component='div'>
-                    {spaceshipSelected.name}
-                  </Typography>
-                  <Grid container style={{ marginTop: '10px' }}>
-                    <Grid item xs={4}>
-                      <Typography variant='button' color='text.secondary' component='div'>
-                        stats:
-                      </Typography>
-                      <Typography variant='subtitle2' color='text.secondary' component='div'>
-                        {`Attack: ${spaceshipSelected.attack}`}
-                      </Typography>
-                      <Typography variant='subtitle2' color='text.secondary' component='div'>
-                        {`Defence: ${spaceshipSelected.defense}`}
-                      </Typography>
-                      <Typography variant='subtitle2' color='text.secondary' component='div'>
-                        {`Speed: ${spaceshipSelected.speed}`}
-                      </Typography>
-                      <Typography variant='subtitle2' color='text.secondary' component='div'>
-                        {`Capacity: ${spaceshipSelected.capacity}`}
-                      </Typography>
-                      <Typography variant='subtitle2' color='text.secondary' component='div'>
-                        {`Transport: ${spaceshipSelected.transport}`}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant='button' color='text.secondary' component='div'>
-                        Costs:
-                      </Typography>
-
-                      <div style={{ display: 'flex', flexWrap: 'wrap' }}>{getSpaceshipCosts(spaceshipSelected)} </div>
-                    </Grid>
-                  </Grid>
-
-                  <div style={{ position: 'absolute', right: '0', bottom: '0', padding: '15px', display: 'flex' }}>
-                    <CustomButton name={'build'} color={500} width={120} height={40} onClick={build} disabled={disabled} />
-                  </div>
-                </>
-              )}
-            </CardContent>
-          </Card>
-        </Grid>
         <Grid item xs={12}>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             {spaceships.map((item, i) => (

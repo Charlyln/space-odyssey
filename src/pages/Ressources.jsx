@@ -1,25 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
+import axios from 'axios';
 import { Card, Typography, Grid, CardMedia, CardActionArea } from '@mui/material';
 import { Context } from '../utils/AppContext';
-import axios from 'axios';
 import { hostname, port } from '../utils/config';
+import { getImg } from '../utils/helper';
 
 import PageHeader from '../common/PageHeader';
 import PageContainer from '../common/PageContainer';
-import HeaderAction from '../common/HeaderAction';
-
-import ressources from '../assets/ressources/ressources.jpeg';
-
-import { getImg } from '../utils/helper';
-import CustomButton from '../common/CustomButton';
 import CardProgress from '../common/CardProgress';
+import useSelectedElement from '../utils/customHooks/useSelectedElement';
 
 function Ressources() {
-  const {
-    store: { user },
-  } = useContext(Context);
-
-  const [elementSelected, setElementSelected] = useState(null);
+  const { store } = useContext(Context);
+  const { user, costs } = store;
+  const [elementSelected, setElementSelected] = useSelectedElement();
 
   const upgrade = async (item) => {
     try {
@@ -30,13 +24,22 @@ function Ressources() {
     }
   };
 
-  const selectElement = (element) => {
+  const getInfos = (element) => {
     try {
-      if (elementSelected && elementSelected?.name === element.name) {
-        setElementSelected(null);
-      } else {
-        setElementSelected(element);
-      }
+      return [
+        {
+          key: 'Type',
+          value: element.production,
+        },
+        {
+          key: 'Production',
+          value: '1000 / Hour',
+        },
+        {
+          key: 'Level',
+          value: element.level,
+        },
+      ];
     } catch (error) {
       console.log(error);
     }
@@ -46,58 +49,23 @@ function Ressources() {
     <PageContainer>
       <PageHeader
         height={'250px'}
-        imgWidth={elementSelected ? '320px' : '400px'}
-        image={elementSelected ? getImg(elementSelected.name) : ressources}
-        imageName={'Ressources'}
+        imgWidth={'320px'}
+        imageName={'ressources'}
         title={'Ressources'}
-      >
-        {elementSelected && (
-          <>
-            <Typography variant='subtitle1' color='text.secondary' component='div'>
-              {elementSelected.name}
-            </Typography>
-            <Grid container style={{ marginTop: '10px' }}>
-              <Grid item xs={4}>
-                <Typography variant='button' color='text.secondary' component='div'>
-                  infos:
-                </Typography>
-
-                <Typography variant='subtitle2' color='text.secondary' component='div'>
-                  {`Type: ${elementSelected.production}`}
-                </Typography>
-
-                <Typography variant='subtitle2' color='text.secondary' component='div'>
-                  {`Production: 1000 / Hour`}
-                </Typography>
-                <Typography variant='subtitle2' color='text.secondary' component='div'>
-                  {`Level: ${elementSelected.level}`}
-                </Typography>
-
-                <img
-                  style={{ width: '40px', height: '40px', marginTop: '10px' }}
-                  src={getImg(elementSelected.production)}
-                  alt={elementSelected.production}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Typography variant='button' color='text.secondary' component='div'>
-                  Costs:
-                </Typography>
-              </Grid>
-            </Grid>
-
-            <HeaderAction>
-              <CustomButton onClick={() => upgrade(elementSelected)} name={'upgrade'} color={500} width={120} height={40} fontSize={15} />
-            </HeaderAction>
-          </>
-        )}
-      </PageHeader>
+        elementSelected={elementSelected}
+        setElementSelected={setElementSelected}
+        action={upgrade}
+        actionName={'Upgrade'}
+        costs={costs}
+        headerInfosTitle={`Infos`}
+        getInfos={getInfos}
+      />
 
       <Grid item xs={12}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {user.Buildings.map((item, i) => (
             <div key={item.name} style={{ paddingRight: '10px' }}>
-              <Card style={{ width: '150px', marginTop: '10px' }} variant='outlined' onClick={() => selectElement(item)}>
+              <Card style={{ width: '150px', marginTop: '10px' }} variant='outlined' onClick={() => setElementSelected(item)}>
                 <CardActionArea>
                   <CardMedia
                     style={{ margin: 'auto', height: '150px', width: '150px' }}

@@ -6,8 +6,6 @@ import { Context } from '../utils/AppContext';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import PageHeader from '../common/PageHeader';
 
-import overview from '../assets/headers/overview.jpeg';
-
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
   borderRadius: 5,
@@ -43,7 +41,7 @@ function Overview() {
   return (
     <>
       <Grid container alignItems='center' sx={{ padding: 1 }}>
-        <PageHeader height={'250px'} imgWidth={'400px'} image={overview} imageName={'overview'} title={'Overview'} />
+        <PageHeader height={'250px'} imgWidth={'400px'} imageName={'overview'} title={'Overview'} />
       </Grid>
       <Grid container alignItems='center' sx={{ padding: 1 }}>
         {items.map((item) => (
