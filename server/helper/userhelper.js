@@ -25,11 +25,6 @@ const userOptions = {
     },
     {
       model: Building,
-      include: [
-        {
-          model: State,
-        },
-      ],
     },
     {
       model: Mission,
