@@ -13,6 +13,14 @@ async function updateRessource(data, ressourceId) {
   }
 }
 
+async function updateBuilding(data, buildingId) {
+  try {
+    await Building.update({ ...data }, { where: { id: buildingId } });
+  } catch (error) {
+    logger.error('updatebuilding', error);
+  }
+}
+
 async function checkAvailableRessources(building, userId) {
   try {
     const costs = await Cost.findAll({
@@ -39,8 +47,14 @@ async function checkAvailableRessources(building, userId) {
       );
 
       if (!enoughtRessources) {
-        // const message = `Not enought ressources for ${buildingName} !`;
-        // await sendInfo(userId, 'warning', message);
+        if (!building.waiting) {
+          await updateBuilding({ waiting: true }, building.id);
+
+          const message = `Wait for ressources until build ${building.name} !`;
+          await sendInfo(userId, 'warning', message);
+        } else {
+          // wait untiel ressources
+        }
       } else {
         await Promise.all(
           ressources.map(async (ressource) => {
@@ -50,14 +64,7 @@ async function checkAvailableRessources(building, userId) {
 
         const newProgress = building.progress + 10;
 
-        await Building.update(
-          { progress: newProgress },
-          {
-            where: {
-              id: building.id,
-            },
-          },
-        );
+        await updateBuilding({ progress: newProgress }, building.id);
 
         const message = `${building.name} start building`;
         await sendInfo(userId, 'info', message);
@@ -70,5 +77,6 @@ async function checkAvailableRessources(building, userId) {
 
 module.exports = {
   updateRessource,
+  updateBuilding,
   checkAvailableRessources,
 };

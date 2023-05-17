@@ -10,7 +10,7 @@ function History() {
     <PageContainer>
       <PageHeader height={'250px'} imgWidth={'400px'} imageName={'history'} title={'History'} />
       <PageContent>
-        <InfosList height={'calc(100vh - 390px)'} />
+        <InfosList height={'calc(100vh - 400px)'} />
       </PageContent>
     </PageContainer>
   );

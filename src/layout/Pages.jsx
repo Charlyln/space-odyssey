@@ -35,7 +35,7 @@ export default function Pages({ menuWidth, infosWidth }) {
     <Box sx={{ marginLeft: `${menuWidth}px`, marginRight: `${infosWidth}px`, padding: '8px' }}>
       <Routes>
         {routes.map((route) => (
-          <Route path={route.path} element={route.element} />
+          <Route key={route.path} path={route.path} element={route.element} />
         ))}
       </Routes>
     </Box>
