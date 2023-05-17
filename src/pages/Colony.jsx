@@ -40,11 +40,7 @@ function Colony() {
       />
 
       <PageContent borderLess>
-        <CardStack>
-          {jobs.map((job) => (
-            <CardItem onClick={() => setElementSelected(job)} key={job.name} imgName={job.name} height={'150px'} width={'150px'} />
-          ))}
-        </CardStack>
+        <CardStack cardSize={'150px'} array={jobs} onSelect={setElementSelected} />
       </PageContent>
     </PageContainer>
   );

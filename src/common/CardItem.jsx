@@ -9,7 +9,7 @@ export default function CardItem({ onClick, imgName, height, width, item, cardGe
       <Card style={{ width, marginTop: '10px' }} variant='outlined' onClick={onClick}>
         <CardActionArea>
           <CardMedia style={{ margin: 'auto', height, width }} component='img' image={getImg(imgName)} alt={imgName} />
-          {cardGetter(item)}
+          {cardGetter && cardGetter(item)}
         </CardActionArea>
       </Card>
     </div>
