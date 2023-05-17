@@ -20,6 +20,7 @@ export default function PageHeader({
   costs,
   headerInfosTitle,
   getInfos,
+  disabledAction,
 }) {
   return (
     <Grid item xs={12}>
@@ -64,6 +65,7 @@ export default function PageHeader({
                     width={120}
                     height={40}
                     fontSize={15}
+                    disabled={disabledAction}
                   />
                 </HeaderAction>
               )}

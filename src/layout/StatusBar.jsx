@@ -119,7 +119,7 @@ function StatusBar({ menuWidth, infosWidth }) {
                     margin: 0,
                     top: '50%',
                     left: '50%',
-                    '-ms-transform': 'translate(-50%, -50%)',
+                    msTransform: 'translate(-50%, -50%)',
                     transform: 'translate(-50%, -50%)',
                   }}
                 >

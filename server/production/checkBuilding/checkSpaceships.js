@@ -1,9 +1,10 @@
-const { DataTypes } = require('sequelize');
 const { Spaceship } = require('../../db/models/spaceship.model');
 const { Ressource } = require('../../db/models/ressource.model');
 const { State } = require('../../db/models/state.model');
 const { Cost } = require('../../db/models/cost.model');
 const logger = require('../../logger');
+
+const { updateRessource } = require('../../helper/ressourcehelper');
 
 const craftSpeed = 40;
 
@@ -51,14 +52,7 @@ async function checkSpaceships(user) {
             try {
               await Promise.all(
                 ressources.map(async (ressource) => {
-                  await Ressource.update(
-                    { value: ressource.ressource.value - ressource.cost },
-                    {
-                      where: {
-                        id: ressource.ressource.id,
-                      },
-                    },
-                  );
+                  await updateRessource({ value: ressource.ressource.value - ressource.cost }, ressource.ressource.id);
                 }),
               );
 
