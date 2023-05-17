@@ -5,6 +5,7 @@ import PageHeader from '../common/PageHeader';
 import PageContent from '../common/PageContent';
 import CardItem from '../common/CardItem';
 import CardStack from '../common/CardStack';
+import useSelectedElement from '../utils/customHooks/useSelectedElement';
 
 const jobs = [
   {
@@ -25,13 +26,23 @@ const jobs = [
 ];
 
 function Colony() {
+  const [elementSelected, setElementSelected] = useSelectedElement();
+
   return (
     <PageContainer>
-      <PageHeader height={'350px'} imgWidth={'400px'} imageName={'colony'} title={'Colony'} />
+      <PageHeader
+        height={'350px'}
+        imgWidth={'400px'}
+        imageName={'colony'}
+        title={'Colony'}
+        elementSelected={elementSelected}
+        setElementSelected={setElementSelected}
+      />
+
       <PageContent borderLess>
         <CardStack>
           {jobs.map((job) => (
-            <CardItem key={job.name} imgName={job.name} height={'150px'} width={'150px'} />
+            <CardItem onClick={() => setElementSelected(job)} key={job.name} imgName={job.name} height={'150px'} width={'150px'} />
           ))}
         </CardStack>
       </PageContent>

@@ -69,7 +69,7 @@ async function handleCancelBuilding(action) {
 
 async function handleBuildSpaceship(action) {
   try {
-    const parameters = JSON.parse(action.parameters);
+    const parameters = action.parameters;
 
     const spaceship = await Spaceship.create({
       id: uuidv4(),
@@ -80,14 +80,16 @@ async function handleBuildSpaceship(action) {
       attack: parameters.spaceship.attack,
       defense: parameters.spaceship.defense,
       speed: parameters.spaceship.speed,
-      UserId: action.UserId,
+      UserId: action.userId,
     });
 
-    await State.create({
+    const state = await State.create({
       id: uuidv4(),
       building: true,
       SpaceshipId: spaceship.id,
     });
+
+    return { ...spaceship.dataValues, State: state };
   } catch (error) {
     logger.error('BuildSpaceship', error);
   }
@@ -95,13 +97,15 @@ async function handleBuildSpaceship(action) {
 
 async function handleDeleteSpaceship(action) {
   try {
-    const parameters = JSON.parse(action.parameters);
+    const parameters = action.parameters;
 
     await Spaceship.destroy({
       where: {
         id: parameters.spaceshipId,
       },
     });
+
+    return parameters.spaceshipId;
   } catch (error) {
     logger.error('DeleteSpaceship', error);
   }

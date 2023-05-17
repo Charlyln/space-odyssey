@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useSelectedElement = (url) => {
+const useSelectedElement = () => {
   const [elementSelected, setElementSelected] = useState(null);
 
   const selectElement = (element) => {

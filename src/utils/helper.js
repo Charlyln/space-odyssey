@@ -22,6 +22,7 @@ import research from '../assets/headers/research.jpeg';
 import facilities from '../assets/headers/facilities.jpeg';
 import storage from '../assets/headers/storage.jpeg';
 import overview from '../assets/headers/overview.jpeg';
+import colony from '../assets/headers/colony.jpeg';
 import steelIcon from '../assets/ressources/steel.webp';
 import goldIcon from '../assets/ressources/gold.webp';
 import platinumIcon from '../assets/ressources/platinum2.webp';
@@ -37,8 +38,29 @@ import JKCS_041 from '../assets/planets/JKCS-041.jpeg';
 import SPT0346_52 from '../assets/planets/SPT0346-52.jpeg';
 import A1689_zD1 from '../assets/planets/A1689-zD1.jpeg';
 
+import colonyscientist from '../assets/colony/colonyfood.jpeg';
+import colonyressource from '../assets/colony/colonyressource.jpeg';
+import colonyexplorer from '../assets/colony/colonyexplorer2.jpeg';
+import colonyfood from '../assets/colony/colonyscientist.jpeg';
+import colonysoldier from '../assets/colony/colonysoldier.jpeg';
+
 export const getImg = (name) => {
   switch (name) {
+    case 'colonysoldier':
+      return colonysoldier;
+
+    case 'colonyfood':
+      return colonyfood;
+
+    case 'colonyressource':
+      return colonyressource;
+
+    case 'colonyexplorer':
+      return colonyexplorer;
+
+    case 'colonyscientist':
+      return colonyscientist;
+
     case 'JKCS-041':
       return JKCS_041;
 
@@ -62,6 +84,9 @@ export const getImg = (name) => {
 
     case 'missions':
       return missions;
+
+    case 'colony':
+      return colony;
 
     case 'overview':
       return overview;
