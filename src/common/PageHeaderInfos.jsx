@@ -9,7 +9,7 @@ export default function PageHeaderInfos({ title, infos, imgParams }) {
       </Typography>
 
       {infos.map((info) => (
-        <Typography variant='subtitle2' color='text.secondary' component='div'>
+        <Typography key={info.key} variant='subtitle2' color='text.secondary' component='div'>
           {`${info.key}: ${info.value}`}
         </Typography>
       ))}

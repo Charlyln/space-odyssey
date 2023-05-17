@@ -8,6 +8,7 @@ import Storage from '../pages/Storage';
 import Facilities from '../pages/Facilities';
 import Research from '../pages/Research';
 import Defence from '../pages/Defence';
+import Colony from '../pages/Colony';
 import Planet from '../pages/Planet';
 import Galaxy from '../pages/Galaxy';
 import Shipyard from '../pages/Shipyard';
@@ -22,6 +23,7 @@ const routes = [
   { path: '/facilities', element: <Facilities /> },
   { path: '/research', element: <Research /> },
   { path: '/defence', element: <Defence /> },
+  { path: '/colony', element: <Colony /> },
   { path: '/planet', element: <Planet /> },
   { path: '/galaxy', element: <Galaxy /> },
   { path: '/shipyard', element: <Shipyard /> },

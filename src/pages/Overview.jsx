@@ -10,6 +10,9 @@ import InfosList from '../common/InfosList';
 
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
+const layoutHeight = 360;
+const cardHeight = 230;
+
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
   borderRadius: 5,
@@ -45,12 +48,12 @@ function Overview() {
   return (
     <>
       <PageContainer>
-        <PageHeader height={'250px'} imgWidth={'400px'} imageName={'overview'} title={'Overview'} />
+        <PageHeader height={'200px'} imgWidth={'400px'} imageName={'overview'} title={'Overview'} />
         <PageContent borderLess>
           <Grid container alignItems='center'>
             {items.map((item, i) => (
               <Grid item xs={4} key={item.name} sx={{ paddingLeft: i !== 0 ? '4px' : 'unset' }}>
-                <Card variant='outlined' style={{ height: '250px' }}>
+                <Card variant='outlined' style={{ height: `${cardHeight}px` }}>
                   <CardContent>
                     <Typography sx={{ fontSize: 14 }} color='text.secondary'>
                       {item.name}
@@ -94,7 +97,7 @@ function Overview() {
         </PageContent>
 
         <PageContent>
-          <InfosList height={'calc(100vh - 660px)'} />
+          <InfosList height={`calc(100vh - ${layoutHeight + cardHeight}px)`} />
         </PageContent>
       </PageContainer>
     </>

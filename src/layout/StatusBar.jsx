@@ -84,7 +84,6 @@ function StatusBar({ menuWidth, infosWidth }) {
 
   useEffect(() => {
     function onRessourcesEvent(data) {
-      console.log(data.ressources);
 
       setRessources(data.ressources);
       setTime(data.time);

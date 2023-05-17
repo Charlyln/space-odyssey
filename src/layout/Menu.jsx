@@ -30,12 +30,16 @@ const links = [
     name: 'Defence',
   },
   {
+    to: '/colony',
+    name: 'Colony',
+  },
+  {
     to: '/planet',
     name: 'Planet',
   },
   {
     to: '/galaxy',
-    name: 'Galaxy',
+    name: 'System',
   },
   {
     to: '/shipyard',
