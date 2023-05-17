@@ -42,7 +42,7 @@ async function handleUpgradeBuilding(action) {
       where: { id: parameters.buildingId },
     });
 
-    building.update({ upgrading: true });
+    await building.update({ upgrading: true });
     return building;
   } catch (error) {
     logger.error('UpgradeBuilding');

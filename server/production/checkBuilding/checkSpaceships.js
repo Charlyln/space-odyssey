@@ -11,7 +11,7 @@ async function checkSpaceships(user) {
 
     if (buildingSpaceships.length > 0) {
       if (spacechipToBuild.State.progress === 0) {
-        const { enoughtRessources, ressources } = await checkAvailableRessources(spacechipToBuild, user.id);
+        const enoughtRessources = await checkAvailableRessources(spacechipToBuild, user.id);
         if (!enoughtRessources) {
           if (!spacechipToBuild.State.waiting) {
             await updateState({ waiting: true }, spacechipToBuild.State.id);
@@ -21,11 +21,6 @@ async function checkSpaceships(user) {
             // wait untiel ressources
           }
         } else {
-          await Promise.all(
-            ressources.map(async (ressource) => {
-              await updateRessource({ value: ressource.ressource.value - ressource.cost }, ressource.ressource.id);
-            }),
-          );
           const newProgress = spacechipToBuild.State.progress + 10;
           await updateState({ progress: newProgress }, spacechipToBuild.State.id);
           const message = `${spacechipToBuild.name} start building`;
