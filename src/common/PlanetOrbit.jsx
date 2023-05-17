@@ -1,5 +1,4 @@
-import { Popover } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function PlanetOrbit({ onClick, size, orbit, speed, name, color }) {
   return (

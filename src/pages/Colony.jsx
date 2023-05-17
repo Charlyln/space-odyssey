@@ -3,7 +3,6 @@ import React from 'react';
 import PageContainer from '../common/PageContainer';
 import PageHeader from '../common/PageHeader';
 import PageContent from '../common/PageContent';
-import CardItem from '../common/CardItem';
 import CardStack from '../common/CardStack';
 import useSelectedElement from '../utils/customHooks/useSelectedElement';
 

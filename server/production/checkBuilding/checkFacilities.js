@@ -40,7 +40,6 @@ async function checkFacilities(user) {
             await updateBuilding({ progress: updateProgress }, building.id);
           } else {
             await updateBuilding({ progress: 0, upgrading: false, level: building.level + 1 }, building.id);
-
             const message = `${building.name} upgraded to level ${building.level + 1} !`;
             await sendInfo(user.id, 'success', message);
           }

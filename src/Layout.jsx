@@ -70,6 +70,7 @@ export default function Layout() {
     }
 
     function onUserDataEvent(data) {
+      console.log(data.Buildings);
       setStore((prevState) => ({
         ...prevState,
         user: data,

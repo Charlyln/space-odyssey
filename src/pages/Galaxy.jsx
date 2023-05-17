@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import PageHeader from '../common/PageHeader';
 import PageContainer from '../common/PageContainer';
 import PageContent from '../common/PageContent';
 
 import '../common/css/galaxy.css';
-import PlanetOrbit from '../common/PlanetOrbit';
+import OrbitSystem from '../common/OrbitSytem';
 import useSelectedElement from '../utils/customHooks/useSelectedElement';
 
 const planets = [
@@ -33,7 +33,6 @@ const planets = [
 ];
 
 function Galaxy() {
-  const [name, setName] = useState('');
   const [elementSelected, setElementSelected] = useSelectedElement();
 
   return (
@@ -48,23 +47,7 @@ function Galaxy() {
       />
 
       <PageContent>
-        <div style={{ height: '600px', overflow: 'auto' }}>
-          <div className='solar-system'>
-            <div id='sun'></div>
-
-            {planets.map((planet) => (
-              <PlanetOrbit
-                onClick={() => setElementSelected(planet)}
-                size={planet.size}
-                orbit={planet.orbit}
-                speed={planet.speed}
-                name={planet.name}
-                color={planet.color}
-                key={planet.name}
-              />
-            ))}
-          </div>
-        </div>
+        <OrbitSystem planets={planets} select={setElementSelected} />
       </PageContent>
     </PageContainer>
   );

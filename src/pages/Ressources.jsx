@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
-import { Card, Typography, Grid, CardMedia, CardActionArea } from '@mui/material';
+import { Typography } from '@mui/material';
 import { Context } from '../utils/AppContext';
 import { hostname, port } from '../utils/config';
 import { getImg } from '../utils/helper';
@@ -10,12 +10,13 @@ import PageContainer from '../common/PageContainer';
 import CardProgress from '../common/CardProgress';
 import useSelectedElement from '../utils/customHooks/useSelectedElement';
 import ScheduleIcon from '@mui/icons-material/Schedule';
+import PageContent from '../common/PageContent';
+import CardStack from '../common/CardStack';
 
 function Ressources() {
   const { store, setStore } = useContext(Context);
   const { user, costs } = store;
   const [elementSelected, setElementSelected] = useSelectedElement();
-  // const [disabledAction, setdisabledAction] = useState(false);
 
   const upgrade = async (item) => {
     try {
@@ -91,6 +92,28 @@ function Ressources() {
     }
   };
 
+  const getFooter = (element) => {
+    return (
+      <div style={{ height: '20px', textAlign: element.waiting && 'center' }}>
+        {element.progress !== 0 ? (
+          <CardProgress variant='determinate' progress={element.progress} height={20} />
+        ) : element.waiting ? (
+          <>
+            <ScheduleIcon style={{ color: 'orange', width: '20px', height: '20px' }} />
+          </>
+        ) : (
+          <>
+            <img style={{ width: '20px' }} src={getImg(element.production)} alt={element.name} />
+            {element.waiting && <ScheduleIcon style={{ color: 'orange', width: '20px', height: '20px' }} />}
+            <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px' }} color='text.secondary'>
+              {`${element.level}`}
+            </Typography>
+          </>
+        )}
+      </div>
+    );
+  };
+
   const find = user.Buildings.find((building) => building.id === elementSelected?.id);
 
   return (
@@ -113,42 +136,9 @@ function Ressources() {
         cancelActionName={'cancel'}
       />
 
-      <Grid item xs={12}>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {user.Buildings.map((item, i) => (
-            <div key={item.name} style={{ paddingRight: '10px' }}>
-              <Card style={{ width: '150px', marginTop: '10px' }} variant='outlined' onClick={() => setElementSelected(item)}>
-                <CardActionArea>
-                  <CardMedia
-                    style={{ margin: 'auto', height: '150px', width: '150px', opacity: item.upgrading ? 0.3 : 1 }}
-                    component='img'
-                    image={getImg(item.name)}
-                    alt={item.name}
-                  />
-
-                  <div style={{ height: '20px', textAlign: item.waiting && 'center' }}>
-                    {item.progress !== 0 ? (
-                      <CardProgress variant='determinate' progress={item.progress} height={20} />
-                    ) : item.waiting ? (
-                      <>
-                        <ScheduleIcon style={{ color: 'orange', width: '20px', height: '20px' }} />
-                      </>
-                    ) : (
-                      <>
-                        <img style={{ width: '20px' }} src={getImg(item.production)} alt={item.name} />
-                        {item.waiting && <ScheduleIcon style={{ color: 'orange', width: '20px', height: '20px' }} />}
-                        <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px' }} color='text.secondary'>
-                         {`${item.level}`} 
-                        </Typography>
-                      </>
-                    )}
-                  </div>
-                </CardActionArea>
-              </Card>
-            </div>
-          ))}
-        </div>
-      </Grid>
+      <PageContent borderLess>
+        <CardStack cardSize={'150px'} array={user.Buildings} onSelect={setElementSelected} cardGetter={getFooter} />
+      </PageContent>
     </PageContainer>
   );
 }

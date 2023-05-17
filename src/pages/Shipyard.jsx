@@ -1,13 +1,9 @@
 import React, { useContext } from 'react';
-import { Card, Typography, Grid, CardMedia, CardActionArea, IconButton } from '@mui/material';
+import { Typography, IconButton } from '@mui/material';
 
 import { Context } from '../utils/AppContext';
 import axios from 'axios';
 import { hostname, port } from '../utils/config';
-
-import { getImg } from '../utils/helper';
-
-import CardProgress from '../common/CardProgress';
 
 import { spaceships } from '../utils/constants';
 import useSelectedElement from '../utils/customHooks/useSelectedElement';
@@ -16,6 +12,7 @@ import PageContent from '../common/PageContent';
 import PageContainer from '../common/PageContainer';
 import CardStack from '../common/CardStack';
 import CloseIcon from '@mui/icons-material/Close';
+import CardStackSmall from '../common/CardStackSmall';
 
 function Shipyard() {
   const { store, setStore } = useContext(Context);
@@ -24,45 +21,23 @@ function Shipyard() {
 
   const getFooter = (spaceship) => {
     const spaceshipName = spaceship.name;
-    const filter = user.Spaceships.filter((spaceship) => !spaceship.State.building && spaceship.name === spaceshipName);
-
-    let name;
-
-    switch (spaceshipName) {
-      case 'Fighter':
-        name = filter.length;
-        break;
-
-      case 'Cruiser':
-        name = filter.length;
-        break;
-
-      case 'BattleShip':
-        name = filter.length;
-        break;
-
-      case 'Bomber':
-        name = filter.length;
-        break;
-
-      case 'Cargo':
-        name = filter.length;
-        break;
-
-      case 'Crawler':
-        name = filter.length;
-        break;
-
-      default:
-        name = 0;
-        break;
-    }
+    const filter = user.Spaceships.filter((spaceshipItem) => !spaceshipItem.State.building && spaceshipItem.name === spaceshipName);
 
     return (
       <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px' }} color='text.secondary'>
-        {name}
+        {filter.length}
       </Typography>
     );
+  };
+
+  const smallGetter = (item) => {
+    if (item.State.progress === 0) {
+      return (
+        <IconButton onClick={() => destroy(item.id)} style={{ position: 'absolute', padding: 0, top: 0, right: 0 }}>
+          <CloseIcon style={{ color: 'red' }} />
+        </IconButton>
+      );
+    }
   };
 
   const build = async () => {
@@ -160,31 +135,9 @@ function Shipyard() {
         <CardStack cardSize={'150px'} array={spaceships} onSelect={setElementSelected} cardGetter={getFooter} />
       </PageContent>
 
-      <Grid item xs={12} style={{ marginTop: '50px' }}>
-        <Typography sx={{ fontSize: 14 }} color='text.secondary'>
-          {`Stack:`}
-        </Typography>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {buildingSpaceships.map((item, i) => (
-            <div key={item.id} style={{ paddingLeft: i !== 0 && '10px' }}>
-              <Card style={{ width: '50px', marginTop: '10px', position: 'relative' }} variant='outlined'>
-                {item.State.progress === 0 && (
-                  <IconButton onClick={() => destroy(item.id)} style={{ position: 'absolute', padding: 0, top: 0, right: 0 }}>
-                    <CloseIcon style={{ color: 'red' }} />
-                  </IconButton>
-                )}
-                <CardMedia
-                  style={{ margin: 'auto', height: '50px', width: '50px' }}
-                  component='img'
-                  image={getImg(item.name)}
-                  alt={item.name}
-                />
-                <CardProgress variant='determinate' progress={item.State.progress} height={10} />
-              </Card>
-            </div>
-          ))}
-        </div>
-      </Grid>
+      <PageContent borderLess title='Stack:'>
+        <CardStackSmall cardSize={'50px'} array={buildingSpaceships} action={destroy} cardGetter={smallGetter} />
+      </PageContent>
     </PageContainer>
   );
 }
