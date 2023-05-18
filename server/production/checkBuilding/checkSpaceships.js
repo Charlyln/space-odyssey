@@ -5,6 +5,7 @@ const { checkAvailableRessources, updateState } = require('../../helper/ressourc
 const craftSpeed = 40;
 
 async function checkSpaceships(user) {
+  logger.info('6 -      Check Spaceships');
   try {
     const buildingSpaceships = user.Spaceships.filter((spaceship) => spaceship?.State?.building);
     const spacechipToBuild = buildingSpaceships[0];

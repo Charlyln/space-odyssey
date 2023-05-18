@@ -36,7 +36,6 @@ module.exports = {
         res.status(404).send('Please enter a name');
       }
     } catch (error) {
-      console.log(error);
       res.status(404).send({ error });
     }
   },

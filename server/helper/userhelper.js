@@ -8,62 +8,98 @@ const { Mission } = require('../db/models/mission.model');
 const { Info } = require('../db/models/info.model');
 const { Research } = require('../db/models/research.model');
 const { Spaceship } = require('../db/models/spaceship.model');
-const { Planet } = require('../db/models/planet.model');
 const { State } = require('../db/models/state.model');
 const { Cost } = require('../db/models/cost.model');
-
-const { ressources, buildings, costs } = require('../constants/modelData');
 const { Trade } = require('../db/models/trade.model');
 
-const userOptions = {
-  order: [
-    [{ model: Info }, 'createdAt', 'DESC'],
-    [{ model: Trade }, 'createdAt', 'DESC'],
-    [{ model: Building }, 'order', 'ASC'],
-    [{ model: Spaceship }, 'createdAt', 'ASC'],
-    [{ model: Ressource }, 'name', 'ASC'],
-  ],
-  include: [
-    {
-      model: Ressource,
-    },
-    {
-      model: Building,
-    },
-    {
-      model: Mission,
-    },
-    {
-      model: Info,
-    },
-    {
-      model: Research,
-    },
-    {
-      model: Spaceship,
-      include: [
-        {
-          model: State,
-        },
-      ],
-    },
-    {
-      model: Planet,
-    },
-    {
-      model: Cost,
-    },
-    {
-      model: Trade,
-    },
-  ],
-};
+const { ressources, buildings, costs } = require('../constants/modelData');
+
+// const userOptions = {
+//   order: [
+//     [{ model: Info }, 'createdAt', 'DESC'],
+//     [{ model: Trade }, 'createdAt', 'DESC'],
+//     [{ model: Building }, 'order', 'ASC'],
+//     [{ model: Spaceship }, 'createdAt', 'ASC'],
+//     [{ model: Ressource }, 'name', 'ASC'],
+//   ],
+//   include: [
+//     {
+//       model: Ressource,
+//     },
+//     {
+//       model: Building,
+//     },
+//     {
+//       model: Mission,
+//     },
+//     {
+//       model: Info,
+//     },
+//     {
+//       model: Research,
+//     },
+//     {
+//       model: Spaceship,
+//       include: [
+//         {
+//           model: State,
+//         },
+//       ],
+//     },
+//     {
+//       model: Planet,
+//     },
+//     {
+//       model: Cost,
+//     },
+//     {
+//       model: Trade,
+//     },
+//   ],
+// };
 
 async function getUserData(userId) {
   try {
     const user = await User.findOne({
       where: { id: userId },
-      ...userOptions,
+      order: [
+        [{ model: Info }, 'createdAt', 'DESC'],
+        [{ model: Trade }, 'createdAt', 'DESC'],
+        [{ model: Building }, 'order', 'ASC'],
+        [{ model: Spaceship }, 'createdAt', 'ASC'],
+        [{ model: Ressource }, 'name', 'ASC'],
+      ],
+      include: [
+        {
+          model: Ressource,
+        },
+        {
+          model: Building,
+        },
+        {
+          model: Mission,
+        },
+        {
+          model: Info,
+        },
+        {
+          model: Research,
+        },
+        {
+          model: Spaceship,
+          include: [
+            {
+              model: State,
+            },
+          ],
+        },
+        {
+          model: Cost,
+        },
+        {
+          model: Trade,
+        },
+      ],
     });
 
     return user;
@@ -74,9 +110,51 @@ async function getUserData(userId) {
 
 async function getUsersData() {
   try {
-    const user = await User.findAll(userOptions);
+    const users = await User.findAll({
+      order: [
+        [{ model: Info }, 'createdAt', 'DESC'],
+        [{ model: Trade }, 'createdAt', 'DESC'],
+        [{ model: Building }, 'order', 'ASC'],
+        [{ model: Spaceship }, 'createdAt', 'ASC'],
+        [{ model: Ressource }, 'name', 'ASC'],
+      ],
+      include: [
+        {
+          model: Ressource,
+        },
+        {
+          model: Building,
+        },
+        {
+          model: Mission,
+        },
+        {
+          model: Info,
+        },
+        {
+          model: Research,
+        },
+        {
+          model: Spaceship,
+          include: [
+            {
+              model: State,
+            },
+          ],
+        },
+        // {
+        //   model: Planet,
+        // },
+        {
+          model: Cost,
+        },
+        {
+          model: Trade,
+        },
+      ],
+    });
 
-    return user;
+    return users;
   } catch (error) {
     logger.error('getUsersData', error);
   }

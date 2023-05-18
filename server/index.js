@@ -4,16 +4,17 @@ const cors = require('cors');
 const http = require('http');
 const { Server } = require('socket.io');
 
-const db = require('./db');
-const sequelize = require('./sequelize');
+// const db = require('./db');
+// const sequelize = require('./sequelize');
+const sequelizer = require('./sequelizer');
 const { PORT } = require('./config');
 const logger = require('./logger');
 const userRoutes = require('./db/routes/user.route');
 const actionsRoutes = require('./db/routes/action.route');
-const { startProduction } = require('./production');
-const { createInitData } = require('./init.js');
+// const { startProduction } = require('./production');
+// const { createInitData } = require('./init.js');
 
-require('./db/models/associations');
+// require('./db/models/associations');
 
 const app = express();
 
@@ -24,13 +25,6 @@ global.io = new Server(server, {
     origin: 'http://localhost:3000',
   },
 });
-
-(async () => {
-  await db.connect();
-  await sequelize.connect();
-  await createInitData();
-  await startProduction();
-})();
 
 global.socketIds = {};
 
@@ -60,6 +54,16 @@ app.use(cors());
 app.use(express.json());
 app.use(userRoutes);
 app.use(actionsRoutes);
+
+(async () => {
+  // await db.connect();
+  // await sequelize.connect();
+
+  // await sequelizer.sync();
+  await sequelizer.authenticate();
+  // await createInitData();
+  // startProduction();
+})();
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
