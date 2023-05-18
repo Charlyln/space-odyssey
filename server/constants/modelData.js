@@ -2,14 +2,14 @@ const ressources = [
   {
     name: 'steel',
     type: 'production',
-    value: 100,
+    value: 1000,
     production: 0,
     storage: 500,
   },
   {
     name: 'gold',
     type: 'production',
-    value: 40,
+    value: 500,
     production: 0,
     storage: 50,
   },

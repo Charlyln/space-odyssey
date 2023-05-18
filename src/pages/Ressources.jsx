@@ -137,7 +137,13 @@ function Ressources() {
       />
 
       <PageContent borderLess>
-        <CardStack cardSize={'150px'} array={user.Buildings} onSelect={setElementSelected} cardGetter={getFooter} />
+        <CardStack
+          cardSize={'150px'}
+          array={user.Buildings}
+          onSelect={setElementSelected}
+          cardGetter={getFooter}
+          disabledCard={find?.upgrading}
+        />
       </PageContent>
     </PageContainer>
   );
