@@ -1,5 +1,10 @@
 const ressources = [
   {
+    name: 'money',
+    type: 'trade',
+    value: 100000,
+  },
+  {
     name: 'steel',
     type: 'production',
     value: 1000,

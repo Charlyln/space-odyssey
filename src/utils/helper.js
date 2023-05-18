@@ -29,6 +29,7 @@ import platinumIcon from '../assets/ressources/platinum2.webp';
 import crystalIcon from '../assets/ressources/crystal.webp';
 import energyIcon from '../assets/ressources/energy.webp';
 import foodIcon from '../assets/ressources/food.webp';
+import moneyIcon from '../assets/ressources/money.webp';
 import peopleIcon from '../assets/ressources/people.webp';
 import spaceshipIcon from '../assets/ressources/spaceship.webp';
 import cargoIcon from '../assets/ressources/cargo.webp';
@@ -162,6 +163,9 @@ export const getImg = (name) => {
 
     case 'energy':
       return energyIcon;
+
+    case 'money':
+      return moneyIcon;
 
     case 'people':
       return peopleIcon;
