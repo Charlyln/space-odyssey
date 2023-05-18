@@ -13,12 +13,15 @@ const { State } = require('../db/models/state.model');
 const { Cost } = require('../db/models/cost.model');
 
 const { ressources, buildings, costs } = require('../constants/modelData');
+const { Trade } = require('../db/models/trade.model');
 
 const userOptions = {
   order: [
     [{ model: Info }, 'createdAt', 'DESC'],
+    [{ model: Trade }, 'createdAt', 'DESC'],
     [{ model: Building }, 'order', 'ASC'],
     [{ model: Spaceship }, 'createdAt', 'ASC'],
+    [{ model: Ressource }, 'name', 'ASC'],
   ],
   include: [
     {
@@ -49,6 +52,9 @@ const userOptions = {
     },
     {
       model: Cost,
+    },
+    {
+      model: Trade,
     },
   ],
 };
@@ -92,6 +98,7 @@ async function createUserData(name) {
           value: ressource.value,
           production: ressource.production,
           storage: ressource.storage,
+          price: ressource.price,
           UserId: user.id,
         });
       }),
@@ -137,12 +144,13 @@ async function getCosts() {
   }
 }
 
-async function sendInfo(userId, severity, message) {
+async function sendInfo(userId, severity, message, icon) {
   try {
     const infoData = {
       id: uuidv4(),
       message,
       severity,
+      icon,
     };
 
     global.io.to(global.socketIds[userId]).emit('info', {
@@ -154,7 +162,7 @@ async function sendInfo(userId, severity, message) {
       UserId: userId,
     });
   } catch (error) {
-    logger.error('getCosts', error);
+    logger.error('sendInfo', error);
   }
 }
 

@@ -134,6 +134,7 @@ function Ressources() {
         enableCancelAction={find?.waiting}
         cancelAction={cancel}
         cancelActionName={'cancel'}
+        displayButton={elementSelected}
       />
 
       <PageContent borderLess>

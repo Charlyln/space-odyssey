@@ -14,6 +14,10 @@ const Info = sequelize.define('Info', {
     type: DataTypes.STRING(),
     allowNull: false,
   },
+  icon: {
+    type: DataTypes.STRING(),
+    allowNull: false,
+  },
 });
 
 module.exports = {

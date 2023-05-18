@@ -22,7 +22,7 @@ async function checkFacilities(user) {
               await updateBuilding({ waiting: true }, building.id);
 
               const message = `Wait for ressources until build ${building.name}`;
-              await sendInfo(user.id, 'warning', message);
+              await sendInfo(user.id, 'warning', message, 'building');
             } else {
               // wait until ressources
             }
@@ -30,7 +30,7 @@ async function checkFacilities(user) {
             const newProgress = building.progress + buildingSpeed;
             await updateBuilding({ progress: newProgress }, building.id);
             const message = `${building.name} start building`;
-            await sendInfo(user.id, 'info', message);
+            await sendInfo(user.id, 'info', message, 'building');
           }
         } else if (building.progress > 0) {
           const newProgress = building.progress + buildingSpeed;
@@ -43,7 +43,7 @@ async function checkFacilities(user) {
             const costs = user.Costs.filter((cost) => cost.craft === building.name);
             await increaseCosts(costs);
             const message = `${building.name} upgraded to level ${building.level + 1}`;
-            await sendInfo(user.id, 'success', message);
+            await sendInfo(user.id, 'success', message, 'building');
           }
         }
       }

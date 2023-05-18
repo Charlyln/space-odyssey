@@ -10,6 +10,7 @@ const ressources = [
     value: 1000,
     production: 0,
     storage: 500,
+    price: 100,
   },
   {
     name: 'gold',
@@ -17,6 +18,7 @@ const ressources = [
     value: 500,
     production: 0,
     storage: 50,
+    price: 200,
   },
   {
     name: 'crystal',
@@ -24,6 +26,7 @@ const ressources = [
     value: 0,
     production: 0,
     storage: 5,
+    price: 2000,
   },
   {
     name: 'platinum',
@@ -31,6 +34,7 @@ const ressources = [
     value: 0,
     production: 0,
     storage: 5,
+    price: 1000,
   },
   {
     name: 'energy',
@@ -38,6 +42,7 @@ const ressources = [
     value: 1000,
     production: 0,
     storage: 100,
+    price: 100,
   },
   {
     name: 'food',
@@ -45,6 +50,7 @@ const ressources = [
     value: 1000,
     production: 0,
     storage: 100,
+    price: 5,
   },
   {
     name: 'people',

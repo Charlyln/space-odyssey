@@ -13,6 +13,7 @@ const { Galaxy } = require('./galaxy.model');
 
 const { State } = require('./state.model');
 const { Cost } = require('./cost.model');
+const { Trade } = require('./trade.model');
 
 const options = {
   constraints: false,
@@ -47,6 +48,9 @@ Planet.belongsTo(User, options);
 
 User.hasMany(Cost, options);
 Cost.belongsTo(User, options);
+
+User.hasMany(Trade, options);
+Trade.belongsTo(User, options);
 
 // Others
 

@@ -16,7 +16,7 @@ async function checkSpaceships(user) {
           if (!spacechipToBuild.State.waiting) {
             await updateState({ waiting: true }, spacechipToBuild.State.id);
             const message = `Wait for ressources until build ${spacechipToBuild.name}`;
-            await sendInfo(user.id, 'warning', message);
+            await sendInfo(user.id, 'warning', message, 'building');
           } else {
             // wait untiel ressources
           }
@@ -24,14 +24,14 @@ async function checkSpaceships(user) {
           const newProgress = spacechipToBuild.State.progress + 10;
           await updateState({ progress: newProgress }, spacechipToBuild.State.id);
           const message = `${spacechipToBuild.name} start building`;
-          await sendInfo(user.id, 'info', message);
+          await sendInfo(user.id, 'info', message, 'building');
         }
       } else if (spacechipToBuild.State.progress > 0) {
         const newProgress = spacechipToBuild.State.progress + craftSpeed;
         if (newProgress >= 100) {
           await updateState({ progress: 100, building: false }, spacechipToBuild.State.id);
           const message = `${spacechipToBuild.name} just finish building`;
-          await sendInfo(user.id, 'success', message);
+          await sendInfo(user.id, 'success', message, 'building');
         } else {
           await updateState({ progress: newProgress }, spacechipToBuild.State.id);
         }
