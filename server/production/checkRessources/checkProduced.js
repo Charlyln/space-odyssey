@@ -1,4 +1,4 @@
-const { updateRessource } = require('../../helper/ressourcehelper');
+const { incrementRessource } = require('../../helper/ressourcehelper');
 
 async function checkProduced(user) {
   await Promise.all(
@@ -10,7 +10,7 @@ async function checkProduced(user) {
         });
 
         if (ressource) {
-          await updateRessource({ value: ressource.value + production }, ressource.id);
+          await incrementRessource(production, ressource.id);
         }
       }
     }),
