@@ -68,7 +68,7 @@ export default function Infos({ width }) {
           {infos.map((info) => (
             <Collapse key={info.id}>
               <Alert
-                style={{ margin: '2px 0', padding: '0px 5px' }}
+                style={{ margin: '2px 0', padding: '0px 5px', fontFamily: 'monospace' }}
                 key={info.id}
                 variant='outlined'
                 severity={info.severity}

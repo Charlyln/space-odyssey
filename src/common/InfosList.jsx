@@ -31,7 +31,12 @@ function InfosList({ height }) {
       <TransitionGroup>
         {store.user.Infos.map((info) => (
           <Collapse key={info.id}>
-            <Alert style={{ margin: '2px 0', padding: '0px 5px' }} key={info.id} variant='outlined' severity={info.severity}>
+            <Alert
+              style={{ margin: '2px 0', padding: '0px 5px', fontFamily: 'monospace' }}
+              key={info.id}
+              variant='outlined'
+              severity={info.severity}
+            >
               <span style={{ opacity: '0.3' }}>{`${moment(info.createdAt).format('D MMM YYYY HH:mm')} - `}</span>
               {`${info.message}`}
             </Alert>

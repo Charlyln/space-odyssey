@@ -105,7 +105,7 @@ function Ressources() {
           <>
             <img style={{ width: '20px' }} src={getImg(element.production)} alt={element.name} />
             {element.waiting && <ScheduleIcon style={{ color: 'orange', width: '20px', height: '20px' }} />}
-            <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px' }} color='text.secondary'>
+            <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px', fontFamily: 'monospace' }} color='text.secondary'>
               {`${element.level}`}
             </Typography>
           </>
@@ -128,7 +128,7 @@ function Ressources() {
         action={upgrade}
         actionName={'Upgrade'}
         costs={costs}
-        headerInfosTitle={`Infos`}
+        headerInfosTitle={`Infos:`}
         getInfos={getInfos}
         disabledAction={find?.upgrading}
         enableCancelAction={find?.waiting}

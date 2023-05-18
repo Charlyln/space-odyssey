@@ -36,7 +36,7 @@ export default function PageHeader({
         />
 
         <CardContent style={{ width: '100%' }}>
-          <Typography component='div' variant='h5'>
+          <Typography component='div' variant='h5' style={{ fontFamily: 'monospace' }}>
             {title}
           </Typography>
 

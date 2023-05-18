@@ -15,7 +15,7 @@ async function checkSpaceships(user) {
         if (!enoughtRessources) {
           if (!spacechipToBuild.State.waiting) {
             await updateState({ waiting: true }, spacechipToBuild.State.id);
-            const message = `Wait for ressources until build ${spacechipToBuild.name} !`;
+            const message = `Wait for ressources until build ${spacechipToBuild.name}`;
             await sendInfo(user.id, 'warning', message);
           } else {
             // wait untiel ressources
