@@ -15,7 +15,7 @@ import CardStack from '../common/CardStack';
 
 function Ressources() {
   const { store, setStore } = useContext(Context);
-  const { user, costs } = store;
+  const { user } = store;
   const [elementSelected, setElementSelected] = useSelectedElement();
 
   const upgrade = async (item) => {
@@ -127,7 +127,7 @@ function Ressources() {
         setElementSelected={setElementSelected}
         action={upgrade}
         actionName={'Upgrade'}
-        costs={costs}
+        costs={user.Costs}
         headerInfosTitle={`Infos:`}
         getInfos={getInfos}
         disabledAction={find?.upgrading}

@@ -16,7 +16,7 @@ import CardStackSmall from '../common/CardStackSmall';
 
 function Shipyard() {
   const { store, setStore } = useContext(Context);
-  const { user, costs } = store;
+  const { user } = store;
   const [elementSelected, setElementSelected] = useSelectedElement();
 
   const getFooter = (spaceship) => {
@@ -126,7 +126,7 @@ function Shipyard() {
         setElementSelected={setElementSelected}
         action={build}
         actionName={'build'}
-        costs={costs}
+        costs={user.Costs}
         headerInfosTitle={`Stats:`}
         getInfos={getInfos}
       />

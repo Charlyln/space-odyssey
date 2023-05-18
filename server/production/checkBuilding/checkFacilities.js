@@ -1,5 +1,5 @@
 const { sendInfo } = require('../../helper/userhelper');
-const { checkAvailableRessources, updateBuilding } = require('../../helper/ressourcehelper');
+const { checkAvailableRessources, updateBuilding, increaseCosts } = require('../../helper/ressourcehelper');
 const logger = require('../../logger');
 
 const buildingSpeed = 40;
@@ -36,10 +36,12 @@ async function checkFacilities(user) {
           const newProgress = building.progress + buildingSpeed;
           const updateProgress = newProgress >= 100 ? 100 : newProgress;
 
-          if (newProgress < 110) {
+          if (newProgress < 100) {
             await updateBuilding({ progress: updateProgress }, building.id);
           } else {
             await updateBuilding({ progress: 0, upgrading: false, level: building.level + 1 }, building.id);
+            const costs = user.Costs.filter((cost) => cost.craft === building.name);
+            await increaseCosts(costs);
             const message = `${building.name} upgraded to level ${building.level + 1}`;
             await sendInfo(user.id, 'success', message);
           }

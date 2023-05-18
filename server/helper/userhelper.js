@@ -11,7 +11,8 @@ const { Spaceship } = require('../db/models/spaceship.model');
 const { Planet } = require('../db/models/planet.model');
 const { State } = require('../db/models/state.model');
 const { Cost } = require('../db/models/cost.model');
-const { ressources, buildings } = require('../constants/modelData');
+
+const { ressources, buildings, costs } = require('../constants/modelData');
 
 const userOptions = {
   order: [
@@ -45,6 +46,9 @@ const userOptions = {
     },
     {
       model: Planet,
+    },
+    {
+      model: Cost,
     },
   ],
 };
@@ -101,6 +105,18 @@ async function createUserData(name) {
           type: building.type,
           production: building.production,
           order: building.order,
+          UserId: user.id,
+        });
+      }),
+    );
+
+    await Promise.all(
+      costs.map(async (cost) => {
+        await Cost.create({
+          id: uuidv4(),
+          craft: cost.craft,
+          value: cost.value,
+          ressource: cost.ressource,
           UserId: user.id,
         });
       }),

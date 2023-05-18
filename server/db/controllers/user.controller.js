@@ -1,16 +1,15 @@
 const { User } = require('../models/user.model');
 
-const { getUserData, createUserData, getCosts } = require('../../helper/userhelper');
+const { getUserData, createUserData } = require('../../helper/userhelper');
 
 module.exports = {
   async get_user(req, res) {
     const { id } = req.params;
     try {
       const user = await getUserData(id);
-      const costs = await getCosts();
 
       if (user) {
-        res.status(200).send({ user, costs });
+        res.status(200).send(user);
       } else {
         res.status(404).send('User not find');
       }
@@ -37,6 +36,7 @@ module.exports = {
         res.status(404).send('Please enter a name');
       }
     } catch (error) {
+      console.log(error);
       res.status(404).send({ error });
     }
   },
