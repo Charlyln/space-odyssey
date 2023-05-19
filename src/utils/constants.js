@@ -1,41 +1,3 @@
-const buildings = [
-  {
-    name: 'Steel Mine',
-    type: 'production',
-    enable: true,
-  },
-  {
-    name: 'Gold Mine',
-    type: 'production',
-    enable: true,
-  },
-  {
-    name: 'Crystal Synthesizer',
-    type: 'production',
-    enable: true,
-  },
-  {
-    name: 'Solar Plant',
-    type: 'production',
-    enable: true,
-  },
-  {
-    name: 'Research Center',
-    type: 'research',
-    enable: true,
-  },
-  {
-    name: 'Residential Sector',
-    type: 'residential',
-    enable: true,
-  },
-  {
-    name: 'Biosphere Farm',
-    type: 'farm',
-    enable: true,
-  },
-];
-
 const spaceships = [
   {
     name: 'Fighter',
@@ -94,6 +56,5 @@ const spaceships = [
 ];
 
 module.exports = {
-  buildings,
   spaceships,
 };

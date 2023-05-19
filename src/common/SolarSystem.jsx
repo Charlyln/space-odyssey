@@ -7,6 +7,8 @@ import ExpandIcon from '@mui/icons-material/Expand';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import AdjustIcon from '@mui/icons-material/Adjust';
 import LabelIcon from '@mui/icons-material/Label';
+import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 
 export default function SolarSystem({
   planets,
@@ -34,6 +36,16 @@ export default function SolarSystem({
       } else {
         setdisplayHeader(true);
         return defaultScale;
+      }
+    });
+  };
+
+  const zoom = (value) => {
+    setScale((prev) => {
+      if (value === 'in') {
+        return prev + 0.05;
+      } else {
+        return prev - 0.05;
       }
     });
   };
@@ -91,7 +103,15 @@ export default function SolarSystem({
                 selectItem={selectItem}
               />
             ))}
-            <IconButton onClick={handleDisplayName} style={{ marginLeft: 'auto' }}>
+            <IconButton onClick={() => zoom('in')} style={{ marginLeft: 'auto' }}>
+              <ZoomInIcon />
+            </IconButton>
+
+            <IconButton onClick={() => zoom('out')}>
+              <ZoomOutIcon />
+            </IconButton>
+
+            <IconButton onClick={handleDisplayName}>
               <LabelIcon />
             </IconButton>
 
