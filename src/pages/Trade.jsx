@@ -40,7 +40,7 @@ function Trade() {
             History:
           </Typography>
           {trades.map((trade) => (
-            <TradeHistoryItem trade={trade} />
+            <TradeHistoryItem key={trade.id} trade={trade} />
           ))}
         </ContainerList>
       );

@@ -11,10 +11,10 @@ const { PORT } = require('./config');
 const logger = require('./logger');
 const userRoutes = require('./db/routes/user.route');
 const actionsRoutes = require('./db/routes/action.route');
-// const { startProduction } = require('./production');
+const { startProduction } = require('./production/index');
 // const { createInitData } = require('./init.js');
 
-// require('./db/models/associations');
+require('./db/models/associations');
 
 const app = express();
 
@@ -61,8 +61,17 @@ app.use(actionsRoutes);
 
   // await sequelizer.sync();
   await sequelizer.authenticate();
+
+  if (process.argv[2] === 'force') {
+    logger.info('Force Sync');
+    await sequelizer.sync({ force: true });
+  } else {
+    logger.info('Sweet Sync');
+    await sequelizer.sync();
+  }
+
   // await createInitData();
-  // startProduction();
+  startProduction();
 })();
 
 app.get('*', (req, res) => {
