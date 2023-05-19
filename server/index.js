@@ -4,15 +4,16 @@ const cors = require('cors');
 const http = require('http');
 const { Server } = require('socket.io');
 
-// const db = require('./db');
-// const sequelize = require('./sequelize');
-const sequelizer = require('./sequelizer');
+const db = require('./db');
+const sequelize = require('./sequelize');
+// const sequelizer = require('./sequelizer');
 const { PORT } = require('./config');
 const logger = require('./logger');
 const userRoutes = require('./db/routes/user.route');
 const actionsRoutes = require('./db/routes/action.route');
 const { startProduction } = require('./production/index');
-// const { createInitData } = require('./init.js');
+const { Planet } = require('./db/models/planet.model');
+const { createInitData } = require('./init.js');
 
 require('./db/models/associations');
 
@@ -56,21 +57,24 @@ app.use(userRoutes);
 app.use(actionsRoutes);
 
 (async () => {
-  // await db.connect();
-  // await sequelize.connect();
+  await db.connect();
+  await sequelize.connect();
 
   // await sequelizer.sync();
-  await sequelizer.authenticate();
 
-  if (process.argv[2] === 'force') {
-    logger.info('Force Sync');
-    await sequelizer.sync({ force: true });
-  } else {
-    logger.info('Sweet Sync');
-    await sequelizer.sync();
-  }
+  // await sequelizer.authenticate();
+  // await sequelizer.drop();
+  // await sequelizer.sync();
 
-  // await createInitData();
+  // if (process.argv[2] === 'force') {
+  //   logger.info('Force Sync');
+  //   // await sequelizer.sync({ force: true });
+  // } else {
+  //   logger.info('Sweet Sync');
+  //   // await sequelizer.sync();
+  // }
+
+  await createInitData();
   startProduction();
 })();
 

@@ -22,6 +22,18 @@ const Planet = sequelize.define('Planet', {
     type: DataTypes.NUMBER(),
     allowNull: true,
   },
+  orbit: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
+  speed: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
+  color: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
 });
 
 module.exports = {

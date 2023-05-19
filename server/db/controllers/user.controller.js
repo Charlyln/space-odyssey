@@ -1,6 +1,6 @@
 const { User } = require('../models/user.model');
 
-const { getUserData, createUserData } = require('../../helper/userhelper');
+const { getUserData, createUserData, getServerData } = require('../../helper/userhelper');
 
 module.exports = {
   async get_user(req, res) {
@@ -17,6 +17,21 @@ module.exports = {
       res.status(404).send({ error });
     }
   },
+
+  async get_serverData(req, res) {
+    try {
+      const serverData = await getServerData();
+
+      if (serverData) {
+        res.status(200).send(serverData);
+      } else {
+        res.status(404).send('Data not find');
+      }
+    } catch (error) {
+      res.status(404).send({ error });
+    }
+  },
+
   async create_user(req, res) {
     const { name } = req.body;
 
