@@ -1,8 +1,11 @@
 import PlanetOrbit from './PlanetOrbit';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { IconButton } from '@mui/material';
+import useSelectedElement from '../utils/customHooks/useSelectedElement';
 
 export default function SolarSystem({ planets, sunColor, sunShadowColor, scale, size, sunSize, shadowSize, setScale }) {
+  const [elementSelected, setElementSelected] = useSelectedElement();
+
   const handleClose = () => {
     setScale((prev) => {
       if (prev < 0.5) {
@@ -11,6 +14,10 @@ export default function SolarSystem({ planets, sunColor, sunShadowColor, scale, 
         return 0.3;
       }
     });
+  };
+
+  const selectItem = () => {
+    setElementSelected(planets[1]);
   };
 
   return (
@@ -30,10 +37,13 @@ export default function SolarSystem({ planets, sunColor, sunShadowColor, scale, 
         />
 
         {planets.map((planet) => (
-          <PlanetOrbit key={planet.id} scale={scale} planet={planet} />
+          <PlanetOrbit key={planet.id} scale={scale} planet={planet} selectedItem={elementSelected} />
         ))}
-        <div style={{ right: 0, bottom: 0 }}>
+        <div>
           <IconButton onClick={handleClose}>
+            <KeyboardArrowDownIcon />
+          </IconButton>
+          <IconButton onClick={selectItem}>
             <KeyboardArrowDownIcon />
           </IconButton>
         </div>
