@@ -9,6 +9,7 @@ import AdjustIcon from '@mui/icons-material/Adjust';
 import LabelIcon from '@mui/icons-material/Label';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function SolarSystem({
   planets,
@@ -27,6 +28,23 @@ export default function SolarSystem({
   defaultScale,
 }) {
   const [elementSelected, setElementSelected] = useSelectedElement();
+
+  // const handleUserKeyPress = useCallback((event) => {
+  //   setScale((prev) => {
+  //     if (event.deltaY > 0) {
+  //       return prev + 0.05;
+  //     } else {
+  //       return prev - 0.05;
+  //     }
+  //   });
+  // }, []);
+
+  // useEffect(() => {
+  //   window.addEventListener('wheel', handleUserKeyPress);
+  //   return () => {
+  //     window.removeEventListener('wheel', handleUserKeyPress);
+  //   };
+  // }, [handleUserKeyPress]);
 
   const handleClose = () => {
     setScale((prev) => {

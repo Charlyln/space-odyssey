@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import PageContent from '../common/PageContent';
-import SolarSystem from '../common/SolarSystem';
+import PageContent from './PageContent';
+import SolarSystem from './SolarSystem';
 
 function SolarSystemItem({ planets, sunColor, sunShadowColor, size, sunSize, shadowSize, setdisplayHeader, defaultScale }) {
   const [scale, setScale] = useState(defaultScale || 0.3);
-  const [displayOrbit, setDisplayOrbit] = useState(true);
+  const [displayOrbit, setDisplayOrbit] = useState(false);
   const [displayName, setDisplayName] = useState(false);
 
   return (

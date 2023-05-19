@@ -51,7 +51,7 @@ export default function PlanetOrbit({ planet, name, scale, selectedItem, display
             height: `${size * scale + 10}px`,
             marginTop: `${-((size * scale + 10) / 2)}px`,
             marginLeft: `${-((size * scale + 10) / 2)}px`,
-            border: selectedItem?.size === planet?.size ? 'dotted' : 'none',
+            border: selectedItem?.id === planet?.id ? 'dotted' : 'none',
             animation: `spin-right 5s infinite linear`,
           }}
         />

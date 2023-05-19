@@ -36,8 +36,6 @@ export default function Layout() {
 
         const serverData = await axios.get(`http://${hostname}:${port}/v1/server`);
 
-        console.log(serverData);
-
         setStore((prevState) => ({
           ...prevState,
           user: userData.data,

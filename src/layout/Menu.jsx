@@ -38,15 +38,7 @@ export default function Menu({ width, userName }) {
       anchor='left'
     >
       <div>
-        <CustomButton
-          name={userName}
-          width={200}
-          height={50}
-          fontSize={20}
-          primary={'#4b5d5d'}
-          secondary={'#1edada'}
-          textColor={'#121212'}
-        />
+        <CustomButton name={userName} width={200} height={50} fontSize={20} primary={'#222222'} secondary={'#1edada'} textColor={'white'} />
       </div>
       <Divider style={{ marginTop: '29px' }} />
       <ContainerStyle>
@@ -59,7 +51,7 @@ export default function Menu({ width, userName }) {
               width={200}
               height={50}
               fontSize={20}
-              primary={'#4b5d5d'}
+              primary={location.pathname === link.path ? '#282828' : '#4b5d5d'}
               secondary={'#1edada'}
               textColor={'#121212'}
             />
