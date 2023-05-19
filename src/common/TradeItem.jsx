@@ -176,8 +176,9 @@ export default function TradeItem({ ressource, action, money }) {
           width={70}
           height={25}
           fontSize={12}
-          color={500}
-          alone={true}
+          primary={'rgb(129, 199, 132)'}
+          secondary={'#406441'}
+          textColor={'#121212'}
         />
       </Stack>
     </Card>

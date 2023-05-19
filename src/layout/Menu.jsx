@@ -38,19 +38,30 @@ export default function Menu({ width, userName }) {
       anchor='left'
     >
       <div>
-        <CustomButton name={userName} width={200} height={50} fontSize={20} />
+        <CustomButton
+          name={userName}
+          width={200}
+          height={50}
+          fontSize={20}
+          primary={'#4b5d5d'}
+          secondary={'#1edada'}
+          textColor={'#121212'}
+        />
       </div>
       <Divider style={{ marginTop: '29px' }} />
       <ContainerStyle>
         {pages.map((link) => (
           <Link to={link.path} key={link.path}>
             <CustomButton
+              opacity={0.7}
               key={link.path}
               name={link.name}
               width={200}
               height={50}
               fontSize={20}
-              color={location.pathname === link.path ? 185 : 240}
+              primary={'#4b5d5d'}
+              secondary={'#1edada'}
+              textColor={'#121212'}
             />
           </Link>
         ))}
