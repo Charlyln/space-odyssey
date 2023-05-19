@@ -8,7 +8,7 @@ export default function CardStackSmall({ array, cardSize, destroy, cardGetter })
         {array?.map((element) => (
           <CardItemSmall
             onClick={() => destroy(element)}
-            key={element.name}
+            key={element.id}
             imgName={element.name}
             height={cardSize}
             width={cardSize}

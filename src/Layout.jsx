@@ -34,9 +34,12 @@ export default function Layout() {
           socket.emit('register', userData.data.id);
         }
 
+        const serverData = await axios.get(`http://${hostname}:${port}/v1/server`);
+
         setStore((prevState) => ({
           ...prevState,
           user: userData.data,
+          server: serverData.data,
         }));
 
         setLoading(false);

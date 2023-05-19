@@ -5,7 +5,7 @@ import PageContainer from '../common/PageContainer';
 import PageContent from '../common/PageContent';
 
 import '../common/css/galaxy.css';
-import OrbitSystem from '../common/OrbitSytem';
+import SolarSystem from '../common/SolarSystem';
 import useSelectedElement from '../utils/customHooks/useSelectedElement';
 
 const planets = [
@@ -41,13 +41,13 @@ function Galaxy() {
         height={'110px'}
         imgWidth={'200px'}
         imageName={'galaxy'}
-        title={'System'}
+        title={'Solar System'}
         elementSelected={elementSelected}
         setElementSelected={setElementSelected}
       />
 
       <PageContent>
-        <OrbitSystem planets={planets} select={setElementSelected} />
+        {/* <SolarSystem planets={planets} select={setElementSelected} /> */}
       </PageContent>
     </PageContainer>
   );

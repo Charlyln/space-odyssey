@@ -1,26 +1,22 @@
+/* DO NOT CHANGE */
 .solar-system {
   position: relative;
-  width: 600px;
-  height: 600px;
   margin: auto;
   overflow: hidden;
 }
-/* 
-body img {
-  opacity: 0; */
-/* } */
-
 .orbit {
   border: 1px dashed #666;
 }
-
 #sun,
 .orbit,
 .orbit + div,
 .orbit + div > div {
   position: absolute;
 }
-
+.orbit,
+.orbit + div div {
+  border-radius: 50%;
+}
 #sun,
 .orbit,
 .orbit + div {
@@ -31,53 +27,8 @@ body img {
   top: 0;
   left: 50%;
 }
-
-.orbit,
-.orbit + div div {
-  border-radius: 50%;
-}
-
-#sun {
-  height: 150px;
-  width: 150px;
-  background-color: #fae20a;
-  margin-top: -75px;
-  margin-left: -75px;
-  border-radius: 50%;
-  box-shadow: 0 0 84px orange;
-}
-
-.planet {
-  --size: 25px;
-  --margin: -12.5px;
-  --color: -12.5px;
-  background-color: var(--color);
-  box-shadow: 0 0 34px #3a4385;
-  cursor: pointer;
-
-  margin-top: var(--margin);
-  margin-left: var(--margin);
-  height: var(--size);
-  width: var(--size);
-}
-
-.planet-orbit,
-.planet-spin {
-  --orbitsize: 280px;
-  --orbitmargin: -140px;
-  width: var(--orbitsize);
-  height: var(--orbitsize);
-  margin-left: var(--orbitmargin);
-  margin-top: var(--orbitmargin);
-}
-
 @keyframes spin-right {
   100% {
     transform: rotate(360deg);
   }
-}
-
-.planet-spin {
-  --speed: 20s;
-  animation: spin-right var(--speed) infinite linear;
 }
