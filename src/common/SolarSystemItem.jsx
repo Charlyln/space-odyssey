@@ -1,23 +1,14 @@
-import { Button } from '@mui/material';
 import React, { useState } from 'react';
 import PageContent from '../common/PageContent';
 import SolarSystem from '../common/SolarSystem';
 
-function SolarSystemItem({ planets, sunColor, sunShadowColor, size, sunSize, shadowSize, defaultScale }) {
+function SolarSystemItem({ planets, sunColor, sunShadowColor, size, sunSize, shadowSize, setdisplayHeader, defaultScale }) {
   const [scale, setScale] = useState(defaultScale || 0.3);
-
-  // const handleChange = () => {
-  //   setScale(0.8);
-  // };
-
-  // const handleClose = () => {
-  //   setScale(0.2);
-  // };
+  const [displayOrbit, setDisplayOrbit] = useState(true);
+  const [displayName, setDisplayName] = useState(false);
 
   return (
     <PageContent bgColor={'black'}>
-      {/* <Button onClick={handleChange}>open</Button>
-      <Button onClick={handleClose}>close</Button> */}
       <SolarSystem
         scale={scale}
         planets={planets}
@@ -27,6 +18,12 @@ function SolarSystemItem({ planets, sunColor, sunShadowColor, size, sunSize, sha
         sunSize={sunSize}
         shadowSize={shadowSize}
         setScale={setScale}
+        displayOrbit={displayOrbit}
+        setDisplayOrbit={setDisplayOrbit}
+        displayName={displayName}
+        setDisplayName={setDisplayName}
+        setdisplayHeader={setdisplayHeader}
+        defaultScale={defaultScale}
       />
     </PageContent>
   );

@@ -4,9 +4,7 @@
   margin: auto;
   overflow: hidden;
 }
-.orbit {
-  /* border: 1px dashed #666; */
-}
+
 #sun,
 .orbit,
 .orbit + div,

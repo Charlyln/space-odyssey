@@ -13,7 +13,7 @@ import platinumsynthesizer from '../assets/facilities/platinumsynthesizer.jpeg';
 import defence from '../assets/headers/defence.jpeg';
 import shipyard from '../assets/headers/shipyard.jpeg';
 import ressources from '../assets/headers/ressources.jpeg';
-import missions from '../assets/headers/missions.jpeg';
+import missions from '../assets/headers/galaxy.jpeg';
 import history from '../assets/headers/history.jpeg';
 import trade from '../assets/headers/trade.jpeg';
 import galaxy from '../assets/headers/galaxy.jpeg';
