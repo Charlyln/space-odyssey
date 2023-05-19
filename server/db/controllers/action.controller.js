@@ -1,5 +1,5 @@
 const logger = require('../../logger');
-const { handleActions } = require('../../helper/actionhelper');
+const { handleActions } = require('../../helper/action.helper');
 
 async function handle_action(req, res) {
   try {

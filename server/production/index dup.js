@@ -2,7 +2,7 @@ const moment = require('moment');
 
 const { checkRessources } = require('./checkRessources');
 const { checkBuilding } = require('./checkBuilding');
-const { getUsersData } = require('../helper/userhelper');
+const { getUsersData } = require('../helper/model.helper');
 const logger = require('../logger');
 
 async function checkProduction() {

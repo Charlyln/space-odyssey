@@ -1,5 +1,5 @@
 const logger = require('../../logger');
-const { decrementRessource } = require('../../helper/ressourcehelper');
+const { decrementRessource } = require('../../helper/model.helper');
 
 async function checkConsumed(user) {
   logger.info('3 -      Check Consumed');

@@ -294,7 +294,7 @@ const systems = [
   },
 ];
 
-const planets = [
+const alpha_centauri_planets = [
   {
     name: 'Alf Cen B b',
     temperature: 23,
@@ -330,5 +330,5 @@ module.exports = {
   costs,
   galaxies,
   systems,
-  planets,
+  alpha_centauri_planets,
 };
