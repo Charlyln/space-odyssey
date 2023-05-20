@@ -6,7 +6,6 @@ import PageContainer from '../common/PageContainer';
 import { hostname, port } from '../utils/config';
 import ContainerList from '../common/ContainerList';
 
-import '../common/css/galaxy.css';
 import useSelectedElement from '../utils/customHooks/useSelectedElement';
 import SolarSystemItem from '../common/SolarSystemItem';
 import axios from 'axios';

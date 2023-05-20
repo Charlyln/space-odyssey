@@ -55,6 +55,29 @@ const spaceships = [
   },
 ];
 
+const colors = {
+  green: {
+    primary: '#81c784',
+    secondary: '#406441',
+  },
+  red: {
+    primary: '#b34545',
+    secondary: '#721d1d',
+  },
+  lightGrey: {
+    primary: '#4b5d5d',
+    secondary: '#1edada',
+  },
+  darkGrey: {
+    primary: '#282828',
+    secondary: '#1edada',
+  },
+  blue: {
+    primary: '#108080',
+  },
+};
+
 module.exports = {
   spaceships,
+  colors,
 };

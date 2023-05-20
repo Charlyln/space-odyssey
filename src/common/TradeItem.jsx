@@ -1,6 +1,5 @@
 import { Button, ButtonGroup, Card, Stack, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { getIcon } from '../utils/helpers/icons.helper';
 import { usePress } from 'react-aria';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
@@ -173,15 +172,10 @@ export default function TradeItem({ ressource, action, money }) {
 
         <CustomButton
           onClick={sendAction}
-          disabled={price <= 0}
-          style={{ margin: '3px 20px' }}
-          name={'buy'}
-          width={70}
-          height={25}
-          fontSize={12}
-          primary={'rgb(129, 199, 132)'}
-          secondary={'#406441'}
-          textColor={'#121212'}
+          label={'buy'}
+          color={'green'}
+          size={'small'}
+          style={{ marginRight: '10px', marginLeft: 'auto' }}
         />
       </Stack>
     </Card>
