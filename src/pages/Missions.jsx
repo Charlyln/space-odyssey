@@ -1,96 +1,108 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Context } from '../utils/AppContext';
 
+import PageHeader from '../common/PageHeader';
 import PageContainer from '../common/PageContainer';
+import { hostname, port } from '../utils/config';
+import ContainerList from '../common/ContainerList';
+
+import useSelectedElement from '../utils/customHooks/useSelectedElement';
 import SolarSystemItem from '../common/SolarSystemItem';
+import axios from 'axios';
+import { Stack, Typography } from '@mui/material';
+import MissionItem from '../common/MissionItem';
+import PageContent from '../common/PageContent';
 
-const planets1 = [
-  {
-    size: 25,
-    orbit: 250,
-    speed: 10,
-    color: '#9f4e17',
-  },
-  {
-    size: 55,
-    orbit: 380,
-    speed: 5,
-    color: 'grey',
-  },
-  {
-    size: 40,
-    orbit: 600,
-    speed: 40,
-    color: '#4c4c77',
-  },
-];
-
-const planets2 = [
-  // {
-  //   size: 55,
-  //   orbit: 400,
-  //   speed: 0.9,
-  //   color: 'grey',
-  // },
-  // {
-  //   size: 40,
-  //   orbit: 500,
-  //   speed: 1.2,
-  //   color: '#4c4c77',
-  // },
-  // {
-  //   size: 30,
-  //   orbit: 600,
-  //   speed: 1.4,
-  //   color: '#9f4e17',
-  // },
-  // {
-  //   size: 30,
-  //   orbit: 700,
-  //   speed: 1.7,
-  //   color: '#4c4c77',
-  // },
-  {
-    size: 40,
-    orbit: 900,
-    speed: 1,
-    color: '#4c4c77',
-  },
-  {
-    size: 80,
-    orbit: 1000,
-    speed: 1.2,
-    color: '#9f4e17',
-  },
-  {
-    size: 55,
-    orbit: 1200,
-    speed: 1.4,
-    color: 'grey',
-  },
-];
-
-function Galaxy() {
+function Missions() {
   const { store } = useContext(Context);
-  const { server } = store;
+  const { user } = store;
+  const [elementSelected, setElementSelected] = useSelectedElement();
+  const system = user?.Planet?.System;
+
+  const getHeader = () => {
+    try {
+      return (
+        <SolarSystemItem
+          planets={system?.Planets}
+          sunColor={system.sunColor}
+          sunShadowColor={system.sunShadow}
+          size={system.size}
+          sunSize={system.sunSize}
+          defaultScale={0.3}
+          setElementSelected={setElementSelected}
+          elementSelected={elementSelected}
+          disableButtons
+          basePlanet={user.Planet}
+        />
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const sendMission = async (item) => {
+    try {
+      const body = { userId: user.id, type: 'SendMission', parameters: { planetId: elementSelected.id } };
+      const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
+
+      // setStore((prevState) => {
+      //   const newState = [...prevState.user.Buildings];
+      //   const index = newState.findIndex((building) => building.id === response.data.id);
+
+      //   if (index !== -1) {
+      //     newState[index] = response.data;
+
+      //     return {
+      //       ...prevState,
+      //       user: {
+      //         ...prevState.user,
+      //         Buildings: newState,
+      //       },
+      //     };
+      //   }
+      // });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <PageContainer>
-      {/* <SolarSystemItem planets={planets1} sunColor={'#fae20a'} sunShadowColor={'orange'} size={800} sunSize={200} />
-      <SolarSystemItem planets={server.planets} sunColor={'red'} sunShadowColor={'orange'} size={800} sunSize={100} />
-      <SolarSystemItem planets={server.planets} sunColor={'#6fcbcd'} sunShadowColor={'#00c7ff'} size={800} sunSize={400} />
-      <SolarSystemItem
-        planets={planets2}
-        sunColor={'black'}
-        sunShadowColor={'orange'}
-        size={1200}
-        sunSize={800}
-        defaultScale={0.1}
-        shadowSize={30}
-        defaultScale={0.3}
-      /> */}
+      <PageHeader
+        height={'300px'}
+        imgWidth={'200px'}
+        imageName={'missions'}
+        title={'Missions'}
+        getChild={getHeader}
+        // action={sendMission}
+        // actionName={'Send'}
+        // displayButton={elementSelected}
+      />
+
+      <PageContent bgColor={'unset'} borderLess>
+        <Typography variant='subtitle1' color='text.secondary' component='div'>
+          Available:
+        </Typography>
+      </PageContent>
+
+      <PageContent bgColor={'unset'}>
+        <ContainerList height={400}>
+          {user.Missions.map((mission, index) => (
+            <MissionItem
+              mission={mission}
+              action={sendMission}
+              setElementSelected={setElementSelected}
+              elementSelected={elementSelected}
+              planet={user.Planet}
+              planets={user.Planet.System.Planets}
+              potentialLoot={user.Ressources}
+              index={index}
+            />
+          ))}
+        </ContainerList>
+      </PageContent>
     </PageContainer>
   );
 }
 
-export default Galaxy;
+export default Missions;

@@ -13,7 +13,7 @@ import platinumsynthesizer from '../assets/facilities/platinumsynthesizer.jpeg';
 import defence from '../assets/headers/defence.jpeg';
 import shipyard from '../assets/headers/shipyard.jpeg';
 import ressources from '../assets/headers/ressources.jpeg';
-import missions from '../assets/headers/galaxy.jpeg';
+import missions from '../assets/headers/missions.jpeg';
 import history from '../assets/headers/history.jpeg';
 import trade from '../assets/headers/trade.jpeg';
 import galaxy from '../assets/headers/galaxy.jpeg';
@@ -47,6 +47,15 @@ import colonyfood from '../assets/colony/colonyscientist.jpeg';
 import colonysoldier from '../assets/colony/colonysoldier.jpeg';
 import andromeda from '../assets/galaxies/andromeda.jpeg';
 import milyway from '../assets/galaxies/milyway.jpeg';
+
+import missionIcon from '../assets/icons/missions/mission.webp';
+
+import combatIcon from '../assets/icons/missions/combat.webp';
+import explorationIcon from '../assets/icons/missions/exploration.webp';
+import industrialIcon from '../assets/icons/missions/industrial.webp';
+import levelIcon from '../assets/icons/missions/level.webp';
+import tradeIcon from '../assets/icons/missions/trade.webp';
+import basePlanetIcon from '../assets/icons/missions/basePlanet2.webp';
 
 export const getImg = (name) => {
   switch (name) {
@@ -199,5 +208,33 @@ export const getImg = (name) => {
 
     default:
       return fighter;
+  }
+};
+
+export const getIcon = (name) => {
+  switch (name) {
+    case 'basePlanet':
+      return basePlanetIcon;
+
+    case 'mission':
+      return missionIcon;
+
+    case 'combat':
+      return combatIcon;
+
+    case 'exploration':
+      return explorationIcon;
+
+    case 'industrial':
+      return industrialIcon;
+
+    case 'level':
+      return levelIcon;
+
+    case 'trade':
+      return tradeIcon;
+
+    default:
+      return missionIcon;
   }
 };

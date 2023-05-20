@@ -26,9 +26,11 @@ export default function SolarSystem({
   setDisplayName,
   setdisplayHeader,
   defaultScale,
+  elementSelected,
+  setElementSelected,
+  disableButtons,
+  basePlanet,
 }) {
-  const [elementSelected, setElementSelected] = useSelectedElement();
-
   // const handleUserKeyPress = useCallback((event) => {
   //   setScale((prev) => {
   //     if (event.deltaY > 0) {
@@ -105,10 +107,11 @@ export default function SolarSystem({
             displayOrbit={displayOrbit}
             displayName={displayName}
             index={index}
+            basePlanet={basePlanet}
           />
         ))}
         <div>
-          <Stack direction='row' spacing={1} justifyContent='center' alignItems='center'>
+          <Stack direction='row' spacing={1}>
             {planets.map((planet, index) => (
               <PlanetButton
                 key={planet.id}
@@ -119,27 +122,29 @@ export default function SolarSystem({
                 displayName={displayName}
                 index={index}
                 selectItem={selectItem}
+                basePlanet={basePlanet}
               />
             ))}
-            <IconButton onClick={() => zoom('in')} style={{ marginLeft: 'auto' }}>
-              <ZoomInIcon />
-            </IconButton>
 
-            <IconButton onClick={() => zoom('out')}>
-              <ZoomOutIcon />
-            </IconButton>
-
-            <IconButton onClick={handleDisplayName}>
-              <LabelIcon />
-            </IconButton>
-
-            <IconButton onClick={handleDisplayOrbit}>
-              <AdjustIcon />
-            </IconButton>
-
-            <IconButton onClick={handleClose}>
-              <FullscreenIcon />
-            </IconButton>
+            {!disableButtons && (
+              <>
+                <IconButton onClick={() => zoom('in')} style={{ marginLeft: 'auto' }}>
+                  <ZoomInIcon />
+                </IconButton>
+                <IconButton onClick={() => zoom('out')}>
+                  <ZoomOutIcon />
+                </IconButton>
+                <IconButton onClick={handleDisplayName}>
+                  <LabelIcon />
+                </IconButton>
+                <IconButton onClick={handleDisplayOrbit}>
+                  <AdjustIcon />
+                </IconButton>
+                <IconButton onClick={handleClose}>
+                  <FullscreenIcon />
+                </IconButton>
+              </>
+            )}
           </Stack>
         </div>
       </div>
