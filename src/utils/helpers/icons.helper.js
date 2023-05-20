@@ -18,6 +18,17 @@ import antimatter from '../../assets/icons/ressources/antimatter.webp';
 
 import amhousing from '../../assets/icons/products/amhousing.webp';
 import warpcell from '../../assets/icons/products/warpcell.webp';
+import cryochamber from '../../assets/icons/products/cryochamber.webp';
+import fusionaccelerant from '../../assets/icons/products/fusionaccelerant.webp';
+
+// Loots
+
+import cube from '../../assets/icons/loot/cube.webp';
+import fuelprod from '../../assets/icons/loot/fuelprod.webp';
+import launchfuel from '../../assets/icons/loot/launchfuel.webp';
+import pass from '../../assets/icons/loot/pass.webp';
+import powercell from '../../assets/icons/loot/powercell.webp';
+import superoxyde from '../../assets/icons/loot/superoxyde.webp';
 
 // Missions
 
@@ -27,10 +38,42 @@ import exploration from '../../assets/icons/missions/exploration.webp';
 import industrial from '../../assets/icons/missions/industrial.webp';
 import level from '../../assets/icons/missions/level.webp';
 import trade from '../../assets/icons/missions/trade.webp';
-import basePlanet from '../../assets/icons/missions/basePlanet2.webp';
+import basePlanet from '../../assets/icons/missions/basePlanet.webp';
+import arrival from '../../assets/icons/missions/arrival.webp';
+import baseMission from '../../assets/icons/missions/baseMission.webp';
 
 export const getIcon = (name) => {
   switch (name) {
+    case 'baseMission':
+      return baseMission;
+
+    case 'arrival':
+      return arrival;
+
+    case 'cube':
+      return cube;
+
+    case 'fuelprod':
+      return fuelprod;
+
+    case 'launchfuel':
+      return launchfuel;
+
+    case 'pass':
+      return pass;
+
+    case 'powercell':
+      return powercell;
+
+    case 'superoxyde':
+      return superoxyde;
+
+    case 'cryochamber':
+      return cryochamber;
+
+    case 'fusionaccelerant':
+      return fusionaccelerant;
+
     case 'amhousing':
       return amhousing;
 
