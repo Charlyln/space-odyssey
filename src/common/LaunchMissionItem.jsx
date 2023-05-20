@@ -6,7 +6,7 @@ import { fomatNumber } from '../utils/helpers/number.helper';
 import RessourcesStack from './RessourcesStack';
 import CustomIcon from './CustomIcon';
 
-export default function LaunchMissionItem({ index, mission, action, setElementSelected, elementSelected, planet, planets, potentialLoot }) {
+export default function LaunchMissionItem({ index, mission, action, setElementSelected, planets }) {
   const levelArray = Array.from(Array(mission.level).keys());
   const disableLevel = Array.from(Array(5 - mission.level).keys());
 

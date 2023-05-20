@@ -2,7 +2,7 @@ const { incrementRessource } = require('../../helper/model.helper');
 const logger = require('../../logger');
 
 async function checkProduced(user) {
-  logger.info('4 -      Check Produced');
+  logger.info(' 5 -      Check Produced');
 
   await Promise.all(
     user.Buildings.map(async (building) => {
