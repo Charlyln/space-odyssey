@@ -1,6 +1,8 @@
 const { User } = require('../models/user.model');
+const { Planet } = require('../models/planet.model');
+const { System } = require('../models/system.model');
 
-const { getUserData, createUserData, getServerData } = require('../../helper/model.helper');
+const { getUserData, createUserData, getServerData, createDefaultMissions } = require('../../helper/model.helper');
 
 module.exports = {
   async get_user(req, res) {
@@ -41,8 +43,21 @@ module.exports = {
           where: { name },
         });
 
+        const baseSystem = await System.findOne({
+          where: { name: 'Alpha A' },
+          include: [
+            {
+              model: Planet,
+              separate: true,
+            },
+          ],
+        });
+
+        const basePlanet = baseSystem.Planets[0];
+
         if (!userFind) {
-          const user = await createUserData(name);
+          const user = await createUserData(name, basePlanet.id);
+          await createDefaultMissions(user.id);
           res.status(200).send(user);
         } else {
           res.status(404).send('Name already taken');

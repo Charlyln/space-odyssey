@@ -15,7 +15,7 @@ const { Planet } = require('../db/models/planet.model');
 const { Galaxy } = require('../db/models/galaxy.model');
 const { System } = require('../db/models/system.model');
 
-const { ressources, buildings, costs } = require('../constants/modelData');
+const { ressources, buildings, costs, missions } = require('../constants/modelData');
 
 async function updateRessource(data, ressourceId) {
   try {
@@ -81,6 +81,40 @@ async function createTrade(ressource, price, quantity, status, type, userId) {
   } catch (error) {
     logger.error('createTrade', error);
     throw new Error('Create Trade Error');
+  }
+}
+
+async function createMission(userId) {
+  try {
+    const mission = await Mission.create({
+      id: uuidv4(),
+      type: 'Rescue',
+      level: 1,
+      UserId: userId,
+    });
+
+    return mission;
+  } catch (error) {
+    logger.error('createmission', error);
+    throw new Error('Create mission Error');
+  }
+}
+
+async function createDefaultMissions(userId) {
+  try {
+    await Promise.all(
+      missions.map(async (mission) => {
+        await Mission.create({
+          id: uuidv4(),
+          name: mission.name,
+          type: mission.type,
+          level: mission.level,
+          UserId: userId,
+        });
+      }),
+    );
+  } catch (error) {
+    logger.error('createmission', error);
   }
 }
 
@@ -183,6 +217,20 @@ async function getUserData(userId) {
           order: [['createdAt', 'DESC']],
           separate: true,
         },
+        {
+          model: Planet,
+          include: [
+            {
+              model: System,
+              include: [
+                {
+                  model: Planet,
+                  separate: true,
+                },
+              ],
+            },
+          ],
+        },
       ],
     });
 
@@ -271,11 +319,12 @@ async function getServerData() {
   }
 }
 
-async function createUserData(name) {
+async function createUserData(name, basePlanetId) {
   try {
     const user = await User.create({
       id: uuidv4(),
       name,
+      PlanetId: basePlanetId,
     });
 
     await Promise.all(
@@ -371,4 +420,6 @@ module.exports = {
   getUsersData,
   sendInfo,
   getServerData,
+  createMission,
+  createDefaultMissions,
 };

@@ -61,6 +61,9 @@ Planet.belongsTo(System, options);
 Galaxy.hasMany(System, options);
 System.belongsTo(Galaxy, options);
 
+Planet.hasMany(User, options);
+User.belongsTo(Planet, options);
+
 (async () => {
   await User.sync();
   await Ressource.sync();

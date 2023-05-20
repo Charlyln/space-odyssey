@@ -324,6 +324,59 @@ const alpha_centauri_planets = [
   },
 ];
 
+const missions = [
+  {
+    name: 'Alone Amidst the Stars',
+    type: 'exploration',
+    level: 1,
+  },
+  {
+    name: 'For a few resources more',
+    type: 'industrial',
+    level: 1,
+  },
+  {
+    name: 'A Leap in the Dark',
+    type: 'exploration',
+    level: 1,
+  },
+  {
+    name: 'Lost in Space',
+    type: 'exploration',
+    level: 1,
+  },
+  {
+    name: 'Ghosts in the Machine',
+    type: 'combat',
+    level: 1,
+  },
+  {
+    name: 'The lost planet',
+    type: 'exploration',
+    level: 2,
+  },
+  {
+    name: 'Rescue Dawn',
+    type: 'combat',
+    level: 3,
+  },
+  {
+    name: 'The Negociator',
+    type: 'trade',
+    level: 3,
+  },
+  {
+    name: 'Guardians of the Galaxy',
+    type: 'combat',
+    level: 4,
+  },
+  {
+    name: 'Interstellar',
+    type: 'exploration',
+    level: 5,
+  },
+];
+
 module.exports = {
   ressources,
   buildings,
@@ -331,4 +384,5 @@ module.exports = {
   galaxies,
   systems,
   alpha_centauri_planets,
+  missions,
 };
