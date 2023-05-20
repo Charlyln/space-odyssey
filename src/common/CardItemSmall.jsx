@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Card, CardMedia } from '@mui/material';
-import { getImg } from '../utils/helper';
+import { getImg } from '../utils/helpers/images.helper';
 import CardProgress from './CardProgress';
 
 export default function CardItemSmall({ imgName, width, item, cardGetter }) {

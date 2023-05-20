@@ -1,5 +1,5 @@
 import { Card, CardContent, CardMedia, Grid, IconButton, Typography } from '@mui/material';
-import { getImg } from '../utils/helper';
+import { getImg } from '../utils/helpers/images.helper';
 import CustomButton from './CustomButton';
 import HeaderAction from './HeaderAction';
 import PageHeaderCosts from './PageHeaderCosts';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconButton, Tooltip } from '@mui/material';
-import { getIcon } from '../utils/helper';
+import { getIcon } from '../utils/helpers/icons.helper';
 
 export default function PlanetButton({ planet, name, scale, selectItem, selectedItem, basePlanet }) {
   const { size, color } = planet;

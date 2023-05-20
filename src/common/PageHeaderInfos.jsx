@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@mui/material';
-import { getImg } from '../utils/helper';
+import { getImg } from '../utils/helpers/images.helper';
 
 export default function PageHeaderInfos({ title, infos, imgParams }) {
   return (
