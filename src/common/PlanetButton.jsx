@@ -1,6 +1,7 @@
 import React from 'react';
 import { IconButton, Tooltip } from '@mui/material';
 import { getIcon } from '../utils/helpers/icons.helper';
+import CustomIcon from './CustomIcon';
 
 export default function PlanetButton({ planet, name, scale, selectItem, selectedItem, basePlanet }) {
   const { size, color } = planet;
@@ -21,13 +22,7 @@ export default function PlanetButton({ planet, name, scale, selectItem, selected
             position: 'relative',
           }}
         >
-          {isBasePlanet && (
-            <img
-              style={{ width: '30px', height: '30px', position: 'absolute', top: '8px', right: '-10px' }}
-              src={getIcon('basePlanet')}
-              alt={'basePlanet'}
-            />
-          )}
+          {isBasePlanet && <CustomIcon size={25} icon={'basePlanet'} style={{ position: 'absolute', top: '8px', right: '-8px' }} />}
           <div
             className='planetBorder'
             style={{

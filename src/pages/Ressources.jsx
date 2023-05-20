@@ -12,6 +12,7 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import PageContent from '../common/PageContent';
 import CardStack from '../common/CardStack';
 import { getIcon } from '../utils/helpers/icons.helper';
+import CustomIcon from '../common/CustomIcon';
 
 function Ressources() {
   const { store, setStore } = useContext(Context);
@@ -103,7 +104,8 @@ function Ressources() {
           </>
         ) : (
           <>
-            <img style={{ width: '20px' }} src={getIcon(element.production)} alt={element.name} />
+            <CustomIcon size={20} icon={element.production} />
+
             {element.waiting && <ScheduleIcon style={{ color: 'orange', width: '20px', height: '20px' }} />}
             <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px', fontFamily: 'monospace' }} color='text.secondary'>
               {`${element.level}`}

@@ -8,9 +8,8 @@ import PageContent from '../common/PageContent';
 import ContainerList from '../common/ContainerList';
 import TradeList from '../common/TradeList';
 import TradeHistoryItem from '../common/TradeHistoryItem';
-import { Button, ButtonGroup, CardContent, Stack, Typography } from '@mui/material';
-import { fomatNumber } from '../utils/helpers/number.helper';
-import CardStack from '../common/CardStack';
+import { Button, ButtonGroup, Stack, Typography } from '@mui/material';
+import RessourcesStack from '../common/RessourcesStack';
 import TradeItem from '../common/TradeItem';
 
 function Inventory() {
@@ -66,22 +65,6 @@ function Inventory() {
     }
   };
 
-  const getRessourceValue = (ressourceValue) => {
-    try {
-      return fomatNumber(ressourceValue);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getFooter = (element) => {
-    return (
-      <CardContent style={{ padding: 0, textAlign: 'center', height: '20px', marginTop: '-4px' }}>
-        <Typography style={{ fontFamily: 'monospace', fontSize: 12, paddingTop: '2px' }}>{getRessourceValue(element.value)}</Typography>
-      </CardContent>
-    );
-  };
-
   return (
     <PageContainer>
       <PageHeader
@@ -107,13 +90,13 @@ function Inventory() {
           <PageContent bgColor={'unset'}>
             <ContainerList height={300}>
               <div style={{ padding: '2px' }}>
-                <CardStack
-                  cardSize={'70px'}
-                  array={[...user.Ressources, ...user.Ressources, ...user.Ressources, ...user.Ressources, ...user.Ressources]}
-                  cardGetter={getFooter}
+                <RessourcesStack
+                  size={'70px'}
+                  ressources={[...user.Ressources, ...user.Ressources, ...user.Ressources, ...user.Ressources, ...user.Ressources]}
                   disabledCard={true}
-                  onSelect={() => {}}
+                  onClick={() => {}}
                   square
+                  footer
                 />
               </div>
             </ContainerList>

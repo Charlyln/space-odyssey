@@ -62,7 +62,7 @@ function Galaxy() {
 
   const sendMission = async (item) => {
     try {
-      const body = { userId: user.id, type: 'SendMission', parameters: { planetId: elementSelected.id } };
+      const body = { userId: user.id, type: 'LaunchMission', parameters: { planetId: elementSelected.id } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
 
       console.log(response.data);

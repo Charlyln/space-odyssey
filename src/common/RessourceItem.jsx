@@ -11,7 +11,7 @@ export default function RessourceItem({ onClick, ressource, size, square, disabl
         <CardMedia style={{ margin: 'auto', height: size }} component='img' image={getIcon(ressource.name)} alt={ressource.name} />
         {footer && (
           <CardContent style={{ padding: 0, textAlign: 'center', height: '20px', marginTop: '-4px' }}>
-            <Typography style={{ fontFamily: 'monospace', fontSize: 12, paddingTop: '2px' }}>{fomatNumber(ressource.value)}</Typography>
+            <Typography style={{ fontFamily: 'monospace', fontSize: 12, paddingTop: '2px' }}>{fomatNumber(ressource?.value)}</Typography>
           </CardContent>
         )}
       </Card>
