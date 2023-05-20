@@ -23,7 +23,6 @@ function Galaxy() {
   const getHeader = () => {
     const missions = user.Missions.filter((mission) => mission.type === 'Rescue');
 
-    console.log(missions, user.Missions);
     try {
       if (elementSelected) {
         return (
@@ -113,6 +112,7 @@ function Galaxy() {
         setdisplayHeader={setdisplayHeader}
         setElementSelected={setElementSelected}
         elementSelected={elementSelected}
+        basePlanet={user.Planet}
       />
     </PageContainer>
   );

@@ -65,7 +65,7 @@ const solar_system_planets = [
     size: 15,
     danger: 'low',
     orbit: 263,
-    speed: 12,
+    speed: randomIntFromInterval(15, 30),
     color: '#a9a293',
   },
   {
@@ -74,7 +74,7 @@ const solar_system_planets = [
     size: 20,
     danger: 'low',
     orbit: 402,
-    speed: 12,
+    speed: randomIntFromInterval(15, 30),
     color: '#be7730',
   },
   {
@@ -83,7 +83,7 @@ const solar_system_planets = [
     size: 20,
     danger: 'high',
     orbit: 506,
-    speed: 12,
+    speed: randomIntFromInterval(15, 30),
     color: '#464f90',
   },
   {
@@ -92,7 +92,7 @@ const solar_system_planets = [
     size: 15,
     danger: 'low',
     orbit: 609,
-    speed: 12,
+    speed: randomIntFromInterval(15, 30),
     color: '#ed6f3e',
   },
   {
@@ -101,7 +101,7 @@ const solar_system_planets = [
     size: 50,
     danger: 'high',
     orbit: 738,
-    speed: 12,
+    speed: randomIntFromInterval(15, 30),
     color: '#8c7c65',
   },
   {
@@ -110,7 +110,7 @@ const solar_system_planets = [
     size: 40,
     danger: 'low',
     orbit: 853,
-    speed: 12,
+    speed: randomIntFromInterval(15, 30),
     color: '#cba941',
   },
   {
@@ -119,7 +119,7 @@ const solar_system_planets = [
     size: 30,
     danger: 'low',
     orbit: 935,
-    speed: 12,
+    speed: randomIntFromInterval(15, 30),
     color: '#94dcf0',
   },
   {
@@ -128,7 +128,7 @@ const solar_system_planets = [
     size: 30,
     danger: '',
     orbit: 1031,
-    speed: 12,
+    speed: randomIntFromInterval(15, 30),
     color: '#0072a6',
   },
 ];

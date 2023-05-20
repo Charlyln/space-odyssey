@@ -386,11 +386,29 @@ async function incrementMission(value, missionId) {
   }
 }
 
+async function comeBackMission(missionId) {
+  try {
+    const mission = await Mission.findOne({ where: { id: missionId } });
+    await mission.update({ ongoing: true, progress: 100 - mission.progress, status: 'setup' }, { where: { id: missionId } });
+  } catch (error) {
+    logger.error('finishMission', error);
+  }
+}
+
 async function finishMission(missionId) {
   try {
     await Mission.update({ ongoing: false, progress: 100, status: 'finish' }, { where: { id: missionId } });
   } catch (error) {
     logger.error('finishMission', error);
+  }
+}
+
+async function retreiveMission(missionId) {
+  try {
+    const mission = await Mission.update({ ongoing: false, progress: 100, status: 'retreived' }, { where: { id: missionId } });
+    return mission;
+  } catch (error) {
+    logger.error('retreiveMission', error);
   }
 }
 
@@ -412,7 +430,9 @@ module.exports = {
   getServerData,
   createMission,
   launchMission,
+  comeBackMission,
   createDefaultMissions,
   incrementMission,
   finishMission,
+  retreiveMission,
 };

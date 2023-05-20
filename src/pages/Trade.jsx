@@ -90,14 +90,7 @@ function Inventory() {
           <PageContent bgColor={'unset'}>
             <ContainerList height={300}>
               <div style={{ padding: '2px' }}>
-                <RessourcesStack
-                  size={'70px'}
-                  ressources={[...user.Ressources, ...user.Ressources, ...user.Ressources, ...user.Ressources, ...user.Ressources]}
-                  disabledCard={true}
-                  onClick={() => {}}
-                  square
-                  footer
-                />
+                <RessourcesStack size={'70px'} ressources={user.Ressources} disabledCard={true} onClick={() => {}} square footer />
               </div>
             </ContainerList>
           </PageContent>

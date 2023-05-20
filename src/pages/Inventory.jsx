@@ -12,14 +12,7 @@ function Inventory() {
   return (
     <PageContainer>
       <PageContent borderLess>
-        <RessourcesStack
-          size={'70px'}
-          ressources={[...user.Ressources, ...user.Ressources, ...user.Ressources, ...user.Ressources, ...user.Ressources]}
-          disabledCard={true}
-          onClick={() => {}}
-          square
-          footer
-        />
+        <RessourcesStack size={'70px'} ressources={user.Ressources} disabledCard={true} onClick={() => {}} square footer />
       </PageContent>
     </PageContainer>
   );

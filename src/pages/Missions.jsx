@@ -19,12 +19,12 @@ import SolarSystemItem from '../common/SolarSystemItem';
 import PageContent from '../common/PageContent';
 import MissionsList from '../common/MissionsList';
 
-const StyledBadge = styled(Badge)(({ theme, customColor }) => ({
+const StyledBadge = styled(Badge)(({ theme, customcolor }) => ({
   '& .MuiBadge-badge': {
-    backgroundColor: customColor || '#44b700',
+    backgroundColor: customcolor || '#44b700',
     top: '-2px',
     right: '-2px',
-    color: customColor || '#44b700',
+    color: customcolor || '#44b700',
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
     '&::after': {
       position: 'absolute',
@@ -54,27 +54,65 @@ function Missions() {
   const { store } = useContext(Context);
   const { user } = store;
   const [elementSelected, setElementSelected] = useSelectedElement();
-  const [type, setType] = useState('launch');
+  const [type, setType] = useState('created');
 
   const system = user?.Planet?.System;
 
-  const ongoingMissions = user?.Missions.filter((mission) => mission.ongoing);
-  const finishMissions = user?.Missions.filter((mission) => !mission.ongoing && mission.progress >= 100);
+  const missions = user?.Missions.filter((mission) => {
+    if (type === 'finish') {
+      return mission.status === type || mission.status === 'retreived';
+    } else {
+      return mission.status === type;
+    }
+  });
+
+  const ongoingMissions = user?.Missions.filter((mission) => mission.status === 'setup');
+  const finishMissions = user?.Missions.filter((mission) => mission.status === 'finish');
 
   const getHeader = () => {
     try {
       return (
-        <>
-          <ToggleButtonGroup size='small' value={type} exclusive onChange={(event, newAlignment) => setType(newAlignment)}>
-            <ToggleButton value='launch' variant='contained'>
+        <SolarSystemItem
+          planets={system?.Planets}
+          sunColor={system.sunColor}
+          sunShadowColor={system.sunShadow}
+          size={system.size}
+          sunSize={system.sunSize}
+          defaultScale={0.3}
+          setElementSelected={setElementSelected}
+          elementSelected={elementSelected}
+          disableButtons
+          basePlanet={user.Planet}
+        />
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getButtons = () => {
+    try {
+      return (
+        <Stack direction='row' alignItems='center' style={{}}>
+          <Typography component='div' variant='h5' style={{ fontFamily: 'monospace' }}>
+            {`Missions`}
+          </Typography>
+          <ToggleButtonGroup
+            style={{ marginLeft: 'auto' }}
+            size='small'
+            value={type}
+            exclusive
+            onChange={(event, newAlignment) => setType(newAlignment)}
+          >
+            <ToggleButton value='created' variant='contained'>
               <Typography component='span' variant='button' style={{ fontSize: '12px' }}>
                 launch
               </Typography>
             </ToggleButton>
-            <ToggleButton value='ongoing' variant='contained'>
+            <ToggleButton value='setup' variant='contained'>
               <StyledBadge
                 invisible={ongoingMissions.length === 0}
-                customColor={'#1edada'}
+                customcolor={'#1edada'}
                 overlap='circular'
                 anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                 variant='dot'
@@ -97,19 +135,7 @@ function Missions() {
               </StyledBadge>
             </ToggleButton>
           </ToggleButtonGroup>
-          <SolarSystemItem
-            planets={system?.Planets}
-            sunColor={system.sunColor}
-            sunShadowColor={system.sunShadow}
-            size={system.size}
-            sunSize={system.sunSize}
-            defaultScale={0.3}
-            setElementSelected={setElementSelected}
-            elementSelected={elementSelected}
-            disableButtons
-            basePlanet={user.Planet}
-          />
-        </>
+        </Stack>
       );
     } catch (error) {
       console.log(error);
@@ -144,15 +170,75 @@ function Missions() {
     }
   };
 
+  const retreiveMission = async (mission) => {
+    try {
+      const body = { userId: user.id, type: 'RetreiveMission', parameters: { missionId: mission.id } };
+      const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
+
+      console.log(response.data);
+
+      // setStore((prevState) => {
+      //   const newState = [...prevState.user.Buildings];
+      //   const index = newState.findIndex((building) => building.id === response.data.id);
+
+      //   if (index !== -1) {
+      //     newState[index] = response.data;
+
+      //     return {
+      //       ...prevState,
+      //       user: {
+      //         ...prevState.user,
+      //         Buildings: newState,
+      //       },
+      //     };
+      //   }
+      // });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const comeBackMission = async (mission) => {
+    try {
+      const body = { userId: user.id, type: 'ComeBackMission', parameters: { missionId: mission.id } };
+      const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
+
+      console.log(response.data);
+
+      // setStore((prevState) => {
+      //   const newState = [...prevState.user.Buildings];
+      //   const index = newState.findIndex((building) => building.id === response.data.id);
+
+      //   if (index !== -1) {
+      //     newState[index] = response.data;
+
+      //     return {
+      //       ...prevState,
+      //       user: {
+      //         ...prevState.user,
+      //         Buildings: newState,
+      //       },
+      //     };
+      //   }
+      // });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <PageContainer>
-      <PageHeader height={'300px'} imgWidth={'200px'} imageName={'missions'} title={'Missions'} getChild={getHeader} />
+      <PageHeader height={'270px'} imgWidth={'200px'} imageName={'missions'} getChild={getHeader} />
+
+      <PageContent borderLess>{getButtons()}</PageContent>
       <PageContent bgColor={'unset'}>
         <ContainerList height={450}>
           <MissionsList
             type={type}
-            missions={user?.Missions}
+            missions={missions}
             launchMission={launchMission}
+            retreiveMission={retreiveMission}
+            comeBackMission={comeBackMission}
             elementSelected={elementSelected}
             setElementSelected={setElementSelected}
             planets={user?.Planet?.System?.Planets}
