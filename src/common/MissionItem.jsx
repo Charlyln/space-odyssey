@@ -9,10 +9,13 @@ import CustomIcon from './CustomIcon';
 import RessourcesStack from './RessourcesStack';
 import MissionProgress from './MissionProgress';
 import PageContent from './PageContent';
+import LongPressButton from './LongPressButton';
 
 export default function MissionItem({ index, mission, launchMission, retreiveMission, comeBackMission, setElementSelected, planets }) {
   const levelArray = Array.from(Array(mission.level).keys());
   const disableLevel = Array.from(Array(5 - mission.level).keys());
+
+  console.log('render');
 
   const progress = mission.progress;
 
@@ -20,12 +23,17 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
     switch (mission.status) {
       case 'created':
         return (
-          <CustomButton
-            onClick={() => launchMission(mission)}
-            label={'launch'}
-            color={'green'}
-            size={'small'}
-            style={{ marginRight: '10px', marginLeft: 'auto' }}
+          // <CustomButton
+          //   onClick={() => launchMission(mission)}
+          //   label={'launch'}
+          //   color={'green'}
+          //   size={'small'}
+          //   style={{ marginRight: '10px', marginLeft: 'auto' }}
+          // />
+
+          <LongPressButton
+            onStart={() => launchMission(mission)}
+            style={{ marginLeft: 'auto', position: 'relative', height: '80px', width: '200px' }}
           />
         );
 

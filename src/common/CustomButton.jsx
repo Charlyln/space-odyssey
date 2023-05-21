@@ -1,4 +1,5 @@
 import { colors } from '../utils/constants';
+import { mergeProps } from 'react-aria';
 
 const sizes = {
   small: {
@@ -18,7 +19,19 @@ const sizes = {
   },
 };
 
-export default function CustomButton({ label, color, onClick, size, disabled, style, textColor, opacity }) {
+export default function CustomButton({
+  label,
+  color,
+  onClick,
+  size,
+  disabled,
+  style,
+  textColor,
+  opacity,
+  pressProps,
+  longPressProps,
+  progress,
+}) {
   return (
     <button
       disabled={disabled}
@@ -34,16 +47,19 @@ export default function CustomButton({ label, color, onClick, size, disabled, st
         '--shadow-primary': colors[color].secondary,
         ...style,
       }}
-      onClick={onClick}
+      // onClick={onClick}
+      {...mergeProps(pressProps, longPressProps)}
     >
       {label}
       <span aria-hidden>_</span>
 
       {!disabled && (
         <>
-          <span aria-hidden className='cybr_btn__glitch' style={{ '--shadow-primary': colors[color].secondary }}>
-            {label}
-          </span>
+          {progress > 0 && (
+            <span aria-hidden className={'cybr_btn__glitch'} style={{ '--shadow-primary': colors[color].secondary }}>
+              {label}
+            </span>
+          )}
         </>
       )}
     </button>

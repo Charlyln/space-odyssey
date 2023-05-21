@@ -11,6 +11,7 @@ import { Box, Button, Chip, IconButton, Stack, StepConnector, Typography } from 
 import ClearIcon from '@mui/icons-material/Clear';
 import { styled } from '@mui/material/styles';
 import CircularProgress from '@mui/material/CircularProgress';
+import LongPressButton from '../common/LongPressButton';
 
 const header = '350px';
 const body = `calc(100vh - (110px + ${header}))`;
@@ -102,6 +103,14 @@ function Trade() {
     }
   };
 
+  const onStart = () => {
+    try {
+      console.log('send action');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getHeader = () => {
     try {
       return (
@@ -112,13 +121,15 @@ function Trade() {
             ))}
           </Stepper>
 
-          <Stack direction='row' justifyContent='space-between' alignItems='center' style={{ padding: '6px' }}>
-            <Button variant='outlined' size='small' style={{ borderRadius: '0', marginLeft: 'auto' }}>
+          <Stack direction='row' style={{ padding: '6px' }}>
+            {/* <Button variant='outlined' size='small' style={{ borderRadius: '0', marginLeft: 'auto' }}>
               begin
             </Button>
             <Button variant='outlined' size='small' style={{ borderRadius: '0' }}>
               start
-            </Button>
+            </Button> */}
+
+            <LongPressButton type='refiner' onStart={onStart} style={{ marginLeft: 'auto', position: 'relative', height: '80px', width: '200px' }} />
           </Stack>
 
           {recipeResult && (
