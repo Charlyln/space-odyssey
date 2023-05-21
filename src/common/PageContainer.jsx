@@ -1,9 +1,10 @@
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const ContainerStyle = styled('div')(() => ({
+const ContainerStyle = styled('div')(({ border }) => ({
   overflow: 'auto',
-  height: 'calc(100vh - 120px)',
+  height: 'calc(100vh - 106px)',
+  border: border && 'solid 1px grey',
   '&::-webkit-scrollbar': {
     width: 5,
     backgroundColor: 'transparent',
@@ -18,10 +19,10 @@ const ContainerStyle = styled('div')(() => ({
   },
 }));
 
-export default function PageContainer({ children }) {
+export default function PageContainer({ children, border }) {
   return (
-    <ContainerStyle>
-      <Grid container alignItems='center' sx={{ padding: 1 }}>
+    <ContainerStyle border={border}>
+      <Grid container alignItems='center'>
         {children}
       </Grid>
     </ContainerStyle>

@@ -3,7 +3,7 @@ import CardItem from './CardItem';
 
 export default function CardStack({ array, cardSize, onSelect, cardGetter, square, disabled }) {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', marginTop: '8px' }}>
       {array?.map((spaceship) => (
         <CardItem
           onClick={() => onSelect(spaceship)}

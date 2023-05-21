@@ -97,7 +97,7 @@ function Ressources() {
     return (
       <div style={{ height: '20px', textAlign: element.waiting && 'center' }}>
         {element.progress !== 0 ? (
-          <CardProgress variant='determinate' progress={element.progress} height={20} />
+          <CardProgress progress={element.progress} height={20} />
         ) : element.waiting ? (
           <>
             <ScheduleIcon style={{ color: 'orange', width: '20px', height: '20px' }} />

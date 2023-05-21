@@ -22,5 +22,5 @@ const ContainerStyle = styled(List)(({ height }) => ({
 }));
 
 export default function ContainerList({ height, children }) {
-  return <ContainerStyle height={height ? `${height}px` : '300px'}>{children}</ContainerStyle>;
+  return <ContainerStyle height={height}>{children}</ContainerStyle>;
 }

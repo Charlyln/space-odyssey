@@ -5,7 +5,7 @@ import { getImg } from '../utils/helpers/images.helper';
 
 export default function CardItem({ onClick, imgName, height, width, item, cardGetter, square, disabled }) {
   return (
-    <div style={{ padding: '2px' }}>
+    <div style={{ paddingRight: '8px' }}>
       <Card style={{ width, opacity: item.upgrading ? 0.3 : 1, borderRadius: square ? 0 : '4px' }} variant='outlined' onClick={onClick}>
         {disabled ? (
           <>

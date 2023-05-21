@@ -5,12 +5,15 @@ import PageContainer from '../common/PageContainer';
 import PageContent from '../common/PageContent';
 import InfosList from '../common/InfosList';
 
+const header = '150px';
+const body = `calc(100vh - (110px + ${header}))`;
+
 function History() {
   return (
     <PageContainer>
-      <PageHeader height={'250px'} imgWidth={'400px'} imageName={'history'} title={'History'} />
-      <PageContent>
-        <InfosList height={'calc(100vh - 400px)'} />
+      <PageHeader height={header} imgWidth={'400px'} imageName={'history'} title={'History'} />
+      <PageContent height={body}>
+        <InfosList height={body} />
       </PageContent>
     </PageContainer>
   );

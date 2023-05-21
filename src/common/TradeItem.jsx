@@ -7,7 +7,7 @@ import CustomButton from './CustomButton';
 import { fomatNumber } from '../utils/helpers/number.helper';
 import CustomIcon from './CustomIcon';
 
-export default function TradeItem({ ressource, action, money }) {
+export default function TradeItem({ ressource, action, money, height }) {
   const [counter, setCounter] = useState(0);
   const [pressed, setPressed] = useState(false);
   const [moins, setMoins] = useState(false);
@@ -133,51 +133,45 @@ export default function TradeItem({ ressource, action, money }) {
   return (
     <Card variant='outlined' style={{ padding: '5px 5px', margin: '5px 0', backgroundColor: 'unset' }}>
       <Stack direction='row' spacing={1} justifyContent='center' alignItems='center'>
-        <CustomIcon size={25} icon={ressource.name} />
+      <CustomIcon size={25} icon={ressource.name} />
 
-        <Typography style={{ fontFamily: 'monospace', width: '20%' }}>{`${ressource.name}`}</Typography>
+      <Typography style={{ fontFamily: 'monospace', width: '20%' }}>{`${ressource.name}`}</Typography>
 
-        <div style={{ height: '30px' }}>
-          <Card variant='outlined' style={{ padding: '2px 5px', height: '30px', width: '120px', display: 'flex' }}>
-            <CustomIcon size={50} icon={'money'} style={{ marginTop: '-12px', marginLeft: '-15px' }} />
+      <div style={{ height: '30px' }}>
+        <Card variant='outlined' style={{ padding: '2px 5px', height: '30px', width: '120px', display: 'flex' }}>
+          <CustomIcon size={50} icon={'money'} style={{ marginTop: '-12px', marginLeft: '-15px' }} />
 
-            <Typography variant='button' style={{ fontFamily: 'monospace', marginLeft: 'auto' }}>
-              {`${fomatNumber(ressource.price)}`}
-            </Typography>
-          </Card>
-        </div>
+          <Typography variant='button' style={{ fontFamily: 'monospace', marginLeft: 'auto' }}>
+            {`${fomatNumber(ressource.price)}`}
+          </Typography>
+        </Card>
+      </div>
 
-        <div style={{ marginLeft: 'auto' }}>
-          <ButtonGroup size='small' variant='outlined' style={{ height: '30px' }}>
-            <Button {...pressProps} value='moins'>
-              <ArrowDropDownIcon />
-            </Button>
-            <Button style={{ width: '100px', color: 'white' }} {...pressProps} disabled>
-              {counter}
-            </Button>
-            <Button {...pressProps} value='plus'>
-              <ArrowDropUpIcon />
-            </Button>
-          </ButtonGroup>
-        </div>
+      <div style={{ marginLeft: 'auto' }}>
+        <ButtonGroup size='small' variant='outlined' style={{ height: '28px', marginTop: '4px' }}>
+          <Button {...pressProps} value='moins'>
+            <ArrowDropDownIcon />
+          </Button>
+          <Button style={{ width: '100px', color: 'white' }} {...pressProps} disabled>
+            {counter}
+          </Button>
+          <Button {...pressProps} value='plus'>
+            <ArrowDropUpIcon />
+          </Button>
+        </ButtonGroup>
+      </div>
 
-        <div style={{ height: '30px' }}>
-          <Card variant='outlined' style={{ padding: '2px 5px', height: '30px', width: '120px', display: 'flex' }}>
-            <CustomIcon size={50} icon={'money'} style={{ marginTop: '-12px', marginLeft: '-15px' }} />
-            <Typography variant='button' style={{ fontFamily: 'monospace', marginLeft: 'auto' }}>
-              {price > 0 ? fomatNumber(price) : '-'}
-            </Typography>
-          </Card>
-        </div>
+      <div style={{ height: '30px' }}>
+        <Card variant='outlined' style={{ padding: '2px 5px', height: '30px', width: '120px', display: 'flex' }}>
+          <CustomIcon size={50} icon={'money'} style={{ marginTop: '-12px', marginLeft: '-15px' }} />
+          <Typography variant='button' style={{ fontFamily: 'monospace', marginLeft: 'auto' }}>
+            {price > 0 ? fomatNumber(price) : '-'}
+          </Typography>
+        </Card>
+      </div>
 
-        <CustomButton
-          onClick={sendAction}
-          label={'buy'}
-          color={'green'}
-          size={'small'}
-          style={{ marginRight: '10px', marginLeft: 'auto' }}
-        />
-      </Stack>
+      <CustomButton onClick={sendAction} label={'buy'} color={'green'} size={'small'} style={{ marginRight: '10px', marginLeft: 'auto' }} />
+    </Stack>
     </Card>
   );
 }
