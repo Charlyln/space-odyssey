@@ -13,6 +13,10 @@ body .cybr_btn {
   margin-left: 1rem;
 }
 
+body {
+  overflow: hidden;
+}
+
 .cybr_btn {
   --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 1%));
   --shadow-primary: hsl(var(--shadow-primary-hue), 90%, 50%);

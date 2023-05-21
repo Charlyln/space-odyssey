@@ -30,20 +30,21 @@ export default function Layout() {
       if (userId) {
         const userData = await axios.get(`http://${hostname}:${port}/v1/users/${userId}`);
 
-        if (userData.data.id) {
+        if (userData?.data?.id) {
           socket.emit('register', userData.data.id);
+          const serverData = await axios.get(`http://${hostname}:${port}/v1/server`);
+
+          setStore((prevState) => ({
+            ...prevState,
+            user: userData.data,
+            server: serverData.data,
+          }));
+
+          setLoading(false);
+          setRegistered(true);
+        } else {
+          setLoading(false);
         }
-
-        const serverData = await axios.get(`http://${hostname}:${port}/v1/server`);
-
-        setStore((prevState) => ({
-          ...prevState,
-          user: userData.data,
-          server: serverData.data,
-        }));
-
-        setLoading(false);
-        setRegistered(true);
       } else {
         setLoading(false);
       }
