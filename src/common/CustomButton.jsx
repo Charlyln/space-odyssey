@@ -31,37 +31,41 @@ export default function CustomButton({
   pressProps,
   longPressProps,
   progress,
+  children,
 }) {
   return (
-    <button
-      disabled={disabled}
-      className='cybr_btn'
-      style={{
-        minWidth: `${sizes[size].width}px`,
-        height: `${sizes[size].height}px`,
-        lineHeight: `${sizes[size].height}px`,
-        '--font-size': `${sizes[size].fontSize}px`,
-        opacity: opacity ? opacity : disabled ? 0.3 : 1,
-        '--color': textColor || '#121212',
-        '--primary': colors[color].primary,
-        '--shadow-primary': colors[color].secondary,
-        ...style,
-      }}
-      // onClick={onClick}
-      {...mergeProps(pressProps, longPressProps)}
-    >
-      {label}
-      <span aria-hidden>_</span>
+    <>
+      <button
+        disabled={disabled}
+        className='cybr_btn'
+        style={{
+          minWidth: `${sizes[size].width}px`,
+          height: `${sizes[size].height}px`,
+          lineHeight: `${sizes[size].height}px`,
+          '--font-size': `${sizes[size].fontSize}px`,
+          opacity: opacity ? opacity : disabled ? 0.3 : 1,
+          '--color': textColor || '#121212',
+          '--primary': colors[color].primary,
+          '--shadow-primary': colors[color].secondary,
+          ...style,
+        }}
+        onClick={onClick}
+        {...mergeProps(pressProps, longPressProps)}
+      >
+        {label}
+        <span aria-hidden>_</span>
 
-      {!disabled && (
-        <>
-          {progress > 0 && (
-            <span aria-hidden className={'cybr_btn__glitch'} style={{ '--shadow-primary': colors[color].secondary }}>
-              {label}
-            </span>
-          )}
-        </>
-      )}
-    </button>
+        {!disabled && (
+          <>
+            {progress > 0 && (
+              <span aria-hidden className={'cybr_btn__glitch'} style={{ '--shadow-primary': colors[color].secondary }}>
+                {label}
+              </span>
+            )}
+          </>
+        )}
+      </button>
+      {children && children}
+    </>
   );
 }

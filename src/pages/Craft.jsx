@@ -13,10 +13,10 @@ import { styled } from '@mui/material/styles';
 import CircularProgress from '@mui/material/CircularProgress';
 import LongPressButton from '../common/LongPressButton';
 
-const header = '350px';
+const header = '320px';
 const body = `calc(100vh - (110px + ${header}))`;
 
-function Trade() {
+function Craft() {
   const { store } = useContext(Context);
   const { user } = store;
   const [craft, setCraft] = useState([{ id: 1 }, { id: 2 }, { id: 3 }]);
@@ -122,14 +122,14 @@ function Trade() {
           </Stepper>
 
           <Stack direction='row' style={{ padding: '6px' }}>
-            {/* <Button variant='outlined' size='small' style={{ borderRadius: '0', marginLeft: 'auto' }}>
-              begin
-            </Button>
-            <Button variant='outlined' size='small' style={{ borderRadius: '0' }}>
-              start
-            </Button> */}
-
-            <LongPressButton type='refiner' onStart={onStart} style={{ marginLeft: 'auto', position: 'relative', height: '80px', width: '200px' }} />
+            <LongPressButton
+              color={'green'}
+              size={'small'}
+              type={'refiner'}
+              label={'begin'}
+              onStart={onStart}
+              style={{ marginLeft: 'auto', marginRight: '50px' }}
+            />
           </Stack>
 
           {recipeResult && (
@@ -182,4 +182,4 @@ function Trade() {
   );
 }
 
-export default Trade;
+export default Craft;
