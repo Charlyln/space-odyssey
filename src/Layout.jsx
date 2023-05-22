@@ -10,6 +10,8 @@ import Menu from './layout/Menu';
 import Infos from './layout/Infos';
 import Pages from './layout/Pages';
 import Login from './pages/Login';
+import { missionStatus } from 'enums/status';
+
 
 import { socket } from './utils/socket';
 
@@ -23,6 +25,8 @@ export default function Layout() {
   const [registered, setRegistered] = useState(false);
 
   const localUserId = window.localStorage.getItem('userId');
+
+  console.log(missionStatus);
 
   const getUserData = async (newUserid) => {
     try {

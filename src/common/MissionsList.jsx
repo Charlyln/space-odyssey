@@ -1,9 +1,10 @@
+import { missionStatus } from 'enums/status';
 import React from 'react';
 import MissionItem from './MissionItem';
 
 function MissionsList({ missions, launchMission, retreiveMission, comeBackMission, elementSelected, setElementSelected, planets, planet }) {
-  const finishMissions = missions.filter((mission) => mission.status === 'finish');
-  const notfinishMissions = missions.filter((mission) => mission.status !== 'finish');
+  const finishMissions = missions.filter((mission) => mission.status === missionStatus.finish);
+  const notfinishMissions = missions.filter((mission) => mission.status !== missionStatus.finish);
   const orderMissions = [...finishMissions, ...notfinishMissions];
 
   return (

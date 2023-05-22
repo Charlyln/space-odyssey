@@ -15,7 +15,10 @@ const { Planet } = require('../db/models/planet.model');
 const { Galaxy } = require('../db/models/galaxy.model');
 const { System } = require('../db/models/system.model');
 
+const { getNewDuration } = require('./utlis.helper');
+
 const { ressources, buildings, costs, missions } = require('../constants/modelData');
+const { missionStatus } = require('enums/status');
 
 const userOptions = {
   include: [
@@ -363,7 +366,7 @@ async function createMission(userId) {
   }
 }
 
-async function launchMission(missionId, actionDate) {
+async function launchMission(missionId) {
   try {
     const mission = await Mission.findOne({
       where: {
@@ -371,7 +374,7 @@ async function launchMission(missionId, actionDate) {
       },
     });
 
-    await mission.update({ ongoing: true, progress: 0.01, status: 'setup', startTime: actionDate });
+    await mission.update({ status: missionStatus.launched });
 
     return mission;
   } catch (error) {
@@ -380,7 +383,24 @@ async function launchMission(missionId, actionDate) {
   }
 }
 
-async function updateMission(percent, missionId, checkProductionDate) {
+async function startMission(missionId, actionDate) {
+  try {
+    const mission = await Mission.findOne({
+      where: {
+        id: missionId,
+      },
+    });
+
+    await mission.update({ ongoing: true, status: missionStatus.setup, startTime: actionDate });
+
+    return mission;
+  } catch (error) {
+    logger.error('createmission', error);
+    throw new Error('Create mission Error');
+  }
+}
+
+async function progressMission(percent, missionId) {
   try {
     const mission = await Mission.findOne({
       where: {
@@ -389,14 +409,16 @@ async function updateMission(percent, missionId, checkProductionDate) {
     });
     await mission.update({ progress: percent });
   } catch (error) {
-    logger.error('updateMission', error);
+    logger.error('progressMission', error);
   }
 }
 
-async function comeBackMission(missionId) {
+async function comeBackMission(missionId, actionDate) {
   try {
-    const mission = await Mission.findOne({ where: { id: missionId } });
-    await mission.update({ ongoing: true, progress: 100 - mission.progress, status: 'setup' }, { where: { id: missionId } });
+    await Mission.update({ status: missionStatus.comeback, comebackTime: actionDate }, { where: { id: missionId } });
+    // const newDuration = getNewDuration(mission.startTime, mission.duration, actionDate);
+    // logger.warn('newDuration', newDuration);
+    // await mission.update({ duration: newDuration });
   } catch (error) {
     logger.error('finishMission', error);
   }
@@ -404,7 +426,7 @@ async function comeBackMission(missionId) {
 
 async function finishMission(missionId) {
   try {
-    await Mission.update({ ongoing: false, progress: 100, status: 'finish' }, { where: { id: missionId } });
+    await Mission.update({ ongoing: false, progress: 100, status: missionStatus.finish }, { where: { id: missionId } });
   } catch (error) {
     logger.error('finishMission', error);
   }
@@ -412,7 +434,13 @@ async function finishMission(missionId) {
 
 async function retreiveMission(missionId) {
   try {
-    const mission = await Mission.update({ ongoing: false, progress: 100, status: 'retreived' }, { where: { id: missionId } });
+    const mission = await Mission.findOne({
+      where: {
+        id: missionId,
+      },
+    });
+
+    await mission.update({ ongoing: false, progress: 100, status: missionStatus.retreived });
     return mission;
   } catch (error) {
     logger.error('retreiveMission', error);
@@ -435,11 +463,12 @@ module.exports = {
   getUsersData,
   sendInfo,
   getServerData,
-  createMission,
-  launchMission,
-  comeBackMission,
   createDefaultMissions,
-  updateMission,
+  createMission,
+  startMission,
+  launchMission,
+  progressMission,
+  comeBackMission,
   finishMission,
   retreiveMission,
 };

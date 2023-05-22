@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Grid } from '@mui/material';
+import { missionStatus } from 'enums/status';
 
 import { Context } from '../utils/AppContext';
 import PageHeader from '../common/PageHeader';
@@ -31,7 +32,7 @@ function Overview() {
     {
       id: 'Missions',
       name: 'Missions',
-      tasks: user.Missions.filter((mission) => mission.ongoing || mission.status === 'finish' ),
+      tasks: user.Missions.filter((mission) => mission.ongoing || mission.status === missionStatus.finish ),
     },
   ];
 

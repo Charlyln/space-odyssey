@@ -18,6 +18,7 @@ import PageContent from '../common/PageContent';
 import MissionsList from '../common/MissionsList';
 import { colors } from '../utils/constants';
 import CustomButtonGroup from '../common/CustomButtonGroup';
+import { missionStatus } from 'enums/status';
 
 const header = '250px';
 const footer = `50px`;
@@ -27,40 +28,40 @@ function Missions() {
   const { store } = useContext(Context);
   const { user } = store;
   const [elementSelected, setElementSelected] = useSelectedElement();
-  const [type, setType] = useState('created');
+  const [type, setType] = useState(missionStatus.created);
 
   const system = user?.Planet?.System;
 
   const missions = user?.Missions.filter((mission) => {
-    if (type === 'finish') {
-      return mission.status === type || mission.status === 'retreived';
+    if (type === missionStatus.finish) {
+      return mission.status === type || mission.status === missionStatus.retreived;
     } else {
       return mission.status === type;
     }
   });
 
-  const ongoingMissions = user?.Missions.filter((mission) => mission.status === 'setup');
-  const finishMissions = user?.Missions.filter((mission) => mission.status === 'finish');
+  const ongoingMissions = user?.Missions.filter((mission) => mission.status === missionStatus.setup);
+  const finishMissions = user?.Missions.filter((mission) => mission.status === missionStatus.finish);
 
   const buttons = [
     {
       label: 'launch',
-      value: 'created',
+      value: missionStatus.created,
       invisible: true,
-      selected: type === 'created',
+      selected: type === missionStatus.created,
     },
     {
       label: 'ongoing',
-      value: 'setup',
+      value: missionStatus.setup,
       invisible: ongoingMissions.length === 0,
-      selected: type === 'setup',
+      selected: type === missionStatus.setup,
       customcolor: '#1edada',
     },
     {
-      label: 'finish',
-      value: 'finish',
+      label: missionStatus.finish,
+      value: missionStatus.finish,
       invisible: finishMissions.length === 0,
-      selected: type === 'finish',
+      selected: type === missionStatus.finish,
     },
   ];
 
@@ -103,10 +104,11 @@ function Missions() {
 
   const launchMission = async (mission) => {
     try {
-      const body = { userId: user.id, type: 'LaunchMission', parameters: { missionId: mission.id } };
+      const body = { userId: user.id, type: 'StartMission', parameters: { missionId: mission.id } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
 
       console.log(response.data);
+      console.log(body);
 
       // setStore((prevState) => {
       //   const newState = [...prevState.user.Buildings];
@@ -134,7 +136,7 @@ function Missions() {
       const body = { userId: user.id, type: 'RetreiveMission', parameters: { missionId: mission.id } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
 
-      console.log(response.data);
+      console.log(body);
 
       // setStore((prevState) => {
       //   const newState = [...prevState.user.Buildings];
@@ -162,7 +164,7 @@ function Missions() {
       const body = { userId: user.id, type: 'ComeBackMission', parameters: { missionId: mission.id } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
 
-      console.log(response.data);
+      console.log(body);
 
       // setStore((prevState) => {
       //   const newState = [...prevState.user.Buildings];
