@@ -34,12 +34,20 @@ const Mission = sequelize.define('Mission', {
     type: DataTypes.DATE(),
     allowNull: true,
   },
-  travelDuration: {
+  destinationTime: {
     type: DataTypes.DATE(),
     allowNull: true,
   },
-  missionDuration: {
+  comebackTime: {
     type: DataTypes.DATE(),
+    allowNull: true,
+  },
+  travelDuration: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
+  missionDuration: {
+    type: DataTypes.NUMBER(),
     allowNull: true,
   },
 });

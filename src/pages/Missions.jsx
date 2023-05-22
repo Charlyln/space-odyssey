@@ -36,27 +36,30 @@ function Missions() {
     if (type === missionStatus.finish) {
       return mission.status === type || mission.status === missionStatus.retreived;
     }
-    if (type === 'ongoing') {
-      return mission.status === missionStatus.comeback || mission.status === 'ongoing' || mission.status === missionStatus.launched;
+    if (type === missionStatus.setup) {
+      return (
+        mission.status === missionStatus.comeback || mission.status === missionStatus.setup || mission.status === missionStatus.launched
+      );
     } else {
       return mission.status === type;
     }
   });
 
   const ongoingMissions = user?.Missions.filter(
-    (mission) => mission.status === missionStatus.setup || mission.status === missionStatus.comeback,
+    (mission) =>
+      mission.status === missionStatus.setup || mission.status === missionStatus.comeback || mission.status === missionStatus.launched,
   );
   const finishMissions = user?.Missions.filter((mission) => mission.status === missionStatus.finish);
 
   const buttons = [
     {
-      label: 'launch',
+      label: missionStatus.created,
       value: missionStatus.created,
       invisible: true,
       selected: type === missionStatus.created,
     },
     {
-      label: 'ongoing',
+      label: missionStatus.setup,
       value: missionStatus.setup,
       invisible: ongoingMissions.length === 0,
       selected: type === missionStatus.setup,
@@ -191,8 +194,6 @@ function Missions() {
       console.log(error);
     }
   };
-
-  console.log(ongoingMissions);
 
   return (
     <PageContainer>

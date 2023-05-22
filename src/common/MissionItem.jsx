@@ -19,7 +19,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
 
   const progress = mission.progress;
 
-  const time = convertMsToTime(mission.duration);
+  const time = convertMsToTime(mission.travelDuration * 2 + mission.missionDuration);
 
   const getButton = () => {
     switch (mission.status) {
@@ -97,6 +97,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
 
       case missionStatus.setup:
       case missionStatus.comeback:
+      case missionStatus.launched:
       case missionStatus.finish:
         return (
           <>
@@ -145,6 +146,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
       <Stack direction='row' spacing={1} alignItems='center' style={{ backgroundColor: '#4b5d5d', opacity: 0.7 }}>
         <CustomIcon size={25} icon={'mission'} />
         <Typography style={{ fontFamily: 'monospace' }}>{`${mission.name}`}</Typography>
+        <Typography style={{ fontFamily: 'monospace' }}>{`${progress}%`}</Typography>
       </Stack>
       <Stack direction='row' spacing={1} alignItems='center' style={{ padding: '6px' }}>
         <CustomIcon size={50} icon={mission.type} style={{ marginLeft: '30px' }} />

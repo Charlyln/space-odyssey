@@ -10,7 +10,7 @@ async function handleActions(action) {
   try {
     let response;
 
-    const actionDate = new Date().getTime();
+    const actionDate = new Date();
 
     switch (action.type) {
       case actionTypes.upgradeBuilding:
