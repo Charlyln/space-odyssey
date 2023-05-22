@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
+import { actionTypes } from 'enums';
 import { Typography } from '@mui/material';
 import { Context } from '../utils/AppContext';
 import { hostname, port } from '../utils/config';
@@ -11,8 +12,8 @@ import useSelectedElement from '../utils/customHooks/useSelectedElement';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import PageContent from '../common/PageContent';
 import CardStack from '../common/CardStack';
-import { getIcon } from '../utils/helpers/icons.helper';
 import CustomIcon from '../common/CustomIcon';
+
 
 function Ressources() {
   const { store, setStore } = useContext(Context);
@@ -21,7 +22,7 @@ function Ressources() {
 
   const upgrade = async (item) => {
     try {
-      const body = { userId: user.id, type: 'UpgradeBuilding', parameters: { buildingId: item.id } };
+      const body = { userId: user.id, type: actionTypes.upgradeBuilding, parameters: { buildingId: item.id } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
 
       setStore((prevState) => {
@@ -48,7 +49,7 @@ function Ressources() {
 
   const cancel = async (item) => {
     try {
-      const body = { userId: user.id, type: 'CancelBuilding', parameters: { buildingId: item.id } };
+      const body = { userId: user.id, type: actionTypes.cancelBuilding, parameters: { buildingId: item.id } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
 
       if (response.data) {

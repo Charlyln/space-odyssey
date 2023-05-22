@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../utils/AppContext';
+import { actionTypes } from 'enums';
 
 import PageHeader from '../common/PageHeader';
 import PageContainer from '../common/PageContainer';
@@ -60,7 +61,7 @@ function Galaxy() {
 
   const sendMission = async (item) => {
     try {
-      const body = { userId: user.id, type: 'StartMission', parameters: { planetId: elementSelected.id } };
+      const body = { userId: user.id, type: actionTypes.startMission, parameters: { planetId: elementSelected.id } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
 
       console.log(response.data);

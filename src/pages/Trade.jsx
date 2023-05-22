@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
+import { actionTypes } from 'enums';
+
 import { Context } from '../utils/AppContext';
 import { hostname, port } from '../utils/config';
 import PageHeader from '../common/PageHeader';
@@ -34,7 +36,7 @@ function Inventory() {
 
   const buy = async (element) => {
     try {
-      const body = { userId: user.id, type: 'BuyRessource', parameters: element };
+      const body = { userId: user.id, type: actionTypes.buyRessource, parameters: element };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
       if (response.data) {
         setTrades((prev) => [response.data, ...prev]);

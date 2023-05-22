@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Typography, IconButton } from '@mui/material';
-
+import { actionTypes } from 'enums';
 import { Context } from '../utils/AppContext';
 import axios from 'axios';
 import { hostname, port } from '../utils/config';
@@ -42,7 +42,7 @@ function Shipyard() {
 
   const build = async () => {
     try {
-      const body = { userId: user.id, type: 'BuildSpaceship', parameters: { spaceship: elementSelected } };
+      const body = { userId: user.id, type: actionTypes.buildSpaceship, parameters: { spaceship: elementSelected } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
 
       if (response.data) {
@@ -63,7 +63,7 @@ function Shipyard() {
 
   const destroy = async (spaceshipId) => {
     try {
-      const body = { userId: user.id, type: 'DeleteSpaceship', parameters: { spaceshipId } };
+      const body = { userId: user.id, type: actionTypes.deleteSpaceship, parameters: { spaceshipId } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
 
       setStore((prevState) => {

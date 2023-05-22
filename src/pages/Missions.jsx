@@ -18,7 +18,7 @@ import PageContent from '../common/PageContent';
 import MissionsList from '../common/MissionsList';
 import { colors } from '../utils/constants';
 import CustomButtonGroup from '../common/CustomButtonGroup';
-import { missionStatus } from 'enums/status';
+import { missionStatus, actionTypes } from 'enums';
 
 const header = '250px';
 const footer = `50px`;
@@ -109,7 +109,7 @@ function Missions() {
 
   const launchMission = async (mission) => {
     try {
-      const body = { userId: user.id, type: 'StartMission', parameters: { missionId: mission.id } };
+      const body = { userId: user.id, type: actionTypes.startMission, parameters: { missionId: mission.id } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
 
       console.log(response.data);
@@ -138,7 +138,7 @@ function Missions() {
 
   const retreiveMission = async (mission) => {
     try {
-      const body = { userId: user.id, type: 'RetreiveMission', parameters: { missionId: mission.id } };
+      const body = { userId: user.id, type: actionTypes.retreiveMission, parameters: { missionId: mission.id } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
 
       console.log(body);
@@ -166,7 +166,7 @@ function Missions() {
 
   const comeBackMission = async (mission) => {
     try {
-      const body = { userId: user.id, type: 'ComeBackMission', parameters: { missionId: mission.id } };
+      const body = { userId: user.id, type: actionTypes.comeBackMission, parameters: { missionId: mission.id } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
 
       console.log(body);

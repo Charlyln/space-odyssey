@@ -3,7 +3,7 @@ import { LinearProgress, Stack } from '@mui/material';
 
 import CustomIcon from './CustomIcon';
 import PageContent from './PageContent';
-import { missionStatus } from 'enums/status';
+import { missionStatus } from 'enums';
 
 export default function MissionProgress({ progress, status, margin, style }) {
   return (
