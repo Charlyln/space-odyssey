@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Card, LinearProgress, Stack, Typography } from '@mui/material';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
-import { fomatNumber } from '../utils/helpers/number.helper';
+import { convertMsToTime, fomatNumber } from '../utils/helpers/number.helper';
 import CustomButton from './CustomButton';
 import CustomIcon from './CustomIcon';
 import RessourcesStack from './RessourcesStack';
@@ -17,6 +17,8 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
   const disableLevel = Array.from(Array(5 - mission.level).keys());
 
   const progress = mission.progress;
+
+  const time = convertMsToTime(mission.duration);
 
   const getButton = () => {
     switch (mission.status) {
@@ -88,7 +90,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
               color='text.secondary'
               component='div'
               style={{ marginLeft: '30px' }}
-            >{`Duration: ${'00:50:00'}`}</Typography>
+            >{`Duration: ${time}`}</Typography>
           </Stack>
         );
 

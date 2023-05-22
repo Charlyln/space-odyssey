@@ -169,13 +169,15 @@ async function createTrade(ressource, price, quantity, status, type, userId) {
 
 async function createDefaultMissions(userId) {
   try {
+    const minute = 60000;
     await Promise.all(
-      missions.map(async (mission) => {
+      missions.map(async (mission, i) => {
         await Mission.create({
           id: uuidv4(),
           name: mission.name,
           type: mission.type,
           level: mission.level,
+          duration: minute * i,
           UserId: userId,
         });
       }),
@@ -361,7 +363,7 @@ async function createMission(userId) {
   }
 }
 
-async function launchMission(missionId) {
+async function launchMission(missionId, actionDate) {
   try {
     const mission = await Mission.findOne({
       where: {
@@ -369,7 +371,7 @@ async function launchMission(missionId) {
       },
     });
 
-    await mission.update({ ongoing: true, progress: 1, status: 'setup' });
+    await mission.update({ ongoing: true, progress: 0.01, status: 'setup', startTime: actionDate });
 
     return mission;
   } catch (error) {
@@ -378,11 +380,16 @@ async function launchMission(missionId) {
   }
 }
 
-async function incrementMission(value, missionId) {
+async function updateMission(percent, missionId, checkProductionDate) {
   try {
-    await Mission.increment('progress', { by: value, where: { id: missionId } });
+    const mission = await Mission.findOne({
+      where: {
+        id: missionId,
+      },
+    });
+    await mission.update({ progress: percent });
   } catch (error) {
-    logger.error('incrementMission', error);
+    logger.error('updateMission', error);
   }
 }
 
@@ -432,7 +439,7 @@ module.exports = {
   launchMission,
   comeBackMission,
   createDefaultMissions,
-  incrementMission,
+  updateMission,
   finishMission,
   retreiveMission,
 };

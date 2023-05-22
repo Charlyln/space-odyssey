@@ -46,6 +46,14 @@ const Building = sequelize.define('Building', {
   order: {
     type: DataTypes.NUMBER(),
   },
+  startTime: {
+    type: DataTypes.DATE(),
+    allowNull: true,
+  },
+  duration: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
 });
 
 module.exports = {

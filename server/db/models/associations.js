@@ -3,7 +3,6 @@ const { Ressource } = require('./ressource.model');
 const { Building } = require('./building.model');
 const { Mission } = require('./mission.model');
 const { Info } = require('./info.model');
-const { Action } = require('./action.model');
 const { Research } = require('./research.model');
 const { Spaceship } = require('./spaceship.model');
 const { State } = require('./state.model');
@@ -32,9 +31,6 @@ Mission.belongsTo(User, options);
 
 User.hasMany(Info, options);
 Info.belongsTo(User, options);
-
-User.hasMany(Action, options);
-Action.belongsTo(User, options);
 
 User.hasMany(Research, options);
 Research.belongsTo(User, options);
@@ -70,7 +66,6 @@ User.belongsTo(Planet, options);
   await Building.sync();
   await Mission.sync();
   await Info.sync();
-  await Action.sync();
   await Research.sync();
   await Spaceship.sync();
   await Planet.sync();
