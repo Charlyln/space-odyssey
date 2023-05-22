@@ -413,14 +413,39 @@ async function progressMission(percent, missionId) {
   }
 }
 
+const subtractMilliseconds = (date, milliseconds) => {
+  const result = new Date(date);
+  result.setMilliseconds(result.getMilliseconds() - milliseconds);
+  return result;
+};
+
 async function comeBackMission(missionId, actionDate) {
   try {
-    await Mission.update({ status: missionStatus.comeback, comebackTime: actionDate }, { where: { id: missionId } });
-    // const newDuration = getNewDuration(mission.startTime, mission.duration, actionDate);
-    // logger.warn('newDuration', newDuration);
-    // await mission.update({ duration: newDuration });
+    const mission = await Mission.findOne({
+      where: {
+        id: missionId,
+      },
+    });
+
+    // const duration = mission.duration;
+    // const startTime = new Date(mission.startTime).getTime();
+    // const checkProductionDate = actionDate;
+
+    // const backdate = startTime - duration;
+    // const diff = checkProductionDate - backdate;
+    // const percent = ((100 * diff) / duration - 100).toFixed(2);
+
+    // logger.warn('duration', mission.duration);
+    // logger.warn('startTime', startTime);
+    // logger.warn('checkProductionDate', checkProductionDate);
+    // logger.warn('percent', percent);
+    // const comebackTime = mission.startTime - mission.duration;
+
+    const comebackTime = subtractMilliseconds(mission.startTime, mission.duration);
+
+    await mission.update({ status: missionStatus.comeback, comebackTime }, { where: { id: missionId } });
   } catch (error) {
-    logger.error('finishMission', error);
+    logger.error('comeBackMission', error);
   }
 }
 

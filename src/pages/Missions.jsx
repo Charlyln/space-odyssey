@@ -35,12 +35,17 @@ function Missions() {
   const missions = user?.Missions.filter((mission) => {
     if (type === missionStatus.finish) {
       return mission.status === type || mission.status === missionStatus.retreived;
+    }
+    if (type === 'ongoing') {
+      return mission.status === missionStatus.comeback || mission.status === 'ongoing' || mission.status === missionStatus.launched;
     } else {
       return mission.status === type;
     }
   });
 
-  const ongoingMissions = user?.Missions.filter((mission) => mission.status === missionStatus.setup);
+  const ongoingMissions = user?.Missions.filter(
+    (mission) => mission.status === missionStatus.setup || mission.status === missionStatus.comeback,
+  );
   const finishMissions = user?.Missions.filter((mission) => mission.status === missionStatus.finish);
 
   const buttons = [
@@ -186,6 +191,8 @@ function Missions() {
       console.log(error);
     }
   };
+
+  console.log(ongoingMissions);
 
   return (
     <PageContainer>

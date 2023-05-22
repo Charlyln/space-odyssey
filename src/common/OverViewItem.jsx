@@ -38,7 +38,7 @@ export default function OverviewItem({ item, height }) {
                 <TransitionGroup>
                   {item.tasks.map((task) => (
                     <Collapse key={task.id}>
-                      {task.ongoing || task.status === missionStatus.finish ? (
+                      {task.status === missionStatus.finish ? (
                         <MissionProgress progress={task.progress} status={task.status} margin={'2px 0px'} />
                       ) : (
                         <Stack direction='row' spacing={1} alignItems='center' style={{ padding: '0px' }}>

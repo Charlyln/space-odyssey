@@ -32,7 +32,7 @@ function Overview() {
     {
       id: 'Missions',
       name: 'Missions',
-      tasks: user.Missions.filter((mission) => mission.ongoing || mission.status === missionStatus.finish ),
+      tasks: user.Missions.filter((mission) => mission.status === missionStatus.finish ),
     },
   ];
 

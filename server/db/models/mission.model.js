@@ -20,11 +20,6 @@ const Mission = sequelize.define('Mission', {
     allowNull: true,
     defaultValue: 0,
   },
-  ongoing: {
-    type: DataTypes.BOOLEAN(),
-    allowNull: true,
-    defaultValue: false,
-  },
   progress: {
     type: DataTypes.NUMBER(),
     allowNull: true,
@@ -39,12 +34,12 @@ const Mission = sequelize.define('Mission', {
     type: DataTypes.DATE(),
     allowNull: true,
   },
-  comebackTime: {
+  travelDuration: {
     type: DataTypes.DATE(),
     allowNull: true,
   },
-  duration: {
-    type: DataTypes.NUMBER(),
+  missionDuration: {
+    type: DataTypes.DATE(),
     allowNull: true,
   },
 });
