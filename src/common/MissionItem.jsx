@@ -97,6 +97,8 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
 
       case missionStatus.setup:
       case missionStatus.comeback:
+      case missionStatus.destination:
+      case missionStatus.issue:
       case missionStatus.launched:
       case missionStatus.finish:
         return (
@@ -112,7 +114,6 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
             </Stack>
           </>
         );
-
       case missionStatus.retreived:
         return (
           <Card
