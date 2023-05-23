@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Drawer, List, Divider } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Drawer, Divider } from '@mui/material';
 import CustomButton from '../common/CustomButton';
 import { pages } from './Pages';
 import ContainerList from '../common/ContainerList';

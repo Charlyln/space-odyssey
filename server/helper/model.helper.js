@@ -29,7 +29,6 @@ const userOptions = {
     },
     {
       model: Building,
-      order: [['order', 'ASC']],
       separate: true,
     },
     {
@@ -195,7 +194,7 @@ async function increaseCosts(costs) {
   try {
     await Promise.all(
       costs.map(async (cost) => {
-        await Cost.increment('value', { by: 10, where: { id: cost.id } });
+        await Cost.increment('value', { by: cost.value, where: { id: cost.id } });
       }),
     );
   } catch (error) {
@@ -296,7 +295,6 @@ async function createUserData(name, basePlanetId) {
           name: building.name,
           type: building.type,
           production: building.production,
-          order: building.order,
           UserId: user.id,
         });
       }),

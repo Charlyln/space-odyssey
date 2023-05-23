@@ -9,6 +9,14 @@ const missionStatus = {
   retreived: 'retreived',
 };
 
+const facilitiesStatus = {
+  created: 'created',
+  production: 'production',
+  setup: 'setup',
+  upgrading: 'upgrading',
+  waiting: 'waiting',
+};
+
 const actionTypes = {
   upgradeBuilding: 'upgradeBuilding',
   cancelBuilding: 'cancelBuilding',
@@ -23,4 +31,5 @@ const actionTypes = {
 module.exports = {
   missionStatus,
   actionTypes,
+  facilitiesStatus,
 };

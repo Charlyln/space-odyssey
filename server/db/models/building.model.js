@@ -18,33 +18,25 @@ const Building = sequelize.define('Building', {
     type: DataTypes.STRING(),
     allowNull: true,
   },
-  enable: {
-    type: DataTypes.BOOLEAN(),
+  output: {
+    type: DataTypes.NUMBER(),
     allowNull: true,
-    defaultValue: false,
+    defaultValue: 1000,
   },
   level: {
     type: DataTypes.NUMBER(),
     allowNull: true,
     defaultValue: 0,
   },
-  upgrading: {
-    type: DataTypes.BOOLEAN(),
+  status: {
+    type: DataTypes.STRING(),
     allowNull: true,
-    defaultValue: false,
-  },
-  waiting: {
-    type: DataTypes.BOOLEAN(),
-    allowNull: true,
-    defaultValue: false,
+    defaultValue: 'created',
   },
   progress: {
     type: DataTypes.NUMBER(),
     allowNull: true,
     defaultValue: 0,
-  },
-  order: {
-    type: DataTypes.NUMBER(),
   },
   startTime: {
     type: DataTypes.DATE(),
@@ -53,6 +45,7 @@ const Building = sequelize.define('Building', {
   duration: {
     type: DataTypes.NUMBER(),
     allowNull: true,
+    defaultValue: 20000,
   },
 });
 

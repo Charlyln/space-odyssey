@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
-import { actionTypes } from 'enums';
+import { actionTypes, facilitiesStatus } from 'enums';
 import { Typography } from '@mui/material';
 import { Context } from '../utils/AppContext';
 import { hostname, port } from '../utils/config';
@@ -13,7 +13,7 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import PageContent from '../common/PageContent';
 import CardStack from '../common/CardStack';
 import CustomIcon from '../common/CustomIcon';
-
+import { convertMsToTime } from '../utils/helpers/number.helper';
 
 function Ressources() {
   const { store, setStore } = useContext(Context);
@@ -24,6 +24,8 @@ function Ressources() {
     try {
       const body = { userId: user.id, type: actionTypes.upgradeBuilding, parameters: { buildingId: item.id } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
+
+      console.log(response.data);
 
       setStore((prevState) => {
         const newState = [...prevState.user.Buildings];
@@ -82,11 +84,15 @@ function Ressources() {
         },
         {
           key: 'Production',
-          value: '1000 / Hour',
+          value: `${element.output} / Hour`,
         },
         {
           key: 'Level',
           value: element.level,
+        },
+        {
+          key: 'Upgrading duration',
+          value: convertMsToTime(element.duration),
         },
       ];
     } catch (error) {
@@ -96,10 +102,10 @@ function Ressources() {
 
   const getFooter = (element) => {
     return (
-      <div style={{ height: '20px', textAlign: element.waiting && 'center' }}>
+      <div style={{ height: '20px', textAlign: element.status === facilitiesStatus.waiting && 'center' }}>
         {element.progress !== 0 ? (
           <CardProgress progress={element.progress} height={20} />
-        ) : element.waiting ? (
+        ) : element.status === facilitiesStatus.waiting ? (
           <>
             <ScheduleIcon style={{ color: 'orange', width: '20px', height: '20px' }} />
           </>
@@ -107,7 +113,7 @@ function Ressources() {
           <>
             <CustomIcon size={20} icon={element.production} />
 
-            {element.waiting && <ScheduleIcon style={{ color: 'orange', width: '20px', height: '20px' }} />}
+            {element.status === facilitiesStatus.waiting && <ScheduleIcon style={{ color: 'orange', width: '20px', height: '20px' }} />}
             <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px', fontFamily: 'monospace' }} color='text.secondary'>
               {`${element.level}`}
             </Typography>
@@ -123,7 +129,7 @@ function Ressources() {
     <PageContainer>
       <PageHeader
         height={'250px'}
-        imgWidth={'320px'}
+        imgWidth={'300px'}
         imageName={'ressources'}
         title={'Ressources'}
         elementSelected={elementSelected}
@@ -133,21 +139,15 @@ function Ressources() {
         costs={user.Costs}
         headerInfosTitle={`Infos:`}
         getInfos={getInfos}
-        disabledAction={find?.upgrading}
-        enableCancelAction={find?.waiting}
+        disabledAction={find?.status === facilitiesStatus.setup}
+        enableCancelAction={find?.status === facilitiesStatus.waiting}
         cancelAction={cancel}
         cancelActionName={'cancel'}
         displayButton={elementSelected}
       />
 
       <PageContent borderLess>
-        <CardStack
-          cardSize={'150px'}
-          array={user.Buildings}
-          onSelect={setElementSelected}
-          cardGetter={getFooter}
-          disabledCard={find?.upgrading}
-        />
+        <CardStack cardSize={'150px'} array={user.Buildings} onSelect={setElementSelected} cardGetter={getFooter} />
       </PageContent>
     </PageContainer>
   );
