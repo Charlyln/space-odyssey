@@ -1,27 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Drawer, Stack, Collapse, IconButton, Divider, List } from '@mui/material';
+import { Alert, Drawer, Stack, Collapse, IconButton, Divider } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
 import { History } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
 import { socket } from '../utils/socket';
 import Time from '../common/Time';
-
-const ContainerStyle = styled(List)(() => ({
-  overflow: 'auto',
-  padding: '6px',
-  '&::-webkit-scrollbar': {
-    width: 5,
-    backgroundColor: 'transparent',
-  },
-  '&::-webkit-scrollbar-track': {
-    WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.3)',
-    backgroundColor: 'transparent',
-  },
-  '&::-webkit-scrollbar-thumb': {
-    WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,.3)',
-    backgroundColor: '#555',
-  },
-}));
+import ContainerList from '../common/ContainerList';
 
 export default function Infos({ width }) {
   const [infos, setInfos] = useState([]);
@@ -65,7 +48,7 @@ export default function Infos({ width }) {
       </Stack>
 
       <Divider />
-      <ContainerStyle>
+      <ContainerList>
         <TransitionGroup>
           {infos.map((info) => (
             <Collapse key={info.id}>
@@ -81,7 +64,7 @@ export default function Infos({ width }) {
             </Collapse>
           ))}
         </TransitionGroup>
-      </ContainerStyle>
+      </ContainerList>
     </Drawer>
   );
 }

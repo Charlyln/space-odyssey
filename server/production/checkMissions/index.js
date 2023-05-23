@@ -4,12 +4,12 @@ const { checkLaunchedMissions } = require('./checkLaunchedMissions');
 const { checkDestinationMissions } = require('./checkDestinationMissions');
 const { checkComebackMissions } = require('./checkComebackMissions');
 
-async function checkMissions(user, checkProductionDate) {
-  logger.info(' 9 - Check Missions');
+async function checkMissions(user, checkDate) {
+  logger.info('Check Missions');
   await checkSetupMissions(user);
-  await checkLaunchedMissions(user, checkProductionDate);
-  await checkDestinationMissions(user, checkProductionDate);
-  await checkComebackMissions(user, checkProductionDate);
+  await checkLaunchedMissions(user, checkDate);
+  await checkDestinationMissions(user, checkDate);
+  await checkComebackMissions(user, checkDate);
 }
 
 module.exports = {

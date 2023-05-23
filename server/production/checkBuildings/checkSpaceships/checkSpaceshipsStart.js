@@ -1,11 +1,9 @@
-const logger = require('../../logger');
-const { sendInfo } = require('../../helper/model.helper');
-const { checkAvailableRessources, updateState } = require('../../helper/model.helper');
+const logger = require('../../../logger');
+const { sendInfo } = require('../../../helper/model.helper');
+const { checkAvailableRessources, updateState } = require('../../../helper/model.helper');
 
-const craftSpeed = 40;
-
-async function checkSpaceships(user, checkProductionDate) {
-  logger.info(' 7 -      Check Spaceships');
+async function checkSpaceshipsStart(user, checkDate) {
+  logger.info('      Check Start');
   try {
     const buildingSpaceships = user.Spaceships.filter((spaceship) => spaceship?.State?.building);
     const spacechipToBuild = buildingSpaceships[0];
@@ -27,22 +25,13 @@ async function checkSpaceships(user, checkProductionDate) {
           const message = `${spacechipToBuild.name} start building`;
           await sendInfo(user.id, 'info', message, 'building');
         }
-      } else if (spacechipToBuild.State.progress > 0) {
-        const newProgress = spacechipToBuild.State.progress + craftSpeed;
-        if (newProgress >= 100) {
-          await updateState({ progress: 100, building: false }, spacechipToBuild.State.id);
-          const message = `${spacechipToBuild.name} just finish building`;
-          await sendInfo(user.id, 'success', message, 'building');
-        } else {
-          await updateState({ progress: newProgress }, spacechipToBuild.State.id);
-        }
       }
     }
   } catch (error) {
-    logger.error('checkSpaceships', error);
+    logger.error('checkSpaceshipsStart', error);
   }
 }
 
 module.exports = {
-  checkSpaceships,
+  checkSpaceshipsStart,
 };

@@ -11,20 +11,20 @@ const interval = 5 * 1000;
 function startProduction() {
   (async function checkProduction() {
     logger.info('------------ Start Production ------------ ');
-    const checkProductionDate = new Date();
-    logger.info(' 1 - Get Data');
+    const checkDate = new Date();
+    logger.info('Get Data');
     const users = await getUsersData();
-    logger.info(` 2 - Data Received`);
+    logger.info(`Data Received`);
 
     await Promise.all(
       users.map(async (user) => {
-        await checkRessources(user, checkProductionDate);
-        await checkBuildings(user, checkProductionDate);
-        await checkMissions(user, checkProductionDate);
+        await checkRessources(user, checkDate);
+        await checkBuildings(user, checkDate);
+        await checkMissions(user, checkDate);
       }),
     );
 
-    logger.info('12 - Get New Data');
+    logger.info('Get New Data');
     const usersUpdated = await getUsersData();
     const time = moment().format('D MMM 2480 HH:mm');
     usersUpdated.map((user) => {
@@ -34,7 +34,7 @@ function startProduction() {
       }
     });
 
-    logger.info('13 - Send New Data');
+    logger.info('Send New Data');
     logger.info('------------ Finish Production ------------ ');
 
     setTimeout(checkProduction, interval);
