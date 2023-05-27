@@ -1,6 +1,6 @@
 const logger = require('../logger');
 
-const { startMission, comeBackMission, retreiveMission } = require('./model.helper');
+const { startMission, comeBackMission, retreiveMission } = require('../helper/model.helper');
 
 async function handleStartMission(action, actionDate) {
   try {

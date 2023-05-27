@@ -15,13 +15,15 @@ async function checkFacilitiesProgress(user, checkDate) {
       const percent = getPercentProgress(building.startTime, building.duration, checkDate);
 
       if (percent >= 100) {
+        const newLevel = building.level + 1;
+        const multiplier = newLevel * newLevel
         await updateBuilding(
           {
             progress: 0,
             status: facilitiesStatus.production,
-            level: building.level + 1,
-            duration: building.duration * 2,
-            output: building.output * 2,
+            level: newLevel,
+            duration: building.duration * multiplier,
+            output: building.output * multiplier,
           },
           building.id,
         );

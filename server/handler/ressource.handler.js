@@ -1,6 +1,6 @@
 const logger = require('../logger');
 
-const { incrementRessource, decrementMoney, createTrade } = require('./model.helper');
+const { incrementRessource, decrementMoney, createTrade } = require('../helper/model.helper');
 
 async function handleBuyRessource(action) {
   let parameters;

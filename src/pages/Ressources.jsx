@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
 import { actionTypes, facilitiesStatus } from 'enums';
-import { Typography } from '@mui/material';
+import { Typography, Stepper, Step, Chip, IconButton } from '@mui/material';
 import { Context } from '../utils/AppContext';
 import { hostname, port } from '../utils/config';
 
@@ -13,7 +13,12 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import PageContent from '../common/PageContent';
 import CardStack from '../common/CardStack';
 import CustomIcon from '../common/CustomIcon';
-import { convertMsToTime } from '../utils/helpers/number.helper';
+import { fomatNumber } from '../utils/helpers/number.helper';
+import RessourceChip from '../common/RessourceChip';
+import RessourcesStack from '../common/RessourcesStack';
+import PageHeaderCosts from '../common/PageHeaderCosts';
+import PageHeaderInfos from '../common/PageHeaderInfos';
+import ForwardIcon from '@mui/icons-material/Forward';
 import Duration from '../common/Duration';
 
 function Ressources() {
@@ -25,8 +30,6 @@ function Ressources() {
     try {
       const body = { userId: user.id, type: actionTypes.upgradeBuilding, parameters: { buildingId: item.id } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
-
-      console.log(response.data);
 
       setStore((prevState) => {
         const newState = [...prevState.user.Buildings];
@@ -85,7 +88,7 @@ function Ressources() {
         },
         {
           key: 'Production',
-          value: `${element.output} / Hour`,
+          value: `${fomatNumber(element.output)} / Hour`,
         },
         {
           key: 'Level',
@@ -122,11 +125,13 @@ function Ressources() {
 
   const find = user.Buildings.find((building) => building.id === elementSelected?.id);
 
+  console.log(elementSelected);
+
   return (
     <PageContainer>
       <PageHeader
         height={'250px'}
-        imgWidth={'300px'}
+        imgWidth={'250px'}
         imageName={'ressources'}
         title={'Ressources'}
         elementSelected={elementSelected}
@@ -142,7 +147,41 @@ function Ressources() {
         cancelActionName={'cancel'}
         displayButton={elementSelected}
       >
-        <Duration label={'Upgrade:'} duration={elementSelected?.duration} />
+        <Stepper>
+          <Step>
+            <Typography variant='button' color='text.secondary' component='div'>
+              {`Level ${elementSelected?.level}`}
+            </Typography>
+
+            <RessourceChip type={'produce'} ressource={elementSelected?.production} value={elementSelected?.output} />
+            <RessourceChip type={'consume'} ressource={elementSelected?.production} value={elementSelected?.duration} />
+          </Step>
+
+          <Step>
+            <PageHeaderCosts costs={user.Costs} element={elementSelected} />
+            <Duration size='small' label={'Upgrade'} duration={elementSelected?.duration} />
+          </Step>
+
+          <Step>
+            <Typography variant='button' color='text.secondary' component='div'>
+              {`Level ${elementSelected?.level + 1}`}
+            </Typography>
+            <div>
+              <RessourceChip type={'produce'} ressource={elementSelected?.production * 2} value={elementSelected?.output * 2} />
+              <RessourceChip type={'consume'} ressource={elementSelected?.production * 2} value={elementSelected?.duration * 2} />
+            </div>
+            {/* <PageHeaderCosts costs={user.Costs} element={elementSelected} /> */}
+          </Step>
+          {/* <Step>
+            <PageHeaderCosts costs={user.Costs} element={elementSelected} />
+          </Step> */}
+        </Stepper>
+        {/* <PageHeaderInfos title={`Level ${elementSelected?.level}`}>
+            <RessourceChip type={'produce'} ressource={elementSelected?.production} value={elementSelected?.output} />
+            <RessourceChip type={'consume'} ressource={elementSelected?.production} value={elementSelected?.duration} />
+          </PageHeaderInfos> */}
+        {/* <PageHeaderLayout>
+        </PageHeaderLayout> */}
       </PageHeader>
 
       <PageContent borderLess>
