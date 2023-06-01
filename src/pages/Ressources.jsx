@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
 import { actionTypes, facilitiesStatus } from 'enums';
-import { Typography, Stepper, Step, Chip, IconButton } from '@mui/material';
+import { Typography, Stepper, Step } from '@mui/material';
 import { Context } from '../utils/AppContext';
 import { hostname, port } from '../utils/config';
 
@@ -13,13 +13,12 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import PageContent from '../common/PageContent';
 import CardStack from '../common/CardStack';
 import CustomIcon from '../common/CustomIcon';
-import { fomatNumber } from '../utils/helpers/number.helper';
+import { formatNumber } from '../utils/helpers/number.helper';
 import RessourceChip from '../common/RessourceChip';
-import RessourcesStack from '../common/RessourcesStack';
 import PageHeaderCosts from '../common/PageHeaderCosts';
-import PageHeaderInfos from '../common/PageHeaderInfos';
-import ForwardIcon from '@mui/icons-material/Forward';
 import Duration from '../common/Duration';
+import HeaderAction from '../common/HeaderAction';
+import CustomButton from '../common/CustomButton';
 
 function Ressources() {
   const { store, setStore } = useContext(Context);
@@ -88,7 +87,7 @@ function Ressources() {
         },
         {
           key: 'Production',
-          value: `${fomatNumber(element.output)} / Hour`,
+          value: `${formatNumber(element.output)} / Hour`,
         },
         {
           key: 'Level',
@@ -125,13 +124,11 @@ function Ressources() {
 
   const find = user.Buildings.find((building) => building.id === elementSelected?.id);
 
-  console.log(elementSelected);
-
   return (
     <PageContainer>
       <PageHeader
         height={'250px'}
-        imgWidth={'250px'}
+        imgWidth={'248px'}
         imageName={'ressources'}
         title={'Ressources'}
         elementSelected={elementSelected}
@@ -170,22 +167,26 @@ function Ressources() {
               <RessourceChip type={'produce'} ressource={elementSelected?.production * 2} value={elementSelected?.output * 2} />
               <RessourceChip type={'consume'} ressource={elementSelected?.production * 2} value={elementSelected?.duration * 2} />
             </div>
-            {/* <PageHeaderCosts costs={user.Costs} element={elementSelected} /> */}
           </Step>
-          {/* <Step>
-            <PageHeaderCosts costs={user.Costs} element={elementSelected} />
-          </Step> */}
         </Stepper>
-        {/* <PageHeaderInfos title={`Level ${elementSelected?.level}`}>
-            <RessourceChip type={'produce'} ressource={elementSelected?.production} value={elementSelected?.output} />
-            <RessourceChip type={'consume'} ressource={elementSelected?.production} value={elementSelected?.duration} />
-          </PageHeaderInfos> */}
-        {/* <PageHeaderLayout>
-        </PageHeaderLayout> */}
+
+        <HeaderAction>
+          {find?.status === facilitiesStatus.waiting && (
+            <CustomButton onClick={() => cancel(elementSelected)} label={'cancel'} color={'green'} size={'medium'} />
+          )}
+
+          <CustomButton
+            onClick={() => upgrade(elementSelected)}
+            label={'upgrade'}
+            color={'green'}
+            size={'small'}
+            disabled={find?.status === facilitiesStatus.setup}
+          />
+        </HeaderAction>
       </PageHeader>
 
       <PageContent borderLess>
-        <CardStack cardSize={'150px'} array={user.Buildings} onSelect={setElementSelected} cardGetter={getFooter} />
+        <CardStack cardSize={'140px'} array={user.Buildings} onSelect={setElementSelected} cardGetter={getFooter} />
       </PageContent>
     </PageContainer>
   );

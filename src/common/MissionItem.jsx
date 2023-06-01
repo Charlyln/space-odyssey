@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Card, LinearProgress, Stack, Typography } from '@mui/material';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
-import { convertMsToTime, fomatNumber } from '../utils/helpers/number.helper';
+import { convertMsToTime, formatNumber } from '../utils/helpers/number.helper';
 import CustomButton from './CustomButton';
 import CustomIcon from './CustomIcon';
 import RessourcesStack from './RessourcesStack';
@@ -82,7 +82,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
       case missionStatus.created:
         return (
           <Stack direction='row' spacing={1} alignItems='center' style={{ padding: '6px' }}>
-            <Typography variant='subtitle1' color='text.secondary' component='div' style={{ marginLeft: '30px' }}>{`Distance: ${fomatNumber(
+            <Typography variant='subtitle1' color='text.secondary' component='div' style={{ marginLeft: '30px' }}>{`Distance: ${formatNumber(
               100000,
             )} KM`}</Typography>
 

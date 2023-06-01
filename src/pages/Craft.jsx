@@ -105,7 +105,6 @@ function Craft() {
 
   const onStart = () => {
     try {
-      console.log('send action');
     } catch (error) {
       console.log(error);
     }

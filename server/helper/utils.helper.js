@@ -1,7 +1,7 @@
 const { dangers, planetsColors } = require('../constants/modelData');
 const logger = require('../logger');
 
-function padTo2Digits(num) {
+function numTo2Digits(num) {
   return num.toString().padStart(2, '0');
 }
 
@@ -15,7 +15,7 @@ function convertMsToTime(milliseconds) {
 
   hours = hours % 24;
 
-  return `${padTo2Digits(hours)}h : ${padTo2Digits(minutes)} m : ${padTo2Digits(seconds)} s`;
+  return `${numTo2Digits(hours)}h : ${numTo2Digits(minutes)} m : ${numTo2Digits(seconds)} s`;
 }
 
 function randomIntFromInterval(min, max) {

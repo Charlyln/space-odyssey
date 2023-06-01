@@ -4,7 +4,7 @@ import { usePress } from 'react-aria';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import CustomButton from './CustomButton';
-import { fomatNumber } from '../utils/helpers/number.helper';
+import { formatNumber } from '../utils/helpers/number.helper';
 import CustomIcon from './CustomIcon';
 
 export default function TradeItem({ ressource, action, money, height }) {
@@ -19,7 +19,6 @@ export default function TradeItem({ ressource, action, money, height }) {
 
   let { pressProps } = usePress({
     onPressStart: (e) => {
-      console.log(e.target.value);
       if (e.target.value === 'moins') {
         setMoins(true);
         setCounter((prev) => {
@@ -143,7 +142,7 @@ export default function TradeItem({ ressource, action, money, height }) {
             <CustomIcon size={50} icon={'money'} style={{ marginTop: '-12px', marginLeft: '-15px' }} />
 
             <Typography variant='button' style={{ fontFamily: 'monospace', marginLeft: 'auto' }}>
-              {`${fomatNumber(ressource.price)}`}
+              {`${formatNumber(ressource.price)}`}
             </Typography>
           </Card>
         </div>
@@ -166,7 +165,7 @@ export default function TradeItem({ ressource, action, money, height }) {
           <Card variant='outlined' style={{ padding: '2px 5px', height: '30px', width: '120px', display: 'flex' }}>
             <CustomIcon size={50} icon={'money'} style={{ marginTop: '-12px', marginLeft: '-15px' }} />
             <Typography variant='button' style={{ fontFamily: 'monospace', marginLeft: 'auto' }}>
-              {price > 0 ? fomatNumber(price) : '-'}
+              {formatNumber(price)}
             </Typography>
           </Card>
         </div>

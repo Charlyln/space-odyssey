@@ -118,8 +118,6 @@ function Shipyard() {
 
   const buildingSpaceships = user.Spaceships.filter((spaceship) => spaceship?.State?.building);
 
-  console.log(elementSelected);
-
   return (
     <PageContainer>
       <PageHeader

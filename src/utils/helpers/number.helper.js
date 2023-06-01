@@ -1,9 +1,12 @@
-export const fomatNumber = (x) => {
-  if (!x) return '-';
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+export const formatNumber = (num) => {
+  if (num > 1_000_000) {
+    return (num / 1_000_000).toFixed(1) + 'M';
+  } else {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
 };
 
-export function padTo2Digits(num) {
+export function numTo2Digits(num) {
   return num.toString().padStart(2, '0');
 }
 
@@ -15,11 +18,7 @@ export function convertMsToTime(milliseconds) {
   seconds = seconds % 60;
   minutes = minutes % 60;
 
-  // 👇️ If you don't want to roll hours over, e.g. 24 to 00
-  // 👇️ comment (or remove) the line below
-  // commenting next line gets you `24:00:00` instead of `00:00:00`
-  // or `36:15:31` instead of `12:15:31`, etc.
   hours = hours % 24;
 
-  return `${padTo2Digits(hours)}h ${padTo2Digits(minutes)}m ${padTo2Digits(seconds)}s`;
+  return `${numTo2Digits(hours)}h ${numTo2Digits(minutes)}m ${numTo2Digits(seconds)}s`;
 }

@@ -118,9 +118,6 @@ function Missions() {
       const body = { userId: user.id, type: actionTypes.startMission, parameters: { missionId: mission.id } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
 
-      console.log(response.data);
-      console.log(body);
-
       // setStore((prevState) => {
       //   const newState = [...prevState.user.Buildings];
       //   const index = newState.findIndex((building) => building.id === response.data.id);
@@ -146,8 +143,6 @@ function Missions() {
     try {
       const body = { userId: user.id, type: actionTypes.retreiveMission, parameters: { missionId: mission.id } };
       const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
-
-      console.log(body);
 
       // setStore((prevState) => {
       //   const newState = [...prevState.user.Buildings];

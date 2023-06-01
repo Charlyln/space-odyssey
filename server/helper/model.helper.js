@@ -15,8 +15,6 @@ const { Planet } = require('../db/models/planet.model');
 const { Galaxy } = require('../db/models/galaxy.model');
 const { System } = require('../db/models/system.model');
 
-const { getNewDuration } = require('./utils.helper');
-
 const { ressources, buildings, costs, missions } = require('../constants/modelData');
 const { missionStatus } = require('enums');
 
