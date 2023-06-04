@@ -103,6 +103,10 @@ function generatePlanets(planetNbr, sunSize) {
 function getPercentProgress(time, duration, checkTime) {
   const diff = checkTime - time;
   const percent = ((100 * diff) / duration).toFixed(2);
+
+  if (percent >= 100) {
+    return 100;
+  }
   return percent;
 }
 

@@ -14,6 +14,7 @@ const facilitiesStatus = {
   production: 'production',
   setup: 'setup',
   upgrading: 'upgrading',
+  upgraded: 'upgraded',
   waiting: 'waiting',
 };
 

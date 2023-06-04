@@ -11,28 +11,12 @@ async function checkFacilitiesProgress(user, checkDate) {
 
     if (upgradingBuildings.length > 0) {
       const building = upgradingBuildings[0];
-
       const percent = getPercentProgress(building.startTime, building.duration, checkDate);
 
-      if (percent >= 100) {
-        const newLevel = building.level + 1;
-        const multiplier = newLevel * newLevel
-        await updateBuilding(
-          {
-            progress: 0,
-            status: facilitiesStatus.production,
-            level: newLevel,
-            duration: building.duration * multiplier,
-            output: building.output * multiplier,
-          },
-          building.id,
-        );
-        const costs = user.Costs.filter((cost) => cost.craft === building.name);
-        await increaseCosts(costs);
-        const message = `${building.name} upgraded to level ${building.level + 1}`;
-        await sendInfo(user.id, 'success', message, 'building');
-      } else {
+      if (percent < 100) {
         await updateBuilding({ progress: percent }, building.id);
+      } else if (percent >= 100) {
+        await updateBuilding({ status: facilitiesStatus.upgraded, progress: 100 }, building.id);
       }
     }
   } catch (error) {

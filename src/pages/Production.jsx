@@ -4,75 +4,43 @@ import { Context } from '../utils/AppContext';
 import PageHeader from '../common/PageHeader';
 import PageContainer from '../common/PageContainer';
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Legend } from 'recharts';
 import { colors } from '../utils/constants';
+import PageBody from '../common/PageBody';
+import { Stack } from '@mui/material';
 
-const data = [
-  {
-    name: 'Page A',
-    consumption: 4000,
-    production: 2400,
-  },
-  {
-    name: 'Page B',
-    consumption: 3000,
-    production: 1398,
-  },
-  {
-    name: 'Page C',
-    consumption: 2000,
-    production: 19800,
-  },
-  {
-    name: 'Page D',
-    consumption: 2780,
-    production: 3908,
-  },
-  {
-    name: 'Page E',
-    consumption: 1890,
-    production: 4800,
-  },
-  {
-    name: 'Page F',
-    consumption: 2390,
-    production: 3800,
-  },
-  {
-    name: 'Page G',
-    consumption: 3490,
-    production: 4300,
-  },
-];
+const header = '150px';
+const body = `calc(100vh - (110px + ${header}))`;
 
 function Production() {
-  const { store, setStore } = useContext(Context);
+  const { store } = useContext(Context);
   const { user } = store;
 
-  console.log(user.Ressources);
+  const data = user.Ressources.map((ressource) => ({
+    name: ressource.name,
+    consumption: 0,
+    production: ressource.production,
+  }));
 
   return (
     <PageContainer>
-      <PageHeader height={'150px'} imgWidth={'400px'} imageName={'production'} title={'Production'} />
+      <PageHeader height={header} imgWidth={'400px'} imageName={'ressources'} title={'Production'} />
 
-      <BarChart width={600} height={300} data={data} layout='vertical' margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-        <XAxis type='number' />
-        <YAxis type='category' dataKey='name' />
-        {/* <CartesianGrid strokeDasharray='3 3' /> */}
-        <Legend />
-        <Bar dataKey='production' fill={colors.green.primary} />
-        <Bar dataKey='consumption' fill={colors.red.primary} />
-      </BarChart>
+      <PageBody type={'body'} height={body}>
+        <Stack direction='row' alignItems='center' justifyContent='center' style={{ height: `calc(${body} - 25px)` }}>
+          <BarChart width={800} height={400} data={data} layout='vertical' margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            <XAxis type='number' />
+            <YAxis type='category' interval={0} dataKey='name' />
+            <Legend />
+            <Bar dataKey='production' fill={colors.green.primary} />
+            <Bar dataKey='consumption' fill={colors.red.primary} />
+          </BarChart>
+        </Stack>
+      </PageBody>
 
-      {/* <BarChart width={730} height={250} data={data} maxBarSize={100}>
-        <CartesianGrid strokeDasharray='3 3' />
-        <XAxis dataKey='name' />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey='uv' fill='#82ca9d' />
-        <Bar dataKey='pv' fill='#8884d8' />
-      </BarChart> */}
+      {/* <PageContent height={body}>
+       
+      </PageContent> */}
     </PageContainer>
   );
 }

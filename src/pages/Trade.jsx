@@ -27,11 +27,8 @@ function Trade() {
   const [trades, setTrades] = useState(user.Trades);
   const [tradType, setTradType] = useState('buying');
 
-
-  const tradeRessources = user.Ressources.filter(
-    (ressource) => ressource.name !== 'people' && ressource.name !== 'money' && ressource.name !== 'energy',
-  );
-  const money = user.Ressources.find((ressource) => ressource.name === 'money');
+  const tradeRessources = user.Ressources.filter((ressource) => ressource.name !== 'energy');
+  const money = user.Money;
 
   const buy = async (element) => {
     try {

@@ -15,8 +15,14 @@ const { Planet } = require('../db/models/planet.model');
 const { Galaxy } = require('../db/models/galaxy.model');
 const { System } = require('../db/models/system.model');
 
+const { Colonist } = require('../db/models/colonist.model');
+const { Money } = require('../db/models/money.model');
+
+const { faker } = require('@faker-js/faker');
+
 const { ressources, buildings, costs, missions } = require('../constants/modelData');
 const { missionStatus } = require('enums');
+const { randomIntFromInterval } = require('./utils.helper');
 
 const userOptions = {
   include: [
@@ -75,6 +81,13 @@ const userOptions = {
         },
       ],
     },
+    {
+      model: Colonist,
+      separate: true,
+    },
+    {
+      model: Money,
+    },
   ],
 };
 
@@ -108,6 +121,18 @@ async function updateRessource(data, ressourceId) {
   }
 }
 
+async function updateRessourceProduction(production, ressourceName, userId) {
+  try {
+    const ressource = await Ressource.findOne({
+      where: { name: ressourceName, UserId: userId },
+    });
+
+    await ressource.update({ production });
+  } catch (error) {
+    logger.error('updateRessource', error);
+  }
+}
+
 async function incrementRessource(value, ressourceId) {
   try {
     await Ressource.increment('value', { by: value, where: { id: ressourceId } });
@@ -126,7 +151,7 @@ async function decrementRessource(value, ressourceId) {
 
 async function decrementMoney(price, userId) {
   try {
-    await Ressource.increment('value', { by: -price, where: { UserId: userId, name: 'money' } });
+    await Money.increment('value', { by: -price, where: { UserId: userId } });
   } catch (error) {
     logger.error('decrementMoney', error);
   }
@@ -279,12 +304,31 @@ async function createUserData(name, basePlanetId) {
           type: ressource.type,
           value: ressource.value,
           production: ressource.production,
+          consumption: ressource.consumption,
           storage: ressource.storage,
           price: ressource.price,
           UserId: user.id,
         });
       }),
     );
+
+    async function createColonists() {
+      const colonistNbr = 10;
+      for (let i = 0; i < colonistNbr; i++) {
+        await Colonist.create({
+          id: uuidv4(),
+          name: faker.person.fullName(),
+          age: randomIntFromInterval(25, 50),
+          UserId: user.id,
+        });
+      }
+    }
+
+    await Money.create({
+      UserId: user.id,
+    });
+
+    await createColonists();
 
     await Promise.all(
       buildings.map(async (building) => {
@@ -478,4 +522,5 @@ module.exports = {
   finishMission,
   retreiveMission,
   destinationMission,
+  updateRessourceProduction,
 };

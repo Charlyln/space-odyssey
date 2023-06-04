@@ -145,7 +145,7 @@ export const getIcon = (name) => {
     case 'money':
       return money;
 
-    case 'people':
+    case 'colonists':
       return people;
 
     case 'spaceship':
