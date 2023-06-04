@@ -13,6 +13,9 @@ const { Planet } = require('./planet.model');
 const { System } = require('./system.model');
 const { Galaxy } = require('./galaxy.model');
 
+const { Colonist } = require('./colonist.model');
+const { Money } = require('./money.model');
+
 const options = {
   constraints: false,
   onDelete: 'CASCADE',
@@ -44,6 +47,12 @@ Cost.belongsTo(User, options);
 User.hasMany(Trade, options);
 Trade.belongsTo(User, options);
 
+User.hasMany(Colonist, options);
+Colonist.belongsTo(User, options);
+
+User.hasOne(Money, options);
+Money.belongsTo(User, options);
+
 // Others
 
 Spaceship.hasOne(State, options);
@@ -74,4 +83,6 @@ User.belongsTo(Planet, options);
   await Cost.sync();
   await Trade.sync();
   await System.sync();
+  await Colonist.sync();
+  await Money.sync();
 })();

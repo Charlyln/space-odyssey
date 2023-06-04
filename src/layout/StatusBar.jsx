@@ -27,9 +27,8 @@ const ressourceItems = [
     name: 'food',
   },
   {},
-
   {
-    name: 'people',
+    name: 'colonists',
   },
   {
     name: 'spaceship',
@@ -74,6 +73,8 @@ function StatusBar({ menuWidth, infosWidth }) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(ressources);
 
   return (
     <Stack direction='row' sx={{ width: `calc(100% - ${menuWidth + infosWidth}px)`, ml: `${menuWidth}px`, padding: '5px' }}>
