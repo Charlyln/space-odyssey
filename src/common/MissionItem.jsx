@@ -11,7 +11,7 @@ import MissionProgress from './MissionProgress';
 import PageContent from './PageContent';
 import LongPressButton from './LongPressButton';
 import LaunchingProgress from './LaunchingProgress';
-import { missionStatus } from 'enums';
+import { missionStatus } from 'enums/status';
 
 export default function MissionItem({ index, mission, launchMission, retreiveMission, comeBackMission, setElementSelected, planets }) {
   const levelArray = Array.from(Array(mission.level).keys());

@@ -1,5 +1,5 @@
 import React from 'react';
-import { facilitiesStatus } from 'enums';
+import { facilitiesStatus } from 'enums/status';
 import { Card, CardMedia, CardActionArea } from '@mui/material';
 import { getImg } from '../utils/helpers/images.helper';
 

@@ -22,7 +22,7 @@ const { Check } = require('../db/models/check.model');
 
 const { faker } = require('@faker-js/faker');
 const { ressources, buildings, costs, missions } = require('../constants/modelData');
-const { missionStatus } = require('enums');
+const { missionStatus } = require('enums/status');
 const { randomIntFromInterval } = require('./utils.helper');
 
 const userOptions = {
@@ -114,14 +114,21 @@ async function getUsersData() {
   }
 }
 
-async function getCheckDate() {
+async function updateCheckTime(checkTime) {
   try {
-    const checkDate = new Date();
     const check = await Check.findOne();
-    await check.update({ time: checkDate });
-    return checkDate;
+    await check.update({ time: checkTime });
   } catch (error) {
-    logger.error('getCheckDate', error);
+    logger.error('getcheckTime', error);
+  }
+}
+
+async function getPrevTime() {
+  try {
+    const prevTime = await Check.findOne();
+    return prevTime.time;
+  } catch (error) {
+    logger.error('getPrevTime', error);
   }
 }
 
@@ -526,5 +533,6 @@ module.exports = {
   retreiveMission,
   destinationMission,
   updateRessourceProduction,
-  getCheckDate,
+  updateCheckTime,
+  getPrevTime,
 };

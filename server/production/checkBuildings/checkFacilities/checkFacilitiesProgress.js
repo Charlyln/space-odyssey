@@ -1,17 +1,17 @@
-const { facilitiesStatus } = require('enums');
+const { facilitiesStatus } = require('enums/status');
 const { sendInfo } = require('../../../helper/model.helper');
 const { updateBuilding, increaseCosts } = require('../../../helper/model.helper');
 const { getPercentProgress } = require('../../../helper/utils.helper');
 const logger = require('../../../logger');
 
-async function checkFacilitiesProgress(user, checkDate) {
+async function checkFacilitiesProgress(user, checkTime) {
   logger.info('      Check Progress');
   try {
     const upgradingBuildings = user.Buildings.filter((building) => building.status === facilitiesStatus.upgrading);
 
     if (upgradingBuildings.length > 0) {
       const building = upgradingBuildings[0];
-      const percent = getPercentProgress(building.startTime, building.duration, checkDate);
+      const percent = getPercentProgress(building.startTime, building.duration, checkTime);
 
       if (percent < 100) {
         await updateBuilding({ progress: percent }, building.id);

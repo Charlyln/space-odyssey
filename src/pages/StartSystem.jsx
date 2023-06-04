@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../utils/AppContext';
-import { actionTypes } from 'enums';
+import { actionTypes } from 'enums/type';
 
 import PageHeader from '../common/PageHeader';
 import PageContainer from '../common/PageContainer';

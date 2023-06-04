@@ -1,6 +1,6 @@
 const logger = require('../logger');
 
-const { actionTypes } = require('enums');
+const { actionTypes } = require('enums/type');
 
 const { handleBuyRessource } = require('../handler/ressource.handler');
 const { handleCancelBuilding, handleUpgradeBuilding } = require('./building.handler');

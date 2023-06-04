@@ -1,9 +1,9 @@
-const { facilitiesStatus } = require('enums');
+const { facilitiesStatus } = require('enums/status');
 const { sendInfo } = require('../../../helper/model.helper');
 const { updateBuilding, increaseCosts, updateRessourceProduction } = require('../../../helper/model.helper');
 const logger = require('../../../logger');
 
-async function checkFacilitiesFinish(user, checkDate) {
+async function checkFacilitiesFinish(user, checkTime) {
   logger.info('      Check Finish');
   try {
     const upgradingBuildings = user.Buildings.filter((building) => building.status === facilitiesStatus.upgraded);

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
-import { actionTypes, facilitiesStatus } from 'enums';
+import { actionTypes, facilitiesStatus } from 'enums/status';
 import { Typography, Stepper, Step } from '@mui/material';
 import { Context } from '../utils/AppContext';
 import { hostname, port } from '../utils/config';

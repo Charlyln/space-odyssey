@@ -1,6 +1,6 @@
 const logger = require('../../logger');
 const { launchMission } = require('../../helper/model.helper');
-const { missionStatus } = require('enums');
+const { missionStatus } = require('enums/status');
 
 async function checkSetupMissions(user) {
   logger.info('   Check Setup');

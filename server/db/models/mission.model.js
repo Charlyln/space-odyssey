@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../sequelize');
 
-const { missionStatus } = require('../../../enums/index');
+const { missionStatus } = require('../../../enums/status');
 
 const Mission = sequelize.define('Mission', {
   id: {

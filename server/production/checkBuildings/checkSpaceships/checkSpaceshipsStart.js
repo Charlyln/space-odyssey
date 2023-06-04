@@ -2,7 +2,7 @@ const logger = require('../../../logger');
 const { sendInfo } = require('../../../helper/model.helper');
 const { checkAvailableRessources, updateState } = require('../../../helper/model.helper');
 
-async function checkSpaceshipsStart(user, checkDate) {
+async function checkSpaceshipsStart(user, checkTime) {
   logger.info('      Check Start');
   try {
     const buildingSpaceships = user.Spaceships.filter((spaceship) => spaceship?.State?.building);

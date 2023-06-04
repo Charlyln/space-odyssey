@@ -1,7 +1,7 @@
 const logger = require('../logger');
 
 const { Building } = require('../db/models/building.model');
-const { facilitiesStatus } = require('enums');
+const { facilitiesStatus } = require('enums/status');
 
 async function handleUpgradeBuilding(action) {
   try {
