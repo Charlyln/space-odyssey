@@ -1,16 +1,16 @@
-const { v4: uuidv4 } = require('uuid');
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../sequelize');
 
 const Check = sequelize.define('Check', {
   id: {
-    type: DataTypes.UUIDV4,
+    type: DataTypes.INTEGER(),
     primaryKey: true,
-    defaultValue: uuidv4(),
+    autoIncrement: true,
   },
   time: {
     type: DataTypes.DATE(),
     allowNull: true,
+    defaultValue: new Date(),
   },
 });
 

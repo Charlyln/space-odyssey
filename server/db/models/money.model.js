@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require('uuid');
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../sequelize');
 
@@ -6,9 +5,9 @@ const { startMoney } = require('../../constants/game');
 
 const Money = sequelize.define('Money', {
   id: {
-    type: DataTypes.UUIDV4,
+    type: DataTypes.INTEGER(),
     primaryKey: true,
-    defaultValue: uuidv4(),
+    autoIncrement: true,
   },
   name: {
     type: DataTypes.STRING(),
