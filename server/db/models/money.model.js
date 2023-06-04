@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../sequelize');
+
 const { startMoney } = require('../../constants/game');
 
 const Money = sequelize.define('Money', {

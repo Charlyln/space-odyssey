@@ -9,7 +9,6 @@ async function handleBuildSpaceship(action) {
     const parameters = action.parameters;
 
     const spaceship = await Spaceship.create({
-      id: uuidv4(),
       name: parameters.spaceship.name,
       type: parameters.spaceship.type,
       capacity: parameters.spaceship.capacity,
@@ -21,7 +20,6 @@ async function handleBuildSpaceship(action) {
     });
 
     const state = await State.create({
-      id: uuidv4(),
       building: true,
       SpaceshipId: spaceship.id,
     });

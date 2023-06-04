@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../sequelize');
 
@@ -5,6 +6,7 @@ const Spaceship = sequelize.define('Spaceship', {
   id: {
     type: DataTypes.UUIDV4,
     primaryKey: true,
+    defaultValue: uuidv4(),
   },
   name: {
     type: DataTypes.STRING(),
