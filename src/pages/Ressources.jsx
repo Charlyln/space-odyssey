@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
-import { actionTypes, facilitiesStatus } from 'enums/status';
+import { facilitiesStatus } from 'enums/status';
+import { actionTypes } from 'enums/type';
+
 import { Typography, Stepper, Step } from '@mui/material';
 import { Context } from '../utils/AppContext';
 import { hostname, port } from '../utils/config';
@@ -151,7 +153,7 @@ function Ressources() {
             </Typography>
 
             <RessourceChip type={'produce'} ressource={elementSelected?.production} value={elementSelected?.output} />
-            <RessourceChip type={'consume'} ressource={elementSelected?.production} value={elementSelected?.duration} />
+            <RessourceChip type={'consume'} ressource={'energy'} value={elementSelected?.consumption} />
           </Step>
 
           <Step>
@@ -164,8 +166,16 @@ function Ressources() {
               {`Level ${elementSelected?.level + 1}`}
             </Typography>
             <div>
-              <RessourceChip type={'produce'} ressource={elementSelected?.production * 2} value={elementSelected?.output * 2} />
-              <RessourceChip type={'consume'} ressource={elementSelected?.production * 2} value={elementSelected?.duration * 2} />
+              <RessourceChip
+                type={'produce'}
+                ressource={elementSelected?.production}
+                value={
+                  elementSelected?.level === 0
+                    ? elementSelected?.base
+                    : elementSelected?.base * (elementSelected?.level + 1) * (elementSelected?.level + 1)
+                }
+              />
+              <RessourceChip type={'consume'} ressource={'energy'} value={elementSelected?.consumption} />
             </div>
           </Step>
         </Stepper>

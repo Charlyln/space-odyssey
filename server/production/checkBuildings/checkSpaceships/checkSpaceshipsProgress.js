@@ -4,7 +4,7 @@ const { updateState } = require('../../../helper/model.helper');
 
 const craftSpeed = 40;
 
-async function checkSpaceshipsProgress(user, checkTime) {
+async function checkSpaceshipsProgress(user) {
   logger.info('      Check Progress');
   try {
     const buildingSpaceships = user.Spaceships.filter((spaceship) => spaceship?.State?.building);

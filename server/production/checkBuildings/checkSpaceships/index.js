@@ -2,11 +2,11 @@ const logger = require('../../../logger');
 const { checkSpaceshipsStart } = require('./checkSpaceshipsStart');
 const { checkSpaceshipsProgress } = require('./checkSpaceshipsProgress');
 
-async function checkSpaceships(user, checkTime) {
+async function checkSpaceships(user) {
   logger.info('   Check Spaceships');
 
-  await checkSpaceshipsStart(user, checkTime);
-  await checkSpaceshipsProgress(user, checkTime);
+  await checkSpaceshipsStart(user);
+  await checkSpaceshipsProgress(user);
 }
 
 module.exports = {

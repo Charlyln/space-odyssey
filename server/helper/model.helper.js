@@ -350,6 +350,7 @@ async function createUserData(name, basePlanetId) {
           name: building.name,
           type: building.type,
           production: building.production,
+          base: building.base,
           UserId: user.id,
         });
       }),
