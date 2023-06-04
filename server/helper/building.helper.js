@@ -1,6 +1,6 @@
 const logger = require('../logger');
 
-const { productionDivider } = require('enums/game');
+const { productionDivider, consumptionDivider } = require('enums/game');
 
 function getProducedRessource(time, checkTime, output) {
   try {
@@ -15,8 +15,7 @@ function getProducedRessource(time, checkTime, output) {
 
 function getConsumedRessource(prevTime, checkTime, colonistsNbr) {
   try {
-    const consumption = (checkTime - prevTime * colonistsNbr) / productionDivider;
-    logger.warn();
+    const consumption = ((checkTime - prevTime) * colonistsNbr) / consumptionDivider;
     const roundedconsumption = Math.round(consumption);
 
     return roundedconsumption;
