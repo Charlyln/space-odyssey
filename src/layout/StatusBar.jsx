@@ -1,88 +1,63 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardMedia, Typography, CardContent, Stack } from '@mui/material';
 
-import { Context } from '../utils/AppContext';
-
-import steelIcon from '../assets/ressources/steel.webp';
-import goldIcon from '../assets/ressources/gold.webp';
-import platinumIcon from '../assets/ressources/platinum2.webp';
-import crystalIcon from '../assets/ressources/crystal.webp';
-import energyIcon from '../assets/ressources/energy.webp';
-import foodIcon from '../assets/ressources/food.webp';
-
-import peopleIcon from '../assets/ressources/people.webp';
-import spaceshipIcon from '../assets/ressources/spaceship.webp';
-import cargoIcon from '../assets/ressources/cargo.webp';
-import galaxyIcon from '../assets/ressources/galaxy.webp';
-import waveIcon from '../assets/ressources/wave.webp';
-
 import { socket } from '../utils/socket';
+import { getImg } from '../utils/helper';
 
 const ressourceItems = [
   {
     name: 'steel',
-    icon: steelIcon,
     width: 60,
     height: 60,
   },
   {
     name: 'gold',
-    icon: goldIcon,
     width: 60,
     height: 60,
   },
   {
     name: 'platinum',
-    icon: platinumIcon,
     width: 60,
     height: 60,
   },
   {
     name: 'crystal',
-    icon: crystalIcon,
     width: 60,
     height: 60,
   },
   {},
   {
     name: 'energy',
-    icon: energyIcon,
     width: 60,
     height: 60,
   },
   {
     name: 'food',
-    icon: foodIcon,
     width: 60,
     height: 60,
   },
   {
     name: 'people',
-    icon: peopleIcon,
     width: 60,
     height: 60,
   },
   {
     name: 'spaceship',
-    icon: spaceshipIcon,
     width: 60,
     height: 60,
   },
   {
-    name: 'cargoIcon',
-    icon: cargoIcon,
+    name: 'cargo',
     width: 60,
     height: 60,
   },
   {
-    name: 'waveIcon',
-    icon: waveIcon,
+    name: 'wave',
     width: 60,
     height: 60,
   },
   {
-    name: 'galaxyIcon',
-    icon: galaxyIcon,
+    name: 'galaxy',
     width: 60,
     height: 60,
   },
@@ -129,7 +104,7 @@ function StatusBar({ menuWidth, infosWidth }) {
             <Card style={{ borderRadius: 0, width: 60, border: 'solid 1px grey' }} variant='outlined'>
               <CardMedia
                 sx={{ height: ressource.height, width: ressource.width, margin: 'auto' }}
-                image={ressource.icon}
+                image={getImg(ressource.name)}
                 title={ressource.name}
               />
               <CardContent style={{ padding: 0, textAlign: 'center', height: '20px', marginTop: '-4px' }}>

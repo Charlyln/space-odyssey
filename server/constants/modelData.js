@@ -56,43 +56,55 @@ const buildings = [
     type: 'production',
     enable: true,
     production: 'steel',
+    order: 1,
   },
   {
     name: 'Gold Mine',
     type: 'production',
     enable: true,
     production: 'gold',
+    order: 2,
+  },
+  {
+    name: 'Platinum Synthesizer',
+    type: 'production',
+    enable: true,
+    production: 'platinum',
+    order: 3,
   },
   {
     name: 'Crystal Synthesizer',
     type: 'production',
     enable: true,
     production: 'crystal',
+    order: 4,
   },
   {
     name: 'Solar Plant',
     type: 'production',
     enable: true,
     production: 'energy',
-  },
-  {
-    name: 'Research Center',
-    type: 'research',
-    enable: true,
-    production: 'technology',
-  },
-  {
-    name: 'Residential Sector',
-    type: 'residential',
-    enable: true,
-    production: 'residential',
+    order: 5,
   },
   {
     name: 'Biosphere Farm',
     type: 'farm',
     enable: true,
     production: 'food',
+    order: 6,
   },
+  // {
+  //   name: 'Research Center',
+  //   type: 'research',
+  //   enable: true,
+  //   production: 'technology',
+  // },
+  // {
+  //   name: 'Residential Sector',
+  //   type: 'residential',
+  //   enable: true,
+  //   production: 'residential',
+  // },
 ];
 
 const costs = [
