@@ -181,6 +181,6 @@
     }
   }
   
-  .cybr_btn:nth-of-type(2) {
-    --primary-hue: 260;
-  }
+  /* .cybr_btn:nth-of-type(1) {
+    --primary-hue: 240;
+  } */
