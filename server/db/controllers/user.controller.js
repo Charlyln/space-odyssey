@@ -3,23 +3,49 @@ const { v4: uuidv4 } = require('uuid');
 const { User } = require('../models/user.model');
 const { Ressource } = require('../models/ressource.model');
 const { Building } = require('../models/building.model');
+const { Battle } = require('../models/battle.model');
+const { Mission } = require('../models/mission.model');
+const { Info } = require('../models/info.model');
+const { Research } = require('../models/research.model');
+const { Spaceship } = require('../models/spaceship.model');
+const { Planet } = require('../models/planet.model');
+const { Galaxy } = require('../models/galaxy.model');
 
 module.exports = {
   async get_user(req, res) {
     const { id } = req.params;
-    const user = await User.findOne({
-      where: { id },
-      include: [
-        {
-          model: Ressource,
-        },
-        {
-          model: Building,
-        },
-      ],
-    });
 
     try {
+      const user = await User.findOne({
+        where: { id },
+        include: [
+          {
+            model: Ressource,
+          },
+          {
+            model: Building,
+          },
+          {
+            model: Battle,
+          },
+          {
+            model: Mission,
+          },
+          {
+            model: Info,
+          },
+          {
+            model: Research,
+          },
+          {
+            model: Spaceship,
+          },
+          {
+            model: Planet,
+          },
+        ],
+      });
+
       if (user) {
         res.status(200).send(user);
       } else {

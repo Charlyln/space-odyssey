@@ -15,7 +15,7 @@ import Login from './pages/Login';
 
 import { socket } from './utils/socket';
 
-const menuWidth = 235;
+const menuWidth = 240;
 const infosWidth = 300;
 
 export default function Layout() {
@@ -34,9 +34,15 @@ export default function Layout() {
         setStore((prevState) => ({
           ...prevState,
           user: userData.data,
+          socket,
           ressources: userData.data.Ressources,
           buildings: userData.data.Buildings,
-          socket,
+          infos: userData.data.Infos,
+          battles: userData.data.Battles,
+          missions: userData.data.Missions,
+          researchs: userData.data.Researchs,
+          spaceships: userData.data.Spaceships,
+          planets: userData.data.Planets,
         }));
 
         setLoading(false);

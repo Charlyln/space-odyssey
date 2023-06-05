@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
+import CustomButton from '../common/CustomButton';
 
 function Missions() {
   return (
     <Grid container alignItems='center' sx={{ padding: 1 }}>
-      <Button variant='outlined' >Start a mission</Button>
+      <CustomButton name={'Start a mission'} color={280} />
     </Grid>
   );
 }

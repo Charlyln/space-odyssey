@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Drawer, List, Divider } from '@mui/material';
-
+import { styled } from '@mui/material/styles';
 import CustomButton from '../common/CustomButton';
 
 const links = [
@@ -51,6 +51,22 @@ const links = [
   },
 ];
 
+const ContainerStyle = styled(List)(() => ({
+  overflow: 'auto',
+  '&::-webkit-scrollbar': {
+    width: 5,
+    backgroundColor: 'transparent',
+  },
+  '&::-webkit-scrollbar-track': {
+    WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.3)',
+    backgroundColor: 'transparent',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,.3)',
+    backgroundColor: '#555',
+  },
+}));
+
 export default function Menu({ width }) {
   let location = useLocation();
 
@@ -71,13 +87,13 @@ export default function Menu({ width }) {
         <CustomButton name={'Charly'} />
       </div>
       <Divider style={{ marginTop: '29px' }} />
-      <List>
+      <ContainerStyle>
         {links.map((link) => (
           <Link to={link.to} key={link.to}>
             <CustomButton key={link.to} name={link.name} color={location.pathname === link.to ? 185 : 240} />
           </Link>
         ))}
-      </List>
+      </ContainerStyle>
       <Divider style={{ marginTop: '15px' }} />
     </Drawer>
   );

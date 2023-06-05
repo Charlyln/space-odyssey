@@ -2,6 +2,7 @@ const { v4: uuidv4 } = require('uuid');
 const { User } = require('./db/models/user.model');
 const { Ressource } = require('./db/models/ressource.model');
 const { Building } = require('./db/models/building.model');
+const { Info } = require('./db/models/info.model');
 
 async function checkEngine() {
   const usersData = await User.findAll({
@@ -27,10 +28,22 @@ async function checkEngine() {
               building.update({ progress: updateProgress });
             } else {
               building.update({ progress: 0, upgrading: false, level: building.level + 1 });
-              global.io.emit('info', {
-                id: uuidv4(),
+
+              const infoId = uuidv4();
+
+              const infoData = {
+                id: infoId,
                 message: `${building.name} upgraded to level ${building.level} !`,
                 severity: 'success',
+              };
+
+              global.io.emit('info', {
+                ...infoData,
+              });
+
+              await Info.create({
+                ...infoData,
+                UserId: user.id,
               });
             }
           }
