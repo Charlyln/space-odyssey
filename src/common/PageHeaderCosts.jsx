@@ -3,6 +3,7 @@ import { getImg } from '../utils/helper';
 
 export default function PageHeaderCosts({ costs, elementName }) {
   const costItems = costs.filter((cost) => cost.craft === elementName);
+  costItems.sort((a, b) => new Date(b.value) - new Date(a.value));
 
   return (
     <Grid item xs={6}>

@@ -4,6 +4,7 @@ import { TransitionGroup } from 'react-transition-group';
 import { History } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { socket } from '../utils/socket';
+import Time from '../common/Time';
 
 const ContainerStyle = styled(List)(() => ({
   overflow: 'auto',
@@ -56,7 +57,8 @@ export default function Infos({ width }) {
       variant='permanent'
       anchor='right'
     >
-      <Stack direction='row' justifyContent='flex-end' alignItems='flex-end' spacing={1}>
+      <Stack direction='row' justifyContent='center' alignItems='center' spacing={1}>
+        <Time />
         <IconButton onClick={clearInfos} size='small'>
           <History />
         </IconButton>
