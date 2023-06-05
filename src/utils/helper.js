@@ -4,11 +4,11 @@ import battleShip from '../assets/spaceships/battleship.jpeg';
 import bomber from '../assets/spaceships/bomber.jpeg';
 import cargo from '../assets/spaceships/cargo.jpeg';
 import crawler from '../assets/spaceships/crawler.jpeg';
-import factory from '../assets/facilities/factory.jpeg';
-import factory2 from '../assets/facilities/factory2.jpeg';
-import farm from '../assets/facilities/farm.jpeg';
-import solar from '../assets/facilities/solar.jpeg';
-import synthesizer from '../assets/facilities/synthesizer.jpeg';
+import steelmine from '../assets/facilities/steelmine.jpeg';
+import goldmine from '../assets/facilities/goldmine.jpeg';
+import biospherefarm from '../assets/facilities/biospherefarm.jpeg';
+import solarplant from '../assets/facilities/solarplant.jpeg';
+import crystalsynthesizer from '../assets/facilities/crystalsynthesizer.jpeg';
 import platinumsynthesizer from '../assets/facilities/platinumsynthesizer.jpeg';
 import defence from '../assets/headers/defence.jpeg';
 import shipyard from '../assets/headers/shipyard.jpeg';
@@ -91,22 +91,22 @@ export const getImg = (name) => {
       return crawler;
 
     case 'Steel Mine':
-      return factory;
+      return steelmine;
 
     case 'Gold Mine':
-      return factory2;
+      return goldmine;
 
     case 'Biosphere Farm':
-      return farm;
+      return biospherefarm;
 
     case 'Crystal Synthesizer':
-      return synthesizer;
+      return crystalsynthesizer;
 
     case 'Platinum Synthesizer':
       return platinumsynthesizer;
 
     case 'Solar Plant':
-      return solar;
+      return solarplant;
 
     case 'steel':
       return steelIcon;
@@ -138,7 +138,7 @@ export const getImg = (name) => {
     case 'wave':
       return waveIcon;
 
-    case 'galaxy':
+    case 'galaxyicon':
       return galaxyIcon;
 
     default:
