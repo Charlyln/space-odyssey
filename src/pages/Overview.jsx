@@ -71,7 +71,7 @@ function Overview() {
                             <>
                               <Grid item xs={6}>
                                 <Typography sx={{ fontSize: 12 }} color='text.secondary'>
-                                  {task.name}
+                                  {`${task.name} ${task.level} => ${task.level + 1}`}
                                 </Typography>
                               </Grid>
                               <Grid item xs={6}>

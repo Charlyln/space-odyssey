@@ -30,6 +30,8 @@ async function checkSpaceships(user) {
         const newProgress = spacechipToBuild.State.progress + craftSpeed;
         if (newProgress >= 100) {
           await updateState({ progress: 100, building: false }, spacechipToBuild.State.id);
+          const message = `${spacechipToBuild.name} just finish building`;
+          await sendInfo(user.id, 'success', message);
         } else {
           await updateState({ progress: newProgress }, spacechipToBuild.State.id);
         }

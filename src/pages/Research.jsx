@@ -1,7 +1,6 @@
 import React from 'react';
 
 import PageHeader from '../common/PageHeader';
-import ResearchImg from '../assets/headers/research.jpeg';
 import PageContainer from '../common/PageContainer';
 
 function Research() {

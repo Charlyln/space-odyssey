@@ -4,7 +4,6 @@ import { TransitionGroup } from 'react-transition-group';
 import { History } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { socket } from '../utils/socket';
-import ScheduleIcon from '@mui/icons-material/Schedule';
 
 const ContainerStyle = styled(List)(() => ({
   overflow: 'auto',
