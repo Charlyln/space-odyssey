@@ -55,14 +55,14 @@ export default function PageHeader({
                 {elementSelected.name}
               </Typography>
 
-              {children}
-
               {headerInfosTitle && (
                 <PageHeaderLayout>
                   <PageHeaderInfos title={headerInfosTitle} infos={getInfos(elementSelected)} imgParams={elementSelected.production} />
                   <PageHeaderCosts costs={costs} elementName={elementSelected.name} />
                 </PageHeaderLayout>
               )}
+
+              {children}
             </>
           )}
 

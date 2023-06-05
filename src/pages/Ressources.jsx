@@ -14,6 +14,7 @@ import PageContent from '../common/PageContent';
 import CardStack from '../common/CardStack';
 import CustomIcon from '../common/CustomIcon';
 import { convertMsToTime } from '../utils/helpers/number.helper';
+import Duration from '../common/Duration';
 
 function Ressources() {
   const { store, setStore } = useContext(Context);
@@ -90,10 +91,6 @@ function Ressources() {
           key: 'Level',
           value: element.level,
         },
-        {
-          key: 'Upgrading duration',
-          value: convertMsToTime(element.duration),
-        },
       ];
     } catch (error) {
       console.log(error);
@@ -144,7 +141,9 @@ function Ressources() {
         cancelAction={cancel}
         cancelActionName={'cancel'}
         displayButton={elementSelected}
-      />
+      >
+        <Duration label={'Upgrade:'} duration={elementSelected?.duration} />
+      </PageHeader>
 
       <PageContent borderLess>
         <CardStack cardSize={'150px'} array={user.Buildings} onSelect={setElementSelected} cardGetter={getFooter} />

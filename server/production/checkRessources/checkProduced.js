@@ -1,23 +1,36 @@
-const { incrementRessource } = require('../../helper/model.helper');
 const logger = require('../../logger');
 
+const { facilitiesStatus } = require('enums');
+const { getProducedRessource } = require('../../helper/building.helper');
+const { updateBuilding, incrementRessource } = require('../../helper/model.helper');
+
 async function checkProduced(user, checkDate) {
-  logger.info('   Check Produced');
+  logger.info('      Check Produced');
+  try {
+    const productionBuildings = user.Buildings.filter((building) => building.status === facilitiesStatus.production);
 
-  await Promise.all(
-    user.Buildings.map(async (building) => {
-      if (building.level > 0) {
-        const production = building.level;
-        const ressource = user.Ressources.find((ressource) => {
-          return building.production === ressource.name;
-        });
+    if (productionBuildings.length > 0) {
+      await Promise.all(
+        productionBuildings.map(async (building) => {
+          if (building.level > 0) {
+            const ressource = user.Ressources.find((ressource) => {
+              return building.production === ressource.name;
+            });
 
-        if (ressource) {
-          await incrementRessource(production, ressource.id);
-        }
-      }
-    }),
-  );
+            const produced = getProducedRessource(building.startTime, checkDate, building.output);
+
+            await updateBuilding({ startTime: checkDate }, building.id);
+
+            if (ressource && produced > 0) {
+              await incrementRessource(produced, ressource.id);
+            }
+          }
+        }),
+      );
+    }
+  } catch (error) {
+    logger.error('checkFacilitiesStart', error);
+  }
 }
 
 module.exports = {

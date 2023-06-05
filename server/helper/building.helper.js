@@ -36,7 +36,25 @@ async function handleCancelBuilding(action) {
   }
 }
 
+function getProducedRessource(time, checkTime, output) {
+  try {
+    const diff = (checkTime - time) / 1000;
+    const produced = (diff / 1000) * output;
+    const rounded = Math.round(produced);
+
+    logger.warn('diff', diff);
+    logger.warn('output', output);
+    logger.warn('produce', produced);
+    logger.warn('rounded', Math.round(produced));
+
+    return rounded;
+  } catch (error) {
+    logger.error('getProducedRessource');
+  }
+}
+
 module.exports = {
   handleUpgradeBuilding,
   handleCancelBuilding,
+  getProducedRessource,
 };

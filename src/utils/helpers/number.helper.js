@@ -21,5 +21,5 @@ export function convertMsToTime(milliseconds) {
   // or `36:15:31` instead of `12:15:31`, etc.
   hours = hours % 24;
 
-  return `${padTo2Digits(hours)}h : ${padTo2Digits(minutes)} m : ${padTo2Digits(seconds)} s`;
+  return `${padTo2Digits(hours)}h ${padTo2Digits(minutes)}m ${padTo2Digits(seconds)}s`;
 }
