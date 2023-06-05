@@ -1,8 +1,9 @@
 const path = require('path');
-
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
+const { Server } = require('socket.io');
+
 const db = require('./db');
 const sequelize = require('./sequelize');
 const { PORT } = require('./config');
@@ -17,6 +18,12 @@ const app = express();
 
 const server = http.createServer(app);
 
+global.io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+  },
+});
+
 (async () => {
   await db.connect();
   await sequelize.connect();
@@ -25,6 +32,10 @@ const server = http.createServer(app);
 
 app.get('/v1', function (req, res) {
   res.status(200).send('Space Odyssey API');
+});
+
+global.io.on('connection', (socket) => {
+  socket.on('disconnect', () => {});
 });
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));

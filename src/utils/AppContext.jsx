@@ -7,6 +7,8 @@ export default function AppContext({ children }) {
     user: [],
     ressources: [],
     buildings: [],
+    socket: null,
+    infos: [],
   });
 
   return <Context.Provider value={{ store, setStore }}>{children}</Context.Provider>;

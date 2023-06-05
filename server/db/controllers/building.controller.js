@@ -1,6 +1,7 @@
 const { User } = require('../models/user.model');
 const { Ressource } = require('../models/ressource.model');
 const { Building } = require('../models/building.model');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
   async update_building(req, res) {
@@ -31,6 +32,12 @@ module.exports = {
     );
 
     building.update({ upgrading: true });
+
+    global.io.emit('info', {
+      id: uuidv4(),
+      message: `${building.name} start upgrade`,
+      severity: 'info',
+    });
 
     try {
       res.status(200).send(building);

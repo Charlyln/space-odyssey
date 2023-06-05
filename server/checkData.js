@@ -1,5 +1,5 @@
 const logger = require('./logger');
-
+const { v4: uuidv4 } = require('uuid');
 const { User } = require('./db/models/user.model');
 const { Ressource } = require('./db/models/ressource.model');
 const { Building } = require('./db/models/building.model');
@@ -28,6 +28,11 @@ async function checkEngine() {
               building.update({ progress: updateProgress });
             } else {
               building.update({ progress: 0, upgrading: false, level: building.level + 1 });
+              global.io.emit('info', {
+                id: uuidv4(),
+                message: `${building.name} upgraded to level ${building.level} !`,
+                severity: 'success',
+              });
             }
           }
 
