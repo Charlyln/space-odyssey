@@ -100,6 +100,23 @@ async function createMission(userId) {
   }
 }
 
+async function launchMission(missionId) {
+  try {
+    const mission = await Mission.findOne({
+      where: {
+        id: missionId,
+      },
+    });
+
+    await mission.update({ ongoing: true, progress: 1, status: 'setup' });
+
+    return mission;
+  } catch (error) {
+    logger.error('createmission', error);
+    throw new Error('Create mission Error');
+  }
+}
+
 async function createDefaultMissions(userId) {
   try {
     await Promise.all(
@@ -421,5 +438,6 @@ module.exports = {
   sendInfo,
   getServerData,
   createMission,
+  launchMission,
   createDefaultMissions,
 };

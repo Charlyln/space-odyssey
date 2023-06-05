@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import React from 'react';
-import { getIcon } from '../utils/helpers/icons.helper';
+import CustomIcon from './CustomIcon';
 
 export default function PlanetOrbit({ planet, name, scale, selectedItem, displayOrbit, displayName, basePlanet }) {
   const { size, orbit, speed, color } = planet;
@@ -70,19 +70,7 @@ export default function PlanetOrbit({ planet, name, scale, selectedItem, display
             positon: 'relative',
           }}
         >
-          {isBasePlanet && (
-            <img
-              style={{
-                width: '30px',
-                height: '30px',
-                position: 'absolute',
-                top: '-25px',
-                right: '-10px',
-              }}
-              src={getIcon('basePlanet')}
-              alt={'basePlanet'}
-            />
-          )}
+          {isBasePlanet && <CustomIcon size={25} icon={'basePlanet'} style={{ position: 'absolute', top: '-25px', right: '-10px' }} />}
         </div>
       </div>
     </>

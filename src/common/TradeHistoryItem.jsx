@@ -7,6 +7,7 @@ import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import CustomIcon from './CustomIcon';
 
 export default function TradeHistoryItem({ trade }) {
   return (
@@ -28,7 +29,7 @@ export default function TradeHistoryItem({ trade }) {
 
         <span style={{ opacity: '0.3' }}>{`${moment(trade.createdAt).format('D MMM YYYY HH:mm')} - `}</span>
 
-        <img style={{ width: '25px', height: '25px' }} src={getIcon(trade.ressource)} alt={trade.ressource} />
+        <CustomIcon size={25} icon={trade.ressource} />
         <Typography style={{ fontFamily: 'monospace', width: '20%' }}>{`${trade.ressource}`}</Typography>
 
         <div style={{ marginLeft: 'auto' }}>
@@ -39,7 +40,8 @@ export default function TradeHistoryItem({ trade }) {
 
         <div style={{ height: '30px' }}>
           <Card variant='outlined' style={{ padding: '2px 5px', height: '30px', width: '120px', display: 'flex' }}>
-            <img style={{ width: '50px', height: '50px', marginTop: '-12px', marginLeft: '-15px' }} src={getIcon('money')} alt={'money'} />
+            <CustomIcon size={50} icon={'money'} style={{ marginTop: '-12px', marginLeft: '-15px' }} />
+
             <Typography variant='button' style={{ fontFamily: 'monospace', marginLeft: 'auto' }}>
               {fomatNumber(trade.price)}
             </Typography>

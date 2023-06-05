@@ -6,6 +6,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import CustomButton from './CustomButton';
 import { fomatNumber } from '../utils/helpers/number.helper';
+import CustomIcon from './CustomIcon';
 
 export default function TradeItem({ ressource, action, money }) {
   const [counter, setCounter] = useState(0);
@@ -133,12 +134,14 @@ export default function TradeItem({ ressource, action, money }) {
   return (
     <Card variant='outlined' style={{ padding: '5px 5px', margin: '5px 0', backgroundColor: 'unset' }}>
       <Stack direction='row' spacing={1} justifyContent='center' alignItems='center'>
-        <img style={{ width: '25px', height: '25px' }} src={getIcon(ressource.name)} alt={ressource.name} />
+        <CustomIcon size={25} icon={ressource.name} />
+
         <Typography style={{ fontFamily: 'monospace', width: '20%' }}>{`${ressource.name}`}</Typography>
 
         <div style={{ height: '30px' }}>
           <Card variant='outlined' style={{ padding: '2px 5px', height: '30px', width: '120px', display: 'flex' }}>
-            <img style={{ width: '50px', height: '50px', marginTop: '-12px', marginLeft: '-15px' }} src={getIcon('money')} alt={'money'} />
+            <CustomIcon size={50} icon={'money'} style={{ marginTop: '-12px', marginLeft: '-15px' }} />
+
             <Typography variant='button' style={{ fontFamily: 'monospace', marginLeft: 'auto' }}>
               {`${fomatNumber(ressource.price)}`}
             </Typography>
@@ -161,7 +164,7 @@ export default function TradeItem({ ressource, action, money }) {
 
         <div style={{ height: '30px' }}>
           <Card variant='outlined' style={{ padding: '2px 5px', height: '30px', width: '120px', display: 'flex' }}>
-            <img style={{ width: '50px', height: '50px', marginTop: '-12px', marginLeft: '-15px' }} src={getIcon('money')} alt={'money'} />
+            <CustomIcon size={50} icon={'money'} style={{ marginTop: '-12px', marginLeft: '-15px' }} />
             <Typography variant='button' style={{ fontFamily: 'monospace', marginLeft: 'auto' }}>
               {price > 0 ? fomatNumber(price) : '-'}
             </Typography>

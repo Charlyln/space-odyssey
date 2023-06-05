@@ -1,5 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 import { getImg } from '../utils/helpers/images.helper';
+import CustomIcon from './CustomIcon';
 
 export default function PageHeaderInfos({ title, infos, imgParams }) {
   return (
@@ -14,7 +15,7 @@ export default function PageHeaderInfos({ title, infos, imgParams }) {
         </Typography>
       ))}
 
-      {imgParams && <img style={{ width: '40px', height: '40px', marginTop: '10px' }} src={getImg(imgParams)} alt={imgParams} />}
+      {imgParams && <CustomIcon size={25} icon={imgParams} />}
     </Grid>
   );
 }
