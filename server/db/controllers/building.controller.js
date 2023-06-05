@@ -1,3 +1,5 @@
+const { User } = require('../models/user.model');
+const { Ressource } = require('../models/ressource.model');
 const { Building } = require('../models/building.model');
 
 module.exports = {
@@ -8,9 +10,27 @@ module.exports = {
       where: { id },
     });
 
-    building.update({ upgrading: true });
+    const user = await User.findOne({
+      where: { id: building.UserId },
+      include: [
+        {
+          model: Ressource,
+        },
+        {
+          model: Building,
+        },
+      ],
+    });
 
-    console.log(building);
+    await Promise.all(
+      user.Ressources.map(async (ressource) => {
+        if (ressource.name !== 'people') {
+          ressource.update({ value: ressource.value - 30 * building.level });
+        }
+      }),
+    );
+
+    building.update({ upgrading: true });
 
     try {
       res.status(200).send(building);
