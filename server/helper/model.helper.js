@@ -18,8 +18,9 @@ const { System } = require('../db/models/system.model');
 const { Colonist } = require('../db/models/colonist.model');
 const { Money } = require('../db/models/money.model');
 
-const { faker } = require('@faker-js/faker');
+const { Check } = require('../db/models/check.model');
 
+const { faker } = require('@faker-js/faker');
 const { ressources, buildings, costs, missions } = require('../constants/modelData');
 const { missionStatus } = require('enums');
 const { randomIntFromInterval } = require('./utils.helper');
@@ -110,6 +111,17 @@ async function getUsersData() {
     return users;
   } catch (error) {
     logger.error('getUsersData', error);
+  }
+}
+
+async function getCheckDate() {
+  try {
+    const checkDate = new Date();
+    const check = await Check.findOne();
+    await check.update({ time: checkDate });
+    return checkDate;
+  } catch (error) {
+    logger.error('getCheckDate', error);
   }
 }
 
@@ -514,4 +526,5 @@ module.exports = {
   retreiveMission,
   destinationMission,
   updateRessourceProduction,
+  getCheckDate,
 };

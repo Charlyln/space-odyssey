@@ -1,12 +1,11 @@
-const { v4: uuidv4 } = require('uuid');
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../sequelize');
 
 const Action = sequelize.define('Action', {
   id: {
-    type: DataTypes.UUIDV4,
+    type: DataTypes.INTEGER(),
     primaryKey: true,
-    defaultValue: uuidv4(),
+    autoIncrement: true,
   },
   type: {
     type: DataTypes.STRING(),

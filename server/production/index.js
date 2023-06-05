@@ -1,6 +1,6 @@
 const moment = require('moment');
 const logger = require('../logger');
-const { getUsersData } = require('../helper/model.helper');
+const { getUsersData, getCheckDate } = require('../helper/model.helper');
 
 const { checkRessources } = require('./checkRessources');
 const { checkBuildings } = require('./checkBuildings');
@@ -11,10 +11,12 @@ const interval = 5 * 1000;
 function startProduction() {
   (async function checkProduction() {
     logger.info('------------ Start Production ------------ ');
-    const checkDate = new Date();
+    logger.info('Get Time');
+    const checkDate = await getCheckDate();
+
     logger.info('Get Data');
     const users = await getUsersData();
-    logger.info(`Data Received`);
+    logger.info('Data Received');
 
     await Promise.all(
       users.map(async (user) => {

@@ -1,5 +1,4 @@
 const logger = require('./logger');
-const { v4: uuidv4 } = require('uuid');
 
 const { Planet } = require('./db/models/planet.model');
 const { System } = require('./db/models/system.model');
@@ -7,13 +6,16 @@ const { Galaxy } = require('./db/models/galaxy.model');
 
 const { solar_system_planets, alpha_centauri_systems } = require('./constants/modelData');
 const { generateSystems, generatePlanets, randomIntFromInterval } = require('./helper/utils.helper');
+const { Check } = require('./db/models/check.model');
 
 async function createInitData() {
   try {
-    const milky_way = await Galaxy.findAll();
+    const checkTime = await Check.findOne();
 
-    if (!milky_way || milky_way?.length === 0) {
+    if (!checkTime) {
       logger.info('Need to create init data');
+
+      await Check.create();
 
       const milky_way = await Galaxy.create({
         name: 'Milky Way',

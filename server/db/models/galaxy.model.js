@@ -1,12 +1,11 @@
-const { v4: uuidv4 } = require('uuid');
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../sequelize');
 
 const Galaxy = sequelize.define('Galaxy', {
   id: {
-    type: DataTypes.UUIDV4,
+    type: DataTypes.INTEGER(),
     primaryKey: true,
-    defaultValue: uuidv4(),
+    autoIncrement: true,
   },
   name: {
     type: DataTypes.STRING(),

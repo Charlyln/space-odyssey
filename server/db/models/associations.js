@@ -1,4 +1,7 @@
 const { User } = require('./user.model');
+
+const { Check } = require('./check.model');
+
 const { Ressource } = require('./ressource.model');
 const { Building } = require('./building.model');
 const { Mission } = require('./mission.model');
@@ -85,4 +88,5 @@ User.belongsTo(Planet, options);
   await System.sync();
   await Colonist.sync();
   await Money.sync();
+  await Check.sync();
 })();
