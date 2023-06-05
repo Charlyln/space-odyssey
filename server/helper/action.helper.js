@@ -1,5 +1,7 @@
 const logger = require('../logger');
 
+const { actionTypes } = require('../../enums');
+
 const { handleCancelBuilding, handleUpgradeBuilding } = require('./building.helper');
 const { handleBuildSpaceship, handleDeleteSpaceship } = require('./spaceship.helper');
 const { handleStartMission, handleComeBackMission, handleRetreiveMission } = require('./mission.helper');
@@ -11,35 +13,35 @@ async function handleActions(action) {
     const actionDate = new Date().getTime();
 
     switch (action.type) {
-      case 'UpgradeBuilding':
+      case actionTypes.upgradeBuilding:
         response = await handleUpgradeBuilding(action, actionDate);
         return response;
 
-      case 'CancelBuilding':
+      case actionTypes.cancelBuilding:
         response = await handleCancelBuilding(action, actionDate);
         return response;
 
-      case 'BuildSpaceship':
+      case actionTypes.buildSpaceship:
         response = await handleBuildSpaceship(action, actionDate);
         return response;
 
-      case 'DeleteSpaceship':
+      case actionTypes.deleteSpaceship:
         response = await handleDeleteSpaceship(action, actionDate);
         return response;
 
-      case 'BuyRessource':
+      case actionTypes.buyRessource:
         response = await handleBuyRessource(action, actionDate);
         return response;
 
-      case 'StartMission':
+      case actionTypes.startMission:
         response = await handleStartMission(action, actionDate);
         return response;
 
-      case 'ComeBackMission':
+      case actionTypes.comeBackMission:
         response = await handleComeBackMission(action, actionDate);
         return response;
 
-      case 'RetreiveMission':
+      case actionTypes.retreiveMission:
         response = await handleRetreiveMission(action, actionDate);
         return response;
 

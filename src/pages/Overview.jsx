@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Grid } from '@mui/material';
-import { missionStatus } from 'enums/status';
+import { missionStatus } from 'enums';
 
 import { Context } from '../utils/AppContext';
 import PageHeader from '../common/PageHeader';

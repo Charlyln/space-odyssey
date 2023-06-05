@@ -18,7 +18,7 @@ const { System } = require('../db/models/system.model');
 const { getNewDuration } = require('./utlis.helper');
 
 const { ressources, buildings, costs, missions } = require('../constants/modelData');
-const { missionStatus } = require('enums/status');
+const { missionStatus } = require('enums');
 
 const userOptions = {
   include: [

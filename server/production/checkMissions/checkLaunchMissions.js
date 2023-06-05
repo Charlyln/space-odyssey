@@ -1,7 +1,7 @@
 const logger = require('../../logger');
 const { progressMission } = require('../../helper/model.helper');
 const { getPercentProgress } = require('../../helper/utlis.helper');
-const { missionStatus } = require('enums/status');
+const { missionStatus } = require('enums');
 
 async function checkLaunchMissions(user, checkProductionDate) {
   logger.info('10 -      Check Launch');

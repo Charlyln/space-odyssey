@@ -15,7 +15,7 @@ import { TransitionGroup } from 'react-transition-group';
 import moment from 'moment';
 import { styled } from '@mui/material/styles';
 import MissionProgress from './MissionProgress';
-import { missionStatus } from 'enums/status';
+import { missionStatus } from 'enums';
 
 export default function OverviewItem({ item, height }) {
   return (

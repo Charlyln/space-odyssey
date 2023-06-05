@@ -1,7 +1,7 @@
 const logger = require('../../logger');
 const { progressMission, finishMission } = require('../../helper/model.helper');
 const { getPercentProgress } = require('../../helper/utlis.helper');
-const { missionStatus } = require('enums/status');
+const { missionStatus } = require('enums');
 
 async function checkOngoingMissions(user, checkProductionDate) {
   logger.info('11 -      Check Ongoing');

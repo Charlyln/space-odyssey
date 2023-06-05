@@ -1,4 +1,4 @@
-import { missionStatus } from 'enums/status';
+import { missionStatus } from 'enums';
 import React from 'react';
 import MissionItem from './MissionItem';
 
