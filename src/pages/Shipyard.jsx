@@ -24,7 +24,7 @@ function Shipyard() {
     const filter = user.Spaceships.filter((spaceshipItem) => !spaceshipItem.State.building && spaceshipItem.name === spaceshipName);
 
     return (
-      <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px' }} color='text.secondary'>
+      <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px', fontFamily: 'monospace' }} color='text.secondary'>
         {filter.length}
       </Typography>
     );
@@ -127,7 +127,7 @@ function Shipyard() {
         action={build}
         actionName={'build'}
         costs={costs}
-        headerInfosTitle={`Stats`}
+        headerInfosTitle={`Stats:`}
         getInfos={getInfos}
       />
 

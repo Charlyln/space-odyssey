@@ -16,7 +16,9 @@ export default function PageHeaderCosts({ costs, elementName }) {
             <Card variant='outlined' sx={{ height: '70px', width: '50px', borderRadius: 0 }}>
               <CardMedia sx={{ height: '50px', width: '50px', margin: 'auto' }} image={getImg(costItem.ressource)} title={'steel'} />
               <CardContent style={{ padding: 0, textAlign: 'center', marginTop: '-5px' }}>
-                <Typography variant='caption'>{costItem.value}</Typography>
+                <Typography variant='caption' style={{ fontFamily: 'monospace', fontSize: 'initial' }}>
+                  {costItem.value}
+                </Typography>
               </CardContent>
             </Card>
           </div>

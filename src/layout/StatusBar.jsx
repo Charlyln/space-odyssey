@@ -84,7 +84,6 @@ function StatusBar({ menuWidth, infosWidth }) {
 
   useEffect(() => {
     function onRessourcesEvent(data) {
-
       setRessources(data.ressources);
       setTime(data.time);
     }
@@ -140,7 +139,7 @@ function StatusBar({ menuWidth, infosWidth }) {
                 title={ressource.name}
               />
               <CardContent style={{ padding: 0, textAlign: 'center', height: '20px', marginTop: '-4px' }}>
-                <Typography variant='caption'>{getRessourceValue(ressource.name)}</Typography>
+                <Typography style={{ fontFamily: 'monospace', fontSize: 'initial' }}>{getRessourceValue(ressource.name)}</Typography>
               </CardContent>
             </Card>
           </div>

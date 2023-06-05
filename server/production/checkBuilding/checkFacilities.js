@@ -21,7 +21,7 @@ async function checkFacilities(user) {
             if (!building.waiting) {
               await updateBuilding({ waiting: true }, building.id);
 
-              const message = `Wait for ressources until build ${building.name} !`;
+              const message = `Wait for ressources until build ${building.name}`;
               await sendInfo(user.id, 'warning', message);
             } else {
               // wait until ressources
@@ -40,7 +40,7 @@ async function checkFacilities(user) {
             await updateBuilding({ progress: updateProgress }, building.id);
           } else {
             await updateBuilding({ progress: 0, upgrading: false, level: building.level + 1 }, building.id);
-            const message = `${building.name} upgraded to level ${building.level + 1} !`;
+            const message = `${building.name} upgraded to level ${building.level + 1}`;
             await sendInfo(user.id, 'success', message);
           }
         }
