@@ -1,10 +1,10 @@
 const logger = require('../../logger');
 
-const { facilitiesStatus } = require('enums');
+const { facilitiesStatus } = require('enums/status');
 const { getProducedRessource } = require('../../helper/building.helper');
-const { updateBuilding, incrementRessource } = require('../../helper/model.helper');
+const { incrementRessource } = require('../../helper/model.helper');
 
-async function checkProduced(user, checkDate) {
+async function checkProduced(user, prevTime, checkTime) {
   logger.info('      Check Produced');
   try {
     const productionBuildings = user.Buildings.filter((building) => building.status === facilitiesStatus.production);
@@ -16,10 +16,7 @@ async function checkProduced(user, checkDate) {
             const ressource = user.Ressources.find((ressource) => {
               return building.production === ressource.name;
             });
-
-            const produced = getProducedRessource(building.startTime, checkDate, building.output);
-
-            await updateBuilding({ startTime: checkDate }, building.id);
+            const produced = getProducedRessource(prevTime, checkTime, building.output);
 
             if (ressource && produced > 0) {
               await incrementRessource(produced, ressource.id);
