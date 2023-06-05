@@ -3,13 +3,18 @@ import { Card, CardMedia, Typography, CardContent, Stack } from '@mui/material';
 
 import { Context } from '../utils/AppContext';
 
-import steelIcon from '../assets/ressources/steel.png';
-import goldIcon from '../assets/ressources/gold.png';
-import peopleIcon from '../assets/ressources/people.png';
-import spaceshipIcon from '../assets/ressources/spaceship.png';
-import CrystalIcon from '../assets/ressources/crystal.png';
-import energyIcon from '../assets/ressources/energy.png';
-import foodIcon from '../assets/ressources/food.png';
+import steelIcon from '../assets/ressources/steel.webp';
+import goldIcon from '../assets/ressources/gold.webp';
+import platinumIcon from '../assets/ressources/platinum2.webp';
+import crystalIcon from '../assets/ressources/crystal.webp';
+import energyIcon from '../assets/ressources/energy.webp';
+import foodIcon from '../assets/ressources/food.webp';
+
+import peopleIcon from '../assets/ressources/people.webp';
+import spaceshipIcon from '../assets/ressources/spaceship.webp';
+import cargoIcon from '../assets/ressources/cargo.webp';
+import galaxyIcon from '../assets/ressources/galaxy.webp';
+import waveIcon from '../assets/ressources/wave.webp';
 
 const ressourceItems = [
   {
@@ -25,8 +30,14 @@ const ressourceItems = [
     height: 60,
   },
   {
+    name: 'platinum',
+    icon: platinumIcon,
+    width: 60,
+    height: 60,
+  },
+  {
     name: 'crystal',
-    icon: CrystalIcon,
+    icon: crystalIcon,
     width: 60,
     height: 60,
   },
@@ -46,15 +57,33 @@ const ressourceItems = [
   {
     name: 'people',
     icon: peopleIcon,
-    width: 45,
-    height: 45,
+    width: 60,
+    height: 60,
   },
-  // {
-  //   name: 'spaceship',
-  //   icon: spaceshipIcon,
-  //   width: 45,
-  //   height: 45,
-  // },
+  {
+    name: 'spaceship',
+    icon: spaceshipIcon,
+    width: 60,
+    height: 60,
+  },
+  {
+    name: 'cargoIcon',
+    icon: cargoIcon,
+    width: 60,
+    height: 60,
+  },
+  {
+    name: 'waveIcon',
+    icon: waveIcon,
+    width: 60,
+    height: 60,
+  },
+  {
+    name: 'galaxyIcon',
+    icon: galaxyIcon,
+    width: 60,
+    height: 60,
+  },
 ];
 
 function StatusBar({ menuWidth, infosWidth }) {
@@ -65,39 +94,38 @@ function StatusBar({ menuWidth, infosWidth }) {
   const getRessourceValue = (ressourceName) => {
     try {
       const ressource = user.Ressources.find((ressource) => ressource.name === ressourceName);
-      return ressource.value;
+      if (ressource) {
+        return ressource.value;
+      } else {
+        return '-';
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    // <Grid container sx={{ width: `calc(100% - ${menuWidth + infosWidth}px)`, ml: `${menuWidth}px`, padding: '5px' }}>
     <Stack direction='row' sx={{ width: `calc(100% - ${menuWidth + infosWidth}px)`, ml: `${menuWidth}px`, padding: '5px' }}>
       {ressourceItems.map((ressource, i) => {
         if (!ressource.name) {
           return <div key={i} style={{ width: 60 }}></div>;
         }
         return (
-          <Card
-            sx={{ margin: '2px', marginLeft: i === 6 ? 'auto' : 'unset' }}
-            style={{ borderRadius: 0, width: 60 }}
-            variant='outlined'
-            key={ressource.name}
-          >
-            <CardMedia
-              sx={{ height: ressource.height, width: ressource.width, margin: 'auto', marginTop: i > 5 ? '10px' : 'unset' }}
-              image={ressource.icon}
-              title={ressource.name}
-            />
-            <CardContent style={{ padding: 0, textAlign: 'center', height: '20px', marginTop: '-4px' }}>
-              <Typography variant='caption'>{getRessourceValue(ressource.name)}</Typography>
-            </CardContent>
-          </Card>
+          <div key={ressource.name} style={{ marginLeft: i === 7 ? 'auto' : 'unset', padding: '0px 2px' }}>
+            <Card style={{ borderRadius: 0, width: 60, border: 'solid 1px grey' }} variant='outlined'>
+              <CardMedia
+                sx={{ height: ressource.height, width: ressource.width, margin: 'auto' }}
+                image={ressource.icon}
+                title={ressource.name}
+              />
+              <CardContent style={{ padding: 0, textAlign: 'center', height: '20px', marginTop: '-4px' }}>
+                <Typography variant='caption'>{getRessourceValue(ressource.name)}</Typography>
+              </CardContent>
+            </Card>
+          </div>
         );
       })}
     </Stack>
-    // </Grid>
   );
 }
 
