@@ -30,12 +30,27 @@ global.io = new Server(server, {
   await startCheck();
 })();
 
+global.socketIds = {};
+
 app.get('/v1', function (req, res) {
   res.status(200).send('Space Odyssey API');
 });
 
 global.io.on('connection', (socket) => {
-  socket.on('disconnect', () => {});
+  socket.on('register', (data) => {
+    if (data) {
+      global.socketIds[data] = socket.id;
+    }
+  });
+
+  socket.on('disconnect', () => {
+    for (const [key, value] of Object.entries(global.socketIds)) {
+      if (value === socket.id) {
+        delete global.socketIds[key];
+        break;
+      }
+    }
+  });
 });
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));

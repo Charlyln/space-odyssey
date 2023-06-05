@@ -19,13 +19,13 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 function Overview() {
   const {
-    store: { buildings },
+    store: { user },
   } = useContext(Context);
 
   const items = [
     {
       name: 'Buildings',
-      tasks: buildings.filter((building) => building.upgrading),
+      tasks: user.Buildings.filter((building) => building.upgrading),
     },
     {
       name: 'Research',

@@ -36,7 +36,7 @@ export default function Infos({ width }) {
       <Divider />
       <Stack sx={{ width: '100%', padding: '5px' }}>
         <TransitionGroup>
-          {store.infos.map((info) => (
+          {store.user.Infos.map((info) => (
             <Collapse key={info.id}>
               <Alert style={{ margin: '2px 0' }} key={info.id} variant='outlined' severity={info.severity}>
                 {info.message}

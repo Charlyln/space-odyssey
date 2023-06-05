@@ -63,12 +63,12 @@ const ressourceItems = [
 
 function StatusBar({ menuWidth, infosWidth }) {
   const {
-    store: { ressources },
+    store: { user },
   } = useContext(Context);
 
   const getRessourceValue = (ressourceName) => {
     try {
-      const ressource = ressources.find((ressource) => ressource.name === ressourceName);
+      const ressource = user.Ressources.find((ressource) => ressource.name === ressourceName);
       return ressource.value;
     } catch (error) {
       console.log(error);

@@ -23,8 +23,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 function Ressources() {
   const {
-    store: { buildings, user },
-    setStore,
+    store: { user },
   } = useContext(Context);
 
   const getImg = (buildingName) => {
@@ -50,7 +49,7 @@ function Ressources() {
 
   return (
     <Grid container alignItems='center'>
-      {buildings.map((item) => (
+      {user.Buildings.map((item) => (
         <Grid item xs={4} key={item.name} sx={{ padding: 1 }}>
           <Card style={{ border: item.upgrading ? 'solid 1px grey' : 'solid 1px' }}>
             <CardHeader
