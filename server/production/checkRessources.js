@@ -1,28 +1,16 @@
 const moment = require('moment');
+const { checkConsumed } = require('./checkRessources/checkConsumed');
+const { checkProduced } = require('./checkRessources/checkProduced');
 
-const { updateRessource } = require('../helper/ressourcehelper');
-
-async function checkRessources(userData) {
-  await Promise.all(
-    userData.Buildings.map(async (building) => {
-      if (building.level > 0) {
-        const production = building.level;
-        const ressource = userData.Ressources.find((ressource) => {
-          return building.production === ressource.name;
-        });
-
-        if (ressource) {
-          await updateRessource({ value: ressource.value + production }, ressource.id);
-        }
-      }
-    }),
-  );
+async function checkRessources(user) {
+  await checkConsumed(user);
+  await checkProduced(user);
 
   const time = moment().format('D MMM 2480 HH:mm');
 
-  if (global.socketIds[userData.id]) {
-    global.io.to(global.socketIds[userData.id]).emit('userData', userData);
-    global.io.to(global.socketIds[userData.id]).emit('ressources', { ressources: userData.Ressources, time });
+  if (global.socketIds[user.id]) {
+    global.io.to(global.socketIds[user.id]).emit('userData', user);
+    global.io.to(global.socketIds[user.id]).emit('ressources', { ressources: user.Ressources, time });
   }
 }
 
