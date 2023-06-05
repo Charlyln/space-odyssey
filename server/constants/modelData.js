@@ -14,7 +14,7 @@ const ressources = [
     storage: 50,
   },
   {
-    name: 'plutonium',
+    name: 'crystal',
     type: 'production',
     value: 1,
     production: 0,
@@ -55,7 +55,7 @@ const buildings = [
     enable: true,
   },
   {
-    name: 'Plutonium Synthesizer',
+    name: 'Crystal Synthesizer',
     type: 'production',
     enable: true,
   },
@@ -81,65 +81,7 @@ const buildings = [
   },
 ];
 
-const spaceships = [
-  {
-    name: 'Fighter',
-    type: 'attack',
-    capacity: 5,
-    transport: 5,
-    attack: 10,
-    defense: 10,
-    speed: 10,
-  },
-  {
-    name: 'Cruiser',
-    type: 'attack',
-    capacity: 10,
-    transport: 10,
-    attack: 20,
-    defense: 10,
-    speed: 10,
-  },
-  {
-    name: 'BattleShip',
-    type: 'attack',
-    capacity: 5,
-    transport: 5,
-    attack: 50,
-    defense: 10,
-    speed: 10,
-  },
-  {
-    name: 'Bomber',
-    type: 'attack',
-    capacity: 5,
-    transport: 5,
-    attack: 100,
-    defense: 10,
-    speed: 10,
-  },
-  {
-    name: 'Cargo',
-    type: 'transport',
-    capacity: 5,
-    transport: 5,
-    attack: 110,
-    defense: 10,
-    speed: 10,
-  },
-  {
-    name: 'Crawler',
-    type: 'transport',
-    capacity: 5,
-    transport: 5,
-    attack: 120,
-    defense: 10,
-    speed: 10,
-  },
-];
-
 module.exports = {
   ressources,
   buildings,
-  spaceships,
 };
