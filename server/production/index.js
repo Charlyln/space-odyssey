@@ -1,4 +1,3 @@
-const { checkActions } = require('./checkActions');
 const { checkRessources } = require('./checkRessources');
 const { checkBuilding } = require('./checkBuilding');
 const { getUsersData } = require('../helper/userhelper');
@@ -8,7 +7,6 @@ async function checkProduction() {
 
   await Promise.all(
     users.map(async (user) => {
-      await checkActions(user);
       await checkBuilding(user);
       await checkRessources(user);
     }),

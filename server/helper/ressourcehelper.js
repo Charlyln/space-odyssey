@@ -4,6 +4,7 @@ const { Ressource } = require('../db/models/ressource.model');
 const { Cost } = require('../db/models/cost.model');
 const { sendInfo } = require('./userhelper');
 const { Building } = require('../db/models/building.model');
+const { State } = require('../db/models/state.model');
 
 async function updateRessource(data, ressourceId) {
   try {
@@ -18,6 +19,14 @@ async function updateBuilding(data, buildingId) {
     await Building.update({ ...data }, { where: { id: buildingId } });
   } catch (error) {
     logger.error('updatebuilding', error);
+  }
+}
+
+async function updateState(data, stateId) {
+  try {
+    await State.update({ ...data }, { where: { id: stateId } });
+  } catch (error) {
+    logger.error('updateState', error);
   }
 }
 
@@ -46,29 +55,7 @@ async function checkAvailableRessources(building, userId) {
         }),
       );
 
-      if (!enoughtRessources) {
-        if (!building.waiting) {
-          await updateBuilding({ waiting: true }, building.id);
-
-          const message = `Wait for ressources until build ${building.name} !`;
-          await sendInfo(userId, 'warning', message);
-        } else {
-          // wait untiel ressources
-        }
-      } else {
-        await Promise.all(
-          ressources.map(async (ressource) => {
-            await updateRessource({ value: ressource.ressource.value - ressource.cost }, ressource.ressource.id);
-          }),
-        );
-
-        const newProgress = building.progress + 10;
-
-        await updateBuilding({ progress: newProgress }, building.id);
-
-        const message = `${building.name} start building`;
-        await sendInfo(userId, 'info', message);
-      }
+      return { enoughtRessources, ressources };
     }
   } catch (error) {
     logger.error('checkAvailableRessources', error);
@@ -79,4 +66,5 @@ module.exports = {
   updateRessource,
   updateBuilding,
   checkAvailableRessources,
+  updateState,
 };

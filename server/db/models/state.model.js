@@ -10,6 +10,10 @@ const State = sequelize.define('State', {
     type: DataTypes.BOOLEAN(),
     allowNull: true,
   },
+  waiting: {
+    type: DataTypes.BOOLEAN(),
+    allowNull: true,
+  },
   progress: {
     type: DataTypes.NUMBER(),
     allowNull: true,

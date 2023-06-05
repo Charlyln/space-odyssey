@@ -1,101 +1,47 @@
-const { Spaceship } = require('../../db/models/spaceship.model');
-const { Ressource } = require('../../db/models/ressource.model');
-const { State } = require('../../db/models/state.model');
-const { Cost } = require('../../db/models/cost.model');
 const logger = require('../../logger');
-
-const { updateRessource } = require('../../helper/ressourcehelper');
+const { sendInfo } = require('../../helper/userhelper');
+const { updateRessource, checkAvailableRessources, updateState } = require('../../helper/ressourcehelper');
 
 const craftSpeed = 40;
 
 async function checkSpaceships(user) {
   try {
-    const spacechipsToBuild = await Spaceship.findAll({
-      where: { UserId: user.id },
-      order: [[{ model: State }, 'createdAt', 'ASC']],
-      include: [
-        {
-          model: State,
-          where: { building: true },
-        },
-      ],
-    });
+    const buildingSpaceships = user.Spaceships.filter((spaceship) => spaceship?.State?.building);
+    const spacechipToBuild = buildingSpaceships[0];
 
-    if (spacechipsToBuild.length > 0) {
-      const spacechipToBuild = spacechipsToBuild[0];
-
+    if (buildingSpaceships.length > 0) {
       if (spacechipToBuild.State.progress === 0) {
-        const spacechipsCosts = await Cost.findAll({
-          where: { craft: spacechipToBuild.name },
-        });
-
-        let enoughtRessources = true;
-
-        const ressources = [];
-
-        if (spacechipsCosts.length > 0) {
+        const { enoughtRessources, ressources } = await checkAvailableRessources(spacechipToBuild, user.id);
+        if (!enoughtRessources) {
+          if (!spacechipToBuild.State.waiting) {
+            await updateState({ waiting: true }, spacechipToBuild.State.id);
+            const message = `Wait for ressources until build ${spacechipToBuild.name} !`;
+            await sendInfo(user.id, 'warning', message);
+          } else {
+            // wait untiel ressources
+          }
+        } else {
           await Promise.all(
-            spacechipsCosts.map(async (spacechipsCost) => {
-              const ressource = await Ressource.findOne({
-                where: { name: spacechipsCost.ressource },
-              });
-
-              if (ressource.value >= spacechipsCost.value) {
-                ressources.push({ ressource, cost: spacechipsCost.value });
-              } else {
-                enoughtRessources = false;
-              }
+            ressources.map(async (ressource) => {
+              await updateRessource({ value: ressource.ressource.value - ressource.cost }, ressource.ressource.id);
             }),
           );
-
-          if (enoughtRessources) {
-            try {
-              await Promise.all(
-                ressources.map(async (ressource) => {
-                  await updateRessource({ value: ressource.ressource.value - ressource.cost }, ressource.ressource.id);
-                }),
-              );
-
-              const newProgress = spacechipToBuild.State.progress + craftSpeed;
-
-              await State.update(
-                { progress: newProgress },
-                {
-                  where: {
-                    id: spacechipToBuild.State.id,
-                  },
-                },
-              );
-            } catch (error) {
-              console.log(error);
-            }
-          }
+          const newProgress = spacechipToBuild.State.progress + 10;
+          await updateState({ progress: newProgress }, spacechipToBuild.State.id);
+          const message = `${spacechipToBuild.name} start building`;
+          await sendInfo(user.id, 'info', message);
         }
-      } else {
+      } else if (spacechipToBuild.State.progress > 0) {
         const newProgress = spacechipToBuild.State.progress + craftSpeed;
         if (newProgress >= 100) {
-          await State.update(
-            { progress: 100, building: false },
-            {
-              where: {
-                id: spacechipToBuild.State.id,
-              },
-            },
-          );
+          updateState({ progress: 100, building: false }, spacechipToBuild.State.id);
         } else {
-          await State.update(
-            { progress: newProgress },
-            {
-              where: {
-                id: spacechipToBuild.State.id,
-              },
-            },
-          );
+          updateState({ progress: newProgress }, spacechipToBuild.State.id);
         }
       }
     }
   } catch (error) {
-    logger.error('checkSpaceships');
+    logger.error('checkSpaceships', error);
   }
 }
 
