@@ -1,5 +1,19 @@
-function App() {
-  return <div className='App'>Space Odyssey</div>;
-}
+import React from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Router from './Router';
 
-export default App;
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
+export default function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router />
+    </ThemeProvider>
+  );
+}
