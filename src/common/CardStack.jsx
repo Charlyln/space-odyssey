@@ -1,7 +1,7 @@
 import React from 'react';
 import CardItem from './CardItem';
 
-export default function CardStack({ array, cardSize, onSelect, cardGetter }) {
+export default function CardStack({ array, cardSize, onSelect, cardGetter, square, disabled }) {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {array?.map((spaceship) => (
@@ -13,6 +13,8 @@ export default function CardStack({ array, cardSize, onSelect, cardGetter }) {
           width={cardSize}
           cardGetter={cardGetter}
           item={spaceship}
+          square={square}
+          disabled={disabled}
         />
       ))}
     </div>

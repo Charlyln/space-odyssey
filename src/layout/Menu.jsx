@@ -3,65 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Drawer, List, Divider } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import CustomButton from '../common/CustomButton';
-
-const links = [
-  {
-    to: '/',
-    name: 'Overview',
-  },
-  {
-    to: '/ressources',
-    name: 'Ressources',
-  },
-  {
-    to: '/storage',
-    name: 'Storage',
-  },
-  {
-    to: '/facilities',
-    name: 'Facilities',
-  },
-  {
-    to: '/research',
-    name: 'Research',
-  },
-  {
-    to: '/defence',
-    name: 'Defence',
-  },
-  {
-    to: '/colony',
-    name: 'Colony',
-  },
-  {
-    to: '/planet',
-    name: 'Planet',
-  },
-  {
-    to: '/startSystem',
-    name: 'Star System',
-  },
-  {
-    to: '/galaxy',
-    name: 'Galaxy',
-  },
-  {
-    to: '/shipyard',
-    name: 'Shipyard',
-  },
-  {
-    to: '/missions',
-    name: 'Missions',
-  },
-  {
-    to: '/trade',
-    name: 'Galactic Trade',
-  },
-  {
-    to: '/history',
-    name: 'History',
-  },
-];
+import { pages } from './Pages';
 
 const ContainerStyle = styled(List)(() => ({
   overflow: 'auto',
@@ -100,15 +42,15 @@ export default function Menu({ width, userName }) {
       </div>
       <Divider style={{ marginTop: '29px' }} />
       <ContainerStyle>
-        {links.map((link) => (
-          <Link to={link.to} key={link.to}>
+        {pages.map((link) => (
+          <Link to={link.path} key={link.path}>
             <CustomButton
-              key={link.to}
+              key={link.path}
               name={link.name}
               width={200}
               height={50}
               fontSize={20}
-              color={location.pathname === link.to ? 185 : 240}
+              color={location.pathname === link.path ? 185 : 240}
             />
           </Link>
         ))}
