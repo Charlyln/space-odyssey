@@ -43,8 +43,8 @@ Research.belongsTo(User, options);
 User.hasMany(Spaceship, options);
 Spaceship.belongsTo(User, options);
 
-User.hasMany(Planet, options);
-Planet.belongsTo(User, options);
+// User.hasMany(Planet, options);
+// Planet.belongsTo(User, options);
 
 User.hasMany(Cost, options);
 Cost.belongsTo(User, options);

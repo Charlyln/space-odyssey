@@ -78,7 +78,6 @@ async function increaseCosts(costs) {
   try {
     await Promise.all(
       costs.map(async (cost) => {
-        console.log(cost.value);
         await Cost.increment('value', { by: 10, where: { id: cost.id } });
       }),
     );
