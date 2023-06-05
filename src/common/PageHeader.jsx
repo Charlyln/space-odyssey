@@ -38,8 +38,6 @@ export default function PageHeader({
         />
 
         <CardContent style={{ width: '100%', padding: '6px 8px' }}>
-
-          
           <Typography component='div' variant='h5' style={{ fontFamily: 'monospace' }}>
             {title}
           </Typography>
@@ -71,30 +69,15 @@ export default function PageHeader({
           {displayButton && actionName && (
             <HeaderAction>
               {enableCancelAction && (
-                <CustomButton
-                  onClick={() => cancelAction(elementSelected)}
-                  name={cancelActionName}
-                  color={30}
-                  width={120}
-                  height={40}
-                  fontSize={15}
-                  primary={'rgb(129, 199, 132)'}
-                  secondary={'#406441'}
-                  textColor={'#121212'}
-                />
+                <CustomButton onClick={() => cancelAction(elementSelected)} label={cancelActionName} color={'green'} size={'medium'} />
               )}
 
               <CustomButton
                 onClick={() => action(elementSelected)}
-                name={actionName}
-                color={500}
-                width={120}
-                height={40}
-                fontSize={15}
+                label={actionName}
+                color={'green'}
+                size={'medium'}
                 disabled={disabledAction}
-                primary={'rgb(129, 199, 132)'}
-                secondary={'#406441'}
-                textColor={'#121212'}
               />
             </HeaderAction>
           )}

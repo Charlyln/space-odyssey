@@ -11,12 +11,13 @@ import TradeHistoryItem from '../common/TradeHistoryItem';
 import { Button, ButtonGroup, Stack, Typography } from '@mui/material';
 import RessourcesStack from '../common/RessourcesStack';
 import TradeItem from '../common/TradeItem';
+import CustomButtonGroup from '../common/CustomButtonGroup';
 
 function Inventory() {
   const { store } = useContext(Context);
   const { user } = store;
   const [trades, setTrades] = useState(user.Trades);
-  const [tradType, setTradType] = useState('Buy');
+  const [tradType, setTradType] = useState('buying');
 
   const tradeRessources = user.Ressources.filter(
     (ressource) => ressource.name !== 'people' && ressource.name !== 'money' && ressource.name !== 'energy',
@@ -35,18 +36,37 @@ function Inventory() {
     }
   };
 
+  const buttons = [
+    {
+      label: 'buying',
+      value: 'buying',
+      selected: tradType === 'buying',
+      invisible: true,
+    },
+    {
+      label: 'selling',
+      value: 'selling',
+      selected: tradType === 'selling',
+      invisible: true,
+    },
+  ];
+
+  const getButtons = () => {
+    try {
+      return (
+        <Stack direction='row' alignItems='center'>
+          <CustomButtonGroup value={tradType} buttons={buttons} onChange={setTradType} style={{ marginLeft: 'auto' }} />
+        </Stack>
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getTrades = () => {
     try {
       return (
         <>
-          <ButtonGroup style={{ position: 'absolute', top: 10, right: 10 }} size='small' variant='outlined'>
-            <Button variant={tradType === 'Buy' ? 'contained' : 'outlined'} onClick={() => setTradType('Buy')}>
-              Buying
-            </Button>
-            <Button variant={tradType === 'Sell' ? 'contained' : 'outlined'} onClick={() => setTradType('Sell')}>
-              Selling
-            </Button>
-          </ButtonGroup>
           <ContainerList height={287}>
             <Stack direction='row' spacing={1} justifyContent='center' alignItems='center'>
               <Typography variant='button' color='text.secondary' component='div'>
@@ -68,7 +88,7 @@ function Inventory() {
   return (
     <PageContainer>
       <PageHeader
-        height={'350px'}
+        height={'300px'}
         imgWidth={'400px'}
         imageName={'trade'}
         title={'Galactic Trade'}
@@ -78,9 +98,11 @@ function Inventory() {
         // displayButton={ressources.length > 0}
       />
 
-      {tradType === 'Buy' ? (
+      <PageContent borderLess>{getButtons()}</PageContent>
+
+      {tradType === 'buying' ? (
         <PageContent bgColor={'unset'}>
-          <TradeList height={500} action={buy} ressources={tradeRessources} money={money.value} />
+          <TradeList height={550} action={buy} ressources={tradeRessources} money={money.value} />
         </PageContent>
       ) : (
         <>

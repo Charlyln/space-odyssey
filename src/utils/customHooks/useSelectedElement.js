@@ -11,7 +11,7 @@ const useSelectedElement = () => {
         setElementSelected(element);
       }
     } catch (error) {
-      console.log(error);
+      setElementSelected(null);
     }
   };
 

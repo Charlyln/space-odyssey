@@ -1,16 +1,13 @@
-import { Card, LinearProgress, Stack, Typography, Button } from '@mui/material';
 import React from 'react';
+import moment from 'moment';
+import { Card, LinearProgress, Stack, Typography } from '@mui/material';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+
+import { fomatNumber } from '../utils/helpers/number.helper';
 import CustomButton from './CustomButton';
 import CustomIcon from './CustomIcon';
 import RessourcesStack from './RessourcesStack';
 import PageContent from './PageContent';
-import { fomatNumber } from '../utils/helpers/number.helper';
-
-import moment from 'moment';
-import LoyaltyIcon from '@mui/icons-material/Loyalty';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 export default function MissionItem({ index, mission, launchMission, retreiveMission, comeBackMission, setElementSelected, planets }) {
   const levelArray = Array.from(Array(mission.level).keys());
@@ -24,13 +21,9 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
         return (
           <CustomButton
             onClick={() => launchMission(mission)}
-            name={'launch'}
-            width={70}
-            height={25}
-            fontSize={12}
-            primary={'rgb(129, 199, 132)'}
-            secondary={'#406441'}
-            textColor={'#121212'}
+            label={'launch'}
+            color={'green'}
+            size={'small'}
             style={{ marginRight: '10px', marginLeft: 'auto' }}
           />
         );
@@ -40,13 +33,9 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
           return (
             <CustomButton
               onClick={() => comeBackMission(mission)}
-              name={'come back'}
-              width={70}
-              height={25}
-              fontSize={12}
-              primary={'#b34545'}
-              secondary={'#721d1d'}
-              textColor={'#121212'}
+              label={'come back'}
+              color={'red'}
+              size={'small'}
               style={{ marginRight: '10px', marginLeft: 'auto' }}
             />
           );
@@ -58,13 +47,9 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
         return (
           <CustomButton
             onClick={() => retreiveMission(mission)}
-            name={'retreive'}
-            width={70}
-            height={25}
-            fontSize={12}
-            primary={'rgb(129, 199, 132)'}
-            secondary={'#406441'}
-            textColor={'#121212'}
+            label={'retreive'}
+            color={'green'}
+            size={'small'}
             style={{ marginRight: '10px', marginLeft: 'auto' }}
           />
         );
