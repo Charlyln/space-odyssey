@@ -29,6 +29,11 @@ const Mission = sequelize.define('Mission', {
     allowNull: true,
     defaultValue: 0,
   },
+  status: {
+    type: DataTypes.STRING(),
+    allowNull: true,
+    defaultValue: 'created',
+  },
 });
 
 module.exports = {

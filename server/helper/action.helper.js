@@ -5,7 +5,7 @@ const { Building } = require('../db/models/building.model');
 const { Spaceship } = require('../db/models/spaceship.model');
 const { State } = require('../db/models/state.model');
 
-const { incrementRessource, decrementMoney, createTrade } = require('./model.helper');
+const { incrementRessource, decrementMoney, createTrade, createMission } = require('./model.helper');
 
 async function handleActions(action) {
   try {
@@ -30,6 +30,10 @@ async function handleActions(action) {
 
       case 'BuyRessource':
         response = await handleBuyRessource(action);
+        return response;
+
+      case 'SendMission':
+        response = await handleSendMission(action);
         return response;
 
       default:
@@ -137,6 +141,23 @@ async function handleBuyRessource(action) {
   }
 }
 
+async function handleSendMission(action) {
+  let parameters;
+  try {
+    const {} = action.parameters;
+
+    parameters = action.parameters;
+
+    const mission = await createMission(action.userId);
+    return mission;
+  } catch (error) {
+    const {} = parameters;
+    const trade = await createMission(action.userId);
+    logger.error('SendMission', error);
+    return trade;
+  }
+}
+
 module.exports = {
   handleUpgradeBuilding,
   handleCancelBuilding,
@@ -144,4 +165,5 @@ module.exports = {
   handleDeleteSpaceship,
   handleActions,
   handleBuyRessource,
+  handleSendMission,
 };
