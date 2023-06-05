@@ -10,7 +10,8 @@ const { PORT } = require('./config');
 const logger = require('./logger');
 const userRoutes = require('./db/routes/user.route');
 const buildingRoutes = require('./db/routes/building.route');
-const { startCheck } = require('./checkData');
+const actionsRoutes = require('./db/routes/action.route');
+const { startProduction } = require('./production');
 
 require('./db/models/associations');
 
@@ -27,7 +28,7 @@ global.io = new Server(server, {
 (async () => {
   await db.connect();
   await sequelize.connect();
-  await startCheck();
+  await startProduction();
 })();
 
 global.socketIds = {};
@@ -58,6 +59,7 @@ app.use(cors());
 app.use(express.json());
 app.use(userRoutes);
 app.use(buildingRoutes);
+app.use(actionsRoutes);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../build', 'index.html'));

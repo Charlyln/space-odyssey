@@ -1,25 +1,27 @@
-const { v4: uuidv4 } = require('uuid');
+const logger = require('../logger');
 
-const { User } = require('../models/user.model');
-const { Ressource } = require('../models/ressource.model');
-const { Building } = require('../models/building.model');
-const { Battle } = require('../models/battle.model');
-const { Mission } = require('../models/mission.model');
-const { Info } = require('../models/info.model');
-const { Research } = require('../models/research.model');
-const { Spaceship } = require('../models/spaceship.model');
-const { Planet } = require('../models/planet.model');
+const { User } = require('../db/models/user.model');
+const { Ressource } = require('../db/models/ressource.model');
+const { Building } = require('../db/models/building.model');
+const { Battle } = require('../db/models/battle.model');
+const { Mission } = require('../db/models/mission.model');
+const { Info } = require('../db/models/info.model');
+const { Research } = require('../db/models/research.model');
+const { Spaceship } = require('../db/models/spaceship.model');
+const { Planet } = require('../db/models/planet.model');
 
-module.exports = {
-  async update_building(req, res) {
-    const { id } = req.params;
+async function handleUpgradeBuilding(action) {
+  try {
+    logger.info('handleUpgradeBuilding');
+
+    const parameters = JSON.parse(action.parameters);
 
     const building = await Building.findOne({
-      where: { id },
+      where: { id: parameters.buildingId },
     });
 
     const user = await User.findOne({
-      where: { id: building.UserId },
+      where: { id: action.userId },
       order: [
         [{ model: Info }, 'createdAt', 'DESC'],
         [{ model: Building }, 'createdAt', 'ASC'],
@@ -79,11 +81,11 @@ module.exports = {
       ...infoData,
       UserId: user.id,
     });
+  } catch (error) {
+    logger.error('UpgradeBuilding', error);
+  }
+}
 
-    try {
-      res.status(200).send(building);
-    } catch (error) {
-      res.status(404).send({ error });
-    }
-  },
+module.exports = {
+  handleUpgradeBuilding,
 };

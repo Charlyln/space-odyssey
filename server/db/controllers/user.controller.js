@@ -17,7 +17,10 @@ module.exports = {
     try {
       const user = await User.findOne({
         where: { id },
-        order: [[{ model: Info }, 'createdAt', 'DESC']],
+        order: [
+          [{ model: Info }, 'createdAt', 'DESC'],
+          [{ model: Building }, 'createdAt', 'ASC'],
+        ],
         include: [
           {
             model: Ressource,
