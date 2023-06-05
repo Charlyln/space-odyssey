@@ -2,6 +2,7 @@ const { User } = require('../db/models/user.model');
 
 const { checkActions } = require('./checkActions');
 const { checkRessources } = require('./checkRessources');
+const { checkBuilding } = require('./checkBuilding');
 
 async function checkProduction() {
   const users = await User.findAll();
@@ -10,6 +11,7 @@ async function checkProduction() {
     users.map(async (user) => {
       await checkActions(user);
       await checkRessources(user);
+      await checkBuilding(user);
     }),
   );
 }

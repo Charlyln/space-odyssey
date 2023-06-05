@@ -10,7 +10,8 @@ const { Info } = require('../db/models/info.model');
 const { Research } = require('../db/models/research.model');
 const { Spaceship } = require('../db/models/spaceship.model');
 const { Planet } = require('../db/models/planet.model');
-const { ressources, buildings, spaceships } = require('../constants/modelData');
+const { State } = require('../db/models/state.model');
+const { ressources, buildings } = require('../constants/modelData');
 
 async function getUserData(userId) {
   try {
@@ -42,6 +43,11 @@ async function getUserData(userId) {
         },
         {
           model: Spaceship,
+          include: [
+            {
+              model: State,
+            },
+          ],
         },
         {
           model: Planet,
@@ -87,21 +93,21 @@ async function createUserData(name) {
       }),
     );
 
-    await Promise.all(
-      spaceships.map(async (building) => {
-        await Spaceship.create({
-          id: uuidv4(),
-          name: building.name,
-          type: building.type,
-          capacity: building.capacity,
-          transport: building.transport,
-          attack: building.attack,
-          defense: building.defense,
-          speed: building.speed,
-          UserId: user.id,
-        });
-      }),
-    );
+    // await Promise.all(
+    //   spaceships.map(async (building) => {
+    //     await Spaceship.create({
+    //       id: uuidv4(),
+    //       name: building.name,
+    //       type: building.type,
+    //       capacity: building.capacity,
+    //       transport: building.transport,
+    //       attack: building.attack,
+    //       defense: building.defense,
+    //       speed: building.speed,
+    //       UserId: user.id,
+    //     });
+    //   }),
+    // );
 
     return user;
   } catch (error) {

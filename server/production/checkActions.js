@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 
 const { Action } = require('../db/models/action.model');
-const { handleUpgradeBuilding } = require('../helper/actionhelper');
+const { handleUpgradeBuilding, handleBuildSpaceship } = require('../helper/actionhelper');
 const logger = require('../logger');
 
 async function checkActions(user) {
@@ -18,14 +18,29 @@ async function checkActions(user) {
               await handleUpgradeBuilding(action);
               break;
 
+            case 'BuildSpaceship':
+              await handleBuildSpaceship(action);
+              break;
+
             default:
               break;
           }
-          await action.destroy();
+
+          try {
+            await Action.destroy({
+              where: {
+                id: action.id,
+              },
+            });
+          } catch (error) {
+            console.log(error);
+          }
         }),
       );
     }
-  } catch (error) {}
+  } catch (error) {
+    logger.error('checkActions error');
+  }
 }
 
 module.exports = {
