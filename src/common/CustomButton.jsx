@@ -1,4 +1,4 @@
-import { colors } from "../utils/constants";
+import { colors } from '../utils/constants';
 
 const sizes = {
   small: {
@@ -21,6 +21,7 @@ const sizes = {
 export default function CustomButton({ label, color, onClick, size, disabled, style, textColor, opacity }) {
   return (
     <button
+      disabled={disabled}
       className='cybr_btn'
       style={{
         minWidth: `${sizes[size].width}px`,

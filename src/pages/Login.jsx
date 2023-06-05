@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import '../common/css/app.css';
 import CustomButton from '../common/CustomButton';
@@ -6,6 +6,9 @@ import CustomButton from '../common/CustomButton';
 import { styled } from '@mui/material/styles';
 import axios from 'axios';
 import { hostname, port } from '../utils/config';
+import CustomIcon from '../common/CustomIcon';
+import LandingSpaceShip from '../common/LandingSpaceShip';
+import LoadingPlanet from '../common/LoadingPlanet';
 
 const CssTextField = styled(TextField)({
   '& label.Mui-focused': {
@@ -22,43 +25,76 @@ const CssTextField = styled(TextField)({
 function Login({ getUserData }) {
   const [name, setName] = useState('');
   const [error, setError] = useState(false);
+  const [landing, setlanding] = useState(false);
+  const [hide, sethide] = useState(false);
+  const [redirect, setredirect] = useState(false);
 
   const register = async () => {
     try {
+      setlanding(true);
       window.localStorage.setItem('userId', '');
       const user = await axios.post(`http://${hostname}:${port}/v1/users`, { name });
       window.localStorage.setItem('userId', user.data.id);
-      await getUserData(user.data.id);
+
+      setTimeout(() => {
+        sethide(true);
+      }, 1000);
     } catch (error) {
       console.log(error);
+      setlanding(false);
       setError(true);
     }
   };
 
+  useEffect(() => {
+    async function fetchData() {
+      const userid = window.localStorage.getItem('userId');
+      if (redirect) {
+        await getUserData(userid);
+      }
+    }
+    fetchData();
+  }, [redirect]);
+
+  if (redirect) {
+    return '';
+  }
+
   return (
     <div className='App'>
       <header className='App-header'>
-        <svg viewBox='0 0 160 160' width='160' height='160' className='App-logo'>
-          <circle cx='80' cy='80' r='50' fill='#1edada' />
-          <g transform=' matrix(0.866, -0.5, 0.25, 0.433, 80, 80)'>
-            <path d='M 0,70 A 65,70 0 0,0 65,0 5,5 0 0,1 75,0 75,70 0 0,1 0,70Z' fill='grey'>
-              <animateTransform attributeName='transform' type='rotate' from='360 0 0' to='0 0 0' dur='1s' repeatCount='indefinite' />
-            </path>
-          </g>
-          <path d='M 50,0 A 50,50 0 0,0 -50,0Z' transform='matrix(0.866, -0.5, 0.5, 0.866, 80, 80)' fill='#1edada' />
-        </svg>
-        <CssTextField
-          error={error}
-          id='name'
-          label='Name'
-          autoFocus
-          variant='standard'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          helperText={error ? 'Name already taken' : ''}
-        />
+        <div style={{ position: 'relative' }}>
+          <LoadingPlanet landing={landing} />
+          <LandingSpaceShip landing={landing} setredirect={setredirect} />
+        </div>
 
-        <CustomButton opacity={0.8} label={'Start'} color={'lightGrey'} size={'large'} onClick={register} />
+        <div style={{ height: '80px', marginTop: '200px' }}>
+          {!landing && (
+            <CssTextField
+              error={error}
+              id='name'
+              label='Name'
+              autoFocus
+              variant='standard'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              helperText={error ? 'Name already taken' : ''}
+            />
+          )}
+        </div>
+
+        <div style={{ height: '66px' }}>
+          {!hide && (
+            <CustomButton
+              disabled={landing}
+              opacity={landing ? 0.3 : 0.8}
+              label={landing ? 'landing...' : 'land'}
+              color={'lightGrey'}
+              size={'large'}
+              onClick={register}
+            />
+          )}
+        </div>
       </header>
     </div>
   );

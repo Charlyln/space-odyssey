@@ -13,7 +13,7 @@ module.exports = {
       if (user) {
         res.status(200).send(user);
       } else {
-        res.status(404).send('User not find');
+        res.status(200).send('User not find');
       }
     } catch (error) {
       res.status(404).send({ error });
