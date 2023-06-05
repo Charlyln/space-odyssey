@@ -1,17 +1,14 @@
 function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
 const ressources = [
-  {
-    name: 'money',
-    type: 'trade',
-    value: 100000,
-  },
   {
     name: 'steel',
     type: 'production',
     value: 1000,
     production: 0,
+    consumption: 0,
     storage: 500,
     price: 100,
   },
@@ -20,6 +17,7 @@ const ressources = [
     type: 'production',
     value: 500,
     production: 0,
+    consumption: 0,
     storage: 50,
     price: 200,
   },
@@ -28,6 +26,7 @@ const ressources = [
     type: 'production',
     value: 0,
     production: 0,
+    consumption: 0,
     storage: 5,
     price: 2000,
   },
@@ -36,6 +35,7 @@ const ressources = [
     type: 'production',
     value: 0,
     production: 0,
+    consumption: 0,
     storage: 5,
     price: 1000,
   },
@@ -44,6 +44,7 @@ const ressources = [
     type: 'production',
     value: 1000,
     production: 0,
+    consumption: 0,
     storage: 100,
     price: 100,
   },
@@ -52,15 +53,9 @@ const ressources = [
     type: 'production',
     value: 1000,
     production: 0,
+    consumption: 0,
     storage: 100,
     price: 5,
-  },
-  {
-    name: 'people',
-    type: '',
-    value: 10,
-    production: 0,
-    storage: 60,
   },
 ];
 

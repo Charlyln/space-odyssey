@@ -22,6 +22,10 @@ const Ressource = sequelize.define('Ressource', {
     type: DataTypes.NUMBER(),
     allowNull: true,
   },
+  consumption: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
   storage: {
     type: DataTypes.NUMBER(),
     allowNull: true,

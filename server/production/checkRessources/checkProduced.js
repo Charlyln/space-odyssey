@@ -19,7 +19,6 @@ async function checkProduced(user, checkDate) {
 
             const produced = getProducedRessource(building.startTime, checkDate, building.output);
 
-            logger.warn('building.output', building.output)
             await updateBuilding({ startTime: checkDate }, building.id);
 
             if (ressource && produced > 0) {

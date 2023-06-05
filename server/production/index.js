@@ -30,7 +30,9 @@ function startProduction() {
     usersUpdated.map((user) => {
       if (global.socketIds[user.id]) {
         global.io.to(global.socketIds[user.id]).emit('userData', user);
-        global.io.to(global.socketIds[user.id]).emit('ressources', { ressources: user.Ressources, time });
+        global.io
+          .to(global.socketIds[user.id])
+          .emit('ressources', { ressources: [...user.Ressources, user.Money, { name: 'colonists', value: user.Colonists?.length }], time });
       }
     });
 
