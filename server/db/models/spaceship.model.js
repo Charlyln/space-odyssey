@@ -18,6 +18,10 @@ const Spaceship = sequelize.define('Spaceship', {
     type: DataTypes.NUMBER(),
     allowNull: true,
   },
+  transport: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
   attack: {
     type: DataTypes.NUMBER(),
     allowNull: true,
