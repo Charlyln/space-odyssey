@@ -16,23 +16,22 @@ import cargo from '../assets/spaceships/cargo.jpeg';
 import crawler from '../assets/spaceships/crawler.jpeg';
 import shipyard from '../assets/spaceships/shipyard.jpeg';
 
-import steelIcon from '../assets/steel.png';
-import goldIcon from '../assets/gold.png';
-import peopleIcon from '../assets/people.png';
-import spaceshipIcon from '../assets/spaceship.png';
-import plutoniumIcon from '../assets/plutonium.png';
-import energyIcon from '../assets/energy.png';
-import foodIcon from '../assets/food.png';
+import steelIcon from '../assets/ressources/steel.png';
+import goldIcon from '../assets/ressources/gold.png';
+import peopleIcon from '../assets/ressources/people.png';
+import spaceshipIcon from '../assets/ressources/spaceship.png';
+import CrystalIcon from '../assets/ressources/crystal.png';
+import energyIcon from '../assets/ressources/energy.png';
+import foodIcon from '../assets/ressources/food.png';
+import { spaceships } from '../utils/constants';
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
-  borderRadius: 5,
   [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+    backgroundColor: 'unset',
   },
   [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
+    backgroundColor: 'green',
   },
 }));
 
@@ -44,8 +43,8 @@ function Shipyard() {
   const [spaceshipSelected, setSpaceshipSelected] = useState(null);
   const [disabled, setDisabled] = useState(false);
 
-  const getImg = (buildingName) => {
-    switch (buildingName) {
+  const getImg = (spaceshipName) => {
+    switch (spaceshipName) {
       case 'Fighter':
         return fighter;
 
@@ -69,10 +68,46 @@ function Shipyard() {
     }
   };
 
-  const build = async (item) => {
+  const getSpaceshipNumber = (spaceshipName) => {
+    const filter = user.Spaceships.filter((spaceship) => !spaceship.State.building && spaceship.name === spaceshipName);
+
+    switch (spaceshipName) {
+      case 'Fighter':
+        return filter.length;
+
+      case 'Cruiser':
+        return filter.length;
+
+      case 'BattleShip':
+        return filter.length;
+
+      case 'Bomber':
+        return filter.length;
+
+      case 'Cargo':
+        return filter.length;
+
+      case 'Crawler':
+        return filter.length;
+
+      default:
+        return 0;
+    }
+  };
+
+  const build = async () => {
     try {
-      setDisabled((prev) => !prev);
+      if (!disabled) {
+        setDisabled(true);
+
+        const body = { userId: user.id, type: 'BuildSpaceship', parameters: { spaceship: spaceshipSelected } };
+        await axios.post(`http://${hostname}:${port}/v1/actions`, body);
+
+        const timer = setTimeout(() => setDisabled(false), 1000);
+        return () => clearTimeout(timer);
+      }
     } catch (error) {
+      setDisabled(false);
       console.log(error);
     }
   };
@@ -88,6 +123,8 @@ function Shipyard() {
       console.log(error);
     }
   };
+
+  const buildingSpaceships = user.Spaceships.filter((spaceship) => spaceship.State.building);
 
   return (
     <>
@@ -139,17 +176,17 @@ function Shipyard() {
 
                       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                         <div style={{ paddingRight: '4px' }}>
-                          <Card variant='outlined' sx={{ height: '60px', width: '60px' }}>
-                            <CardMedia sx={{ height: '40px', width: '40px', margin: 'auto' }} image={steelIcon} title={'steel'} />
-                            <CardContent style={{ padding: 0, textAlign: 'center', marginTop: '-7px' }}>
+                          <Card variant='outlined' sx={{ height: '70px', width: '50px', borderRadius: 0 }}>
+                            <CardMedia sx={{ height: '50px', width: '50px', margin: 'auto' }} image={steelIcon} title={'steel'} />
+                            <CardContent style={{ padding: 0, textAlign: 'center', marginTop: '-5px' }}>
                               <Typography variant='caption'>{`100`}</Typography>
                             </CardContent>
                           </Card>
                         </div>
                         <div style={{ paddingRight: '4px' }}>
-                          <Card variant='outlined' sx={{ height: '60px', width: '60px' }}>
-                            <CardMedia sx={{ height: '40px', width: '40px', margin: 'auto' }} image={goldIcon} title={'steel'} />
-                            <CardContent style={{ padding: 0, textAlign: 'center', marginTop: '-7px' }}>
+                          <Card variant='outlined' sx={{ height: '70px', width: '50px', borderRadius: 0 }}>
+                            <CardMedia sx={{ height: '50px', width: '50px', margin: 'auto' }} image={goldIcon} title={'steel'} />
+                            <CardContent style={{ padding: 0, textAlign: 'center', marginTop: '-5px' }}>
                               <Typography variant='caption'>{`50`}</Typography>
                             </CardContent>
                           </Card>
@@ -167,26 +204,49 @@ function Shipyard() {
           </Card>
         </Grid>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {user.Spaceships.map((item, i) => (
-            <div style={{ paddingLeft: i !== 0 && '10px' }}>
-              <Card key={item.name} style={{ width: '150px', marginTop: '10px' }} variant='outlined' onClick={() => selectSpaceship(item)}>
-                <CardActionArea>
+        <Grid item xs={12}>
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {spaceships.map((item, i) => (
+              <div key={item.name} style={{ paddingLeft: i !== 0 && '10px' }}>
+                <Card style={{ width: '150px', marginTop: '10px' }} variant='outlined' onClick={() => selectSpaceship(item)}>
+                  <CardActionArea>
+                    <CardMedia
+                      style={{ margin: 'auto', height: '150px', width: '150px' }}
+                      component='img'
+                      image={getImg(item.name)}
+                      alt={item.name}
+                    />
+
+                    <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px' }} color='text.secondary'>
+                      {getSpaceshipNumber(item.name)}
+                    </Typography>
+                  </CardActionArea>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </Grid>
+
+        <Grid item xs={12} style={{ marginTop: '50px' }}>
+          <Typography sx={{ fontSize: 14 }} color='text.secondary'>
+            {`Stack:`}
+          </Typography>
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {buildingSpaceships.map((item, i) => (
+              <div key={item.name} style={{ paddingLeft: i !== 0 && '10px' }}>
+                <Card style={{ width: '50px', marginTop: '10px' }} variant='outlined' onClick={() => selectSpaceship(item)}>
                   <CardMedia
-                    style={{ margin: 'auto', height: '150px', width: '150px' }}
+                    style={{ margin: 'auto', height: '50px', width: '50px' }}
                     component='img'
                     image={getImg(item.name)}
                     alt={item.name}
                   />
-
-                  <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px' }} color='text.secondary'>
-                    {`0`}
-                  </Typography>
-                </CardActionArea>
-              </Card>
-            </div>
-          ))}
-        </div>
+                  <BorderLinearProgress variant='determinate' value={item.State.progress} />
+                </Card>
+              </div>
+            ))}
+          </div>
+        </Grid>
       </Grid>
     </>
   );
