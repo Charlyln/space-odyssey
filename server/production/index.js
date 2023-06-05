@@ -7,8 +7,8 @@ async function checkProduction() {
 
   await Promise.all(
     users.map(async (user) => {
-      await checkBuilding(user);
       await checkRessources(user);
+      await checkBuilding(user);
     }),
   );
 }

@@ -1,7 +1,4 @@
-const { v4: uuidv4 } = require('uuid');
 const moment = require('moment');
-
-const { Info } = require('../db/models/info.model');
 
 const { updateRessource } = require('../helper/ressourcehelper');
 
@@ -9,8 +6,7 @@ async function checkRessources(userData) {
   await Promise.all(
     userData.Buildings.map(async (building) => {
       if (building.level > 0) {
-        const production = building.level * 1;
-
+        const production = building.level;
         const ressource = userData.Ressources.find((ressource) => {
           return building.production === ressource.name;
         });

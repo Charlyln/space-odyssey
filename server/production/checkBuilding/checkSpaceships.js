@@ -1,6 +1,6 @@
 const logger = require('../../logger');
 const { sendInfo } = require('../../helper/userhelper');
-const { updateRessource, checkAvailableRessources, updateState } = require('../../helper/ressourcehelper');
+const { checkAvailableRessources, updateState } = require('../../helper/ressourcehelper');
 
 const craftSpeed = 40;
 
@@ -29,9 +29,9 @@ async function checkSpaceships(user) {
       } else if (spacechipToBuild.State.progress > 0) {
         const newProgress = spacechipToBuild.State.progress + craftSpeed;
         if (newProgress >= 100) {
-          updateState({ progress: 100, building: false }, spacechipToBuild.State.id);
+          await updateState({ progress: 100, building: false }, spacechipToBuild.State.id);
         } else {
-          updateState({ progress: newProgress }, spacechipToBuild.State.id);
+          await updateState({ progress: newProgress }, spacechipToBuild.State.id);
         }
       }
     }
