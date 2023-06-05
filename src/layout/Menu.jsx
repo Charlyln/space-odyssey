@@ -4,22 +4,7 @@ import { Drawer, List, Divider } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import CustomButton from '../common/CustomButton';
 import { pages } from './Pages';
-
-const ContainerStyle = styled(List)(() => ({
-  overflow: 'auto',
-  '&::-webkit-scrollbar': {
-    width: 5,
-    backgroundColor: 'transparent',
-  },
-  '&::-webkit-scrollbar-track': {
-    WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.3)',
-    backgroundColor: 'transparent',
-  },
-  '&::-webkit-scrollbar-thumb': {
-    WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,.3)',
-    backgroundColor: '#555',
-  },
-}));
+import ContainerList from '../common/ContainerList';
 
 export default function Menu({ width, userName }) {
   let location = useLocation();
@@ -41,7 +26,7 @@ export default function Menu({ width, userName }) {
         <CustomButton label={userName} color={'darkGrey'} size={'large'} textColor={'white'} />
       </div>
       <Divider style={{ marginTop: '29px' }} />
-      <ContainerStyle>
+      <ContainerList>
         {pages.map((link) => (
           <Link to={link.path} key={link.path}>
             <CustomButton
@@ -53,7 +38,7 @@ export default function Menu({ width, userName }) {
             />
           </Link>
         ))}
-      </ContainerStyle>
+      </ContainerList>
       <Divider style={{ marginTop: '15px' }} />
     </Drawer>
   );

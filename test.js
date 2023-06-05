@@ -56,7 +56,7 @@
 // // const startTime = new Date('2023-05-22T09:11:00.069Z').getTime();
 // // const commebackDate = new Date('2023-05-22T09:11:44.069Z').getTime();
 // // // const commebackDate = new Date('2023-05-22 14:02:00.000 +00:00').getTime();
-// // const checkProductionDate = new Date('2023-05-22T09:11:50.069Z').getTime(); // 90%
+// // const checkDate = new Date('2023-05-22T09:11:50.069Z').getTime(); // 90%
 
 // const diff = comeback - start;
 // const rest = duration - diff;
@@ -113,24 +113,24 @@ function convertMsToMin(milliseconds) {
 // const duration = 60000 * 1; // 1 min
 // const startTime =           new Date(2023, 4, 22, 13, 30, 0).getTime();
 // // const commebackDate =       new Date(2023, 4, 22, 13, 30, 20).getTime();
-// const checkProductionDate = new Date(2023, 4, 22, 13, 30, 20).getTime();
+// const checkDate = new Date(2023, 4, 22, 13, 30, 20).getTime();
 
 // const duration = 420000;
 // const startTime = new Date(1684757731396);
 // const commebackDate = new Date(1684757746194);
-// const checkProductionDate = new Date(1684757746194);
+// const checkDate = new Date(1684757746194);
 
 // 22/05/2023 14:15:46 duration 420000
 // 22/05/2023 14:15:46 startTime 1684757731396
-// 22/05/2023 14:15:46 checkProductionDate 1684757746194
+// 22/05/2023 14:15:46 checkDate 1684757746194
 // 22/05/2023 14:15:46 percent 3.52
 
 // const backdate = startTime - duration;
-// const diff = checkProductionDate - backdate;
+// const diff = checkDate - backdate;
 // const percent = ((100 * diff) / duration - 100).toFixed(2);
 
 // const percent = ((100 * rest) / duration).toFixed(2);
-// const percent = ((100 * checkProductionDate) / backdate + 100).toFixed(2);
+// const percent = ((100 * checkDate) / backdate + 100).toFixed(2);
 
 // console.log(convertMsToTime(backdate));
 // console.log(`${percent}%`);

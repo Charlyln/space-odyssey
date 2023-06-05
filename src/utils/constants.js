@@ -77,7 +77,25 @@ const colors = {
   },
 };
 
+const containerStyles = {
+  overflow: 'auto',
+  backgroundColor: 'transparent',
+  '&::-webkit-scrollbar': {
+    width: 5,
+    backgroundColor: 'transparent',
+  },
+  '&::-webkit-scrollbar-track': {
+    WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.3)',
+    backgroundColor: 'transparent',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,.3)',
+    backgroundColor: '#555',
+  },
+};
+
 module.exports = {
   spaceships,
   colors,
+  containerStyles,
 };

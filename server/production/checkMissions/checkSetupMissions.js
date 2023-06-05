@@ -3,7 +3,7 @@ const { launchMission } = require('../../helper/model.helper');
 const { missionStatus } = require('enums');
 
 async function checkSetupMissions(user) {
-  logger.info('10 -      Check Setup');
+  logger.info('   Check Setup');
   try {
     const setupMissions = user.Missions.filter((mission) => mission.status === missionStatus.setup);
 

@@ -10,10 +10,10 @@ async function handleUpgradeBuilding(action) {
       where: { id: parameters.buildingId },
     });
 
-    await building.update({ upgrading: true, startTime: actionDate });
+    await building.update({ upgrading: true });
     return building;
   } catch (error) {
-    logger.error('UpgradeBuilding');
+    logger.error('UpgradeBuilding', error);
   }
 }
 
@@ -31,7 +31,7 @@ async function handleCancelBuilding(action) {
 
     return building;
   } catch (error) {
-    logger.error('UpgradeBuilding');
+    logger.error('CancelBuilding');
   }
 }
 
