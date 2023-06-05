@@ -28,7 +28,7 @@ module.exports = {
   },
   async create_user(req, res) {
     const user = await User.create({
-      id: uuidv4(),
+      id: 1,
     });
 
     await Building.create({
@@ -63,6 +63,34 @@ module.exports = {
       id: uuidv4(),
       name: 'people',
       value: 10,
+      UserId: user.id,
+    });
+
+    await Ressource.create({
+      id: uuidv4(),
+      name: 'spaceship',
+      value: 1,
+      UserId: user.id,
+    });
+
+    await Ressource.create({
+      id: uuidv4(),
+      name: 'food',
+      value: 10,
+      UserId: user.id,
+    });
+
+    await Ressource.create({
+      id: uuidv4(),
+      name: 'energy',
+      value: 100,
+      UserId: user.id,
+    });
+
+    await Ressource.create({
+      id: uuidv4(),
+      name: 'plutonium',
+      value: 0,
       UserId: user.id,
     });
 

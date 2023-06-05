@@ -14,12 +14,24 @@ const links = [
     name: 'Ressources',
   },
   {
+    to: '/storage',
+    name: 'Storage',
+  },
+  {
+    to: '/factories',
+    name: 'Factories',
+  },
+  {
     to: '/research',
     name: 'Research',
   },
   {
     to: '/planet',
     name: 'Planet',
+  },
+  {
+    to: '/spaceships',
+    name: 'Spaceships',
   },
   {
     to: '/missions',
@@ -50,7 +62,7 @@ export default function Menu({ width }) {
       <div>
         <CustomButton name={'Charly'} />
       </div>
-      <Divider style={{ marginTop: '30px' }} />
+      <Divider style={{ marginTop: '29px' }} />
       <List>
         {links.map((link) => (
           <Link to={link.to} key={link.to}>
