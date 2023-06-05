@@ -17,6 +17,12 @@ const Building = sequelize.define('Building', {
   level: {
     type: DataTypes.NUMBER(),
     allowNull: true,
+    defaultValue: 0,
+  },
+  upgrading: {
+    type: DataTypes.BOOLEAN(),
+    allowNull: true,
+    defaultValue: false,
   },
 });
 
