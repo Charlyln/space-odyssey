@@ -20,11 +20,13 @@ import Craft from '../pages/Craft';
 import Trade from '../pages/Trade';
 import History from '../pages/History';
 import Production from '../pages/Production';
+import Automation from '../pages/Automation';
 
 export const pages = [
   { path: '/', element: <Overview />, name: 'Overview' },
   { path: '/ressources', element: <Ressources />, name: 'Ressources' },
   { path: '/production', element: <Production />, name: 'Production' },
+  { path: '/automation', element: <Automation />, name: 'Automation' },
   { path: '/facilities', element: <Facilities />, name: 'Facilities' },
   { path: '/defence', element: <Defence />, name: 'Defence' },
   { path: '/colony', element: <Colony />, name: 'Colony' },
