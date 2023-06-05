@@ -11,57 +11,130 @@ const { Spaceship } = require('../db/models/spaceship.model');
 const { State } = require('../db/models/state.model');
 const { Cost } = require('../db/models/cost.model');
 const { Trade } = require('../db/models/trade.model');
-
 const { Planet } = require('../db/models/planet.model');
 const { Galaxy } = require('../db/models/galaxy.model');
 const { System } = require('../db/models/system.model');
 
 const { ressources, buildings, costs } = require('../constants/modelData');
 
-// const userOptions = {
-//   order: [
-//     [{ model: Info }, 'createdAt', 'DESC'],
-//     [{ model: Trade }, 'createdAt', 'DESC'],
-// //     [{ model: Building }, 'order', 'ASC'],
-//     [{ model: Spaceship }, 'createdAt', 'ASC'],
-// //     [{ model: Ressource }, 'name', 'ASC'],
-//   ],
-//   include: [
-//     {
-//       model: Ressource,
-//     },
-//     {
-//       model: Building,
-//     },
-//     {
-//       model: Mission,
-//     },
-//     {
-//       model: Info,
-//     },
-//     {
-//       model: Research,
-//     },
-//     {
-//       model: Spaceship,
-//       include: [
-//         {
-//           model: State,
-//         },
-//       ],
-//     },
-//     {
-//       model: Planet,
-//     },
-//     {
-//       model: Cost,
-//     },
-//     {
-//       model: Trade,
-//     },
-//   ],
-// };
+async function updateRessource(data, ressourceId) {
+  try {
+    await Ressource.update({ ...data }, { where: { id: ressourceId } });
+  } catch (error) {
+    logger.error('updateRessource', error);
+  }
+}
 
+async function incrementRessource(value, ressourceId) {
+  try {
+    await Ressource.increment('value', { by: value, where: { id: ressourceId } });
+  } catch (error) {
+    logger.error('incrementRessource', error);
+  }
+}
+
+async function decrementRessource(value, ressourceId) {
+  try {
+    await Ressource.increment('value', { by: -value, where: { id: ressourceId } });
+  } catch (error) {
+    logger.error('decrementRessource', error);
+  }
+}
+
+async function decrementMoney(price, userId) {
+  try {
+    await Ressource.increment('value', { by: -price, where: { UserId: userId, name: 'money' } });
+  } catch (error) {
+    logger.error('decrementMoney', error);
+  }
+}
+
+async function updateBuilding(data, buildingId) {
+  try {
+    await Building.update({ ...data }, { where: { id: buildingId } });
+  } catch (error) {
+    logger.error('updatebuilding', error);
+  }
+}
+
+async function updateState(data, stateId) {
+  try {
+    await State.update({ ...data }, { where: { id: stateId } });
+  } catch (error) {
+    logger.error('updateState', error);
+  }
+}
+
+async function createTrade(ressource, price, quantity, status, type, userId) {
+  try {
+    const trade = await Trade.create({
+      id: uuidv4(),
+      ressource: ressource,
+      price: price,
+      quantity: quantity,
+      status: status,
+      type: type,
+      UserId: userId,
+    });
+
+    return trade;
+  } catch (error) {
+    logger.error('createTrade', error);
+    throw new Error('Create Trade Error');
+  }
+}
+
+async function increaseCosts(costs) {
+  try {
+    await Promise.all(
+      costs.map(async (cost) => {
+        await Cost.increment('value', { by: 10, where: { id: cost.id } });
+      }),
+    );
+  } catch (error) {
+    logger.error('increaseCosts', error);
+  }
+}
+
+async function checkAvailableRessources(building, userId) {
+  try {
+    const costs = await Cost.findAll({
+      where: { craft: building.name },
+    });
+
+    if (costs.length > 0) {
+      const reponses = await Promise.all(
+        costs.map(async (cost) => {
+          const ressource = await Ressource.findOne({
+            where: { name: cost.ressource, UserId: userId },
+          });
+
+          if (ressource.value >= cost.value) {
+            return { response: true, value: cost.value, ressourceId: ressource.id };
+          } else {
+            return { response: false, value: cost.value, ressourceId: ressource.id };
+          }
+        }),
+      );
+
+      const checker = (arr) => arr.every((v) => v.response === true);
+
+      if (checker(reponses)) {
+        await Promise.all(
+          reponses.map(async (reponse) => {
+            await decrementRessource(reponse.value, reponse.ressourceId);
+          }),
+        );
+        return true;
+      } else {
+        return false;
+      }
+    }
+  } catch (error) {
+    logger.error('checkAvailableRessources', error);
+    return false;
+  }
+}
 async function getUserData(userId) {
   try {
     const user = await User.findOne({
@@ -177,11 +250,22 @@ async function getUsersData() {
 
 async function getServerData() {
   try {
-    const galaxies = await Galaxy.findAll();
-    const systems = await System.findAll();
-    const planets = await Planet.findAll();
+    const galaxies = await Galaxy.findAll({
+      include: [
+        {
+          model: System,
+          separate: true,
+          include: [
+            {
+              model: Planet,
+              separate: true,
+            },
+          ],
+        },
+      ],
+    });
 
-    return { galaxies, systems, planets };
+    return { galaxies };
   } catch (error) {
     logger.error('getServerData', error);
   }
@@ -272,6 +356,15 @@ async function sendInfo(userId, severity, message, icon) {
 }
 
 module.exports = {
+  updateRessource,
+  updateBuilding,
+  checkAvailableRessources,
+  updateState,
+  incrementRessource,
+  decrementRessource,
+  increaseCosts,
+  decrementMoney,
+  createTrade,
   getUserData,
   createUserData,
   getCosts,

@@ -1,4 +1,4 @@
-const { incrementRessource } = require('../../helper/ressourcehelper');
+const { incrementRessource } = require('../../helper/model.helper');
 const logger = require('../../logger');
 
 async function checkProduced(user) {

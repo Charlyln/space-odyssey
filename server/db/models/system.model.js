@@ -10,6 +10,22 @@ const System = sequelize.define('System', {
     type: DataTypes.STRING(),
     allowNull: true,
   },
+  size: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
+  sunSize: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
+  sunColor: {
+    type: DataTypes.STRING(),
+    allowNull: true,
+  },
+  sunShadow: {
+    type: DataTypes.STRING(),
+    allowNull: true,
+  },
 });
 
 module.exports = {

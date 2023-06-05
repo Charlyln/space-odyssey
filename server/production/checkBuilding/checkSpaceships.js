@@ -1,6 +1,6 @@
 const logger = require('../../logger');
-const { sendInfo } = require('../../helper/userhelper');
-const { checkAvailableRessources, updateState } = require('../../helper/ressourcehelper');
+const { sendInfo } = require('../../helper/model.helper');
+const { checkAvailableRessources, updateState } = require('../../helper/model.helper');
 
 const craftSpeed = 40;
 

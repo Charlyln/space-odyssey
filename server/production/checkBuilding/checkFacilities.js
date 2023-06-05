@@ -1,5 +1,5 @@
-const { sendInfo } = require('../../helper/userhelper');
-const { checkAvailableRessources, updateBuilding, increaseCosts } = require('../../helper/ressourcehelper');
+const { sendInfo } = require('../../helper/model.helper');
+const { checkAvailableRessources, updateBuilding, increaseCosts } = require('../../helper/model.helper');
 const logger = require('../../logger');
 
 const buildingSpeed = 40;

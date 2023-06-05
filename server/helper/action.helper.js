@@ -5,7 +5,7 @@ const { Building } = require('../db/models/building.model');
 const { Spaceship } = require('../db/models/spaceship.model');
 const { State } = require('../db/models/state.model');
 
-const { incrementRessource, decrementMoney, createTrade } = require('../helper/ressourcehelper');
+const { incrementRessource, decrementMoney, createTrade } = require('./model.helper');
 
 async function handleActions(action) {
   try {

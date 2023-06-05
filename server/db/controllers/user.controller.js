@@ -1,6 +1,6 @@
 const { User } = require('../models/user.model');
 
-const { getUserData, createUserData, getServerData } = require('../../helper/userhelper');
+const { getUserData, createUserData, getServerData } = require('../../helper/model.helper');
 
 module.exports = {
   async get_user(req, res) {
