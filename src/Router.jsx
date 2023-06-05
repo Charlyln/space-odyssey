@@ -1,84 +1,23 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import StatusBar from './pages/StatusBar';
-import CustomButton from './common/CustomButton';
-import { Link } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { AppBar, Box } from '@mui/material';
 
-import Overview from './pages/Overview';
-import Ressources from './pages/Ressources';
-import Planet from './pages/Planet';
-import { AppBar, Grid, Toolbar, Typography } from '@mui/material';
+import StatusBar from './layout/StatusBar';
+import Menu from './layout/Menu';
+import Infos from './layout/Infos';
+import Pages from './layout/Pages';
 
-const drawerWidth = 235;
-
-const links = [
-  {
-    to: '/',
-    name: 'Overview',
-  },
-  {
-    to: '/ressources',
-    name: 'Ressources',
-  },
-  {
-    to: '/research',
-    name: 'Research',
-  },
-  {
-    to: '/planet',
-    name: 'Planet',
-  },
-];
+const menuWidth = 235;
+const infosWidth = 300;
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Box>
-        <AppBar
-          position='fixed'
-          sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, background: 'none', boxShadow: 'none' }}
-        >
-          <StatusBar />
-        </AppBar>
-        <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            '& .MuiDrawer-paper': {
-              width: drawerWidth,
-              boxSizing: 'border-box',
-            },
-          }}
-          variant='permanent'
-          anchor='left'
-        >
-          <div>
-            <CustomButton name={'Charly'} />
-          </div>
-          <Divider style={{ marginTop: '30px' }} />
-          <List>
-            {links.map((link) => (
-              <Link to={link.to} key={link.to}>
-                <CustomButton key={link.to} name={link.name} color={240} />
-              </Link>
-            ))}
-          </List>
-          <Divider style={{ marginTop: '15px' }} />
-        </Drawer>
-
-        <Box sx={{ p: 3, marginLeft: '235px', marginTop: '20px' }}>
-          <Toolbar />
-
-          <Routes>
-            <Route path='/' element={<Overview />} />
-            <Route path='/ressources' element={<Ressources />} />
-            <Route path='/planet' element={<Planet />} />
-          </Routes>
-        </Box>
+        <StatusBar menuWidth={menuWidth} />
+        <Menu width={menuWidth} />
+        <Pages menuWidth={menuWidth} infosWidth={infosWidth} />
+        <Infos width={infosWidth} />
       </Box>
     </BrowserRouter>
   );
