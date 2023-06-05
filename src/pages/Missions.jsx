@@ -34,11 +34,14 @@ function Missions() {
 
   const missions = user?.Missions.filter((mission) => {
     if (type === missionStatus.finish) {
-      return mission.status === type || mission.status === missionStatus.retreived;
+      return mission.status === missionStatus.finish || mission.status === missionStatus.retreived;
     }
     if (type === missionStatus.setup) {
       return (
-        mission.status === missionStatus.comeback || mission.status === missionStatus.setup || mission.status === missionStatus.launched
+        mission.status === missionStatus.comeback ||
+        mission.status === missionStatus.setup ||
+        mission.status === missionStatus.launched ||
+        mission.status === missionStatus.destination
       );
     } else {
       return mission.status === type;
@@ -197,8 +200,6 @@ function Missions() {
 
   return (
     <PageContainer>
-      {/* <PageHeader height={'270px'} imgWidth={'200px'} imageName={'missions'} getChild={getHeader} /> */}
-
       <SolarSystemItem
         height={header}
         planets={system?.Planets}

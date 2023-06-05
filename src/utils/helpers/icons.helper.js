@@ -43,6 +43,7 @@ import trade from '../../assets/icons/missions/trade.webp';
 import basePlanet from '../../assets/icons/missions/basePlanet.webp';
 import arrival from '../../assets/icons/missions/arrival.webp';
 import baseMission from '../../assets/icons/missions/baseMission.webp';
+import atlas from '../../assets/icons/missions/atlas.webp';
 
 // Tools
 
@@ -51,6 +52,8 @@ import empty from '../../assets/icons/tools/empty.webp';
 
 export const getIcon = (name) => {
   switch (name) {
+    case 'atlas':
+      return atlas;
 
     case 'sub1':
       return sub1;
