@@ -1,3 +1,6 @@
+function randomIntFromInterval(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
 const ressources = [
   {
     name: 'money',
@@ -377,6 +380,115 @@ const missions = [
   },
 ];
 
+const dangers = ['low', 'medium', 'high'];
+const planetsColors = ['#a9a293', '#be7730', '#464f90', '#ed6f3e', '#8c7c65', '#cba941', '#94dcf0', '#0072a6'];
+
+const alpha_centauri_systems = [
+  {
+    name: 'Alpha A',
+    size: 800,
+    sunSize: 200,
+    sunColor: '#fae20a',
+    sunShadow: 'orange',
+  },
+  {
+    name: 'Alpha B',
+    size: 800,
+    sunSize: 100,
+    sunColor: 'red',
+    sunShadow: 'orange',
+  },
+  {
+    name: 'Alpha C',
+    size: 400,
+    sunSize: 200,
+    sunColor: '#6fcbcd',
+    sunShadow: '#00c7ff',
+  },
+  {
+    name: 'Alpha H',
+    size: 1200,
+    sunSize: 800,
+    sunColor: 'black',
+    sunShadow: 'orange',
+  },
+];
+
+const solar_system_planets = [
+  {
+    name: 'Mercury',
+    temperature: 19,
+    size: 15,
+    danger: 'low',
+    orbit: 263,
+    speed: randomIntFromInterval(15, 30),
+    color: '#a9a293',
+  },
+  {
+    name: 'Venus',
+    temperature: 19,
+    size: 20,
+    danger: 'low',
+    orbit: 402,
+    speed: randomIntFromInterval(15, 30),
+    color: '#be7730',
+  },
+  {
+    name: 'Earth',
+    temperature: 19,
+    size: 20,
+    danger: 'high',
+    orbit: 506,
+    speed: randomIntFromInterval(15, 30),
+    color: '#464f90',
+  },
+  {
+    name: 'Mars',
+    temperature: 19,
+    size: 15,
+    danger: 'low',
+    orbit: 609,
+    speed: randomIntFromInterval(15, 30),
+    color: '#ed6f3e',
+  },
+  {
+    name: 'Jupiter',
+    temperature: 19,
+    size: 50,
+    danger: 'high',
+    orbit: 738,
+    speed: randomIntFromInterval(15, 30),
+    color: '#8c7c65',
+  },
+  {
+    name: 'Saturn',
+    temperature: 19,
+    size: 40,
+    danger: 'low',
+    orbit: 853,
+    speed: randomIntFromInterval(15, 30),
+    color: '#cba941',
+  },
+  {
+    name: 'Uranus',
+    temperature: 19,
+    size: 30,
+    danger: 'low',
+    orbit: 935,
+    speed: randomIntFromInterval(15, 30),
+    color: '#94dcf0',
+  },
+  {
+    name: 'Neptune',
+    temperature: 19,
+    size: 30,
+    danger: '',
+    orbit: 1031,
+    speed: randomIntFromInterval(15, 30),
+    color: '#0072a6',
+  },
+];
+
 module.exports = {
   ressources,
   buildings,
@@ -385,4 +497,8 @@ module.exports = {
   systems,
   alpha_centauri_planets,
   missions,
+  dangers,
+  planetsColors,
+  alpha_centauri_systems,
+  solar_system_planets,
 };

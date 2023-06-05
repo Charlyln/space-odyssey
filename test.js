@@ -137,20 +137,28 @@ function convertMsToMin(milliseconds) {
 
 // const backdate = starttime - duration;
 
-const subtractMilliseconds = (date, milliseconds) => {
-  const result = new Date(date);
-  result.setMilliseconds(result.getMilliseconds() - milliseconds);
-  return result;
-};
+// const subtractMilliseconds = (date, milliseconds) => {
+//   const result = new Date(date);
+//   result.setMilliseconds(result.getMilliseconds() - milliseconds);
+//   return result;
+// };
 
-// let date = new Date('2021-08-30T00:00:00.000Z');
+// // let date = new Date('2021-08-30T00:00:00.000Z');
 
-// console.log(subtractMilliseconds(date, 5).toISOString());
+// // console.log(subtractMilliseconds(date, 5).toISOString());
 
-const startTime = new Date(2023, 4, 22, 20, 9, 0);
+// const startTime = new Date(2023, 4, 22, 20, 9, 0);
 
-console.log(startTime.toISOString());
+// console.log(startTime.toISOString());
 
-const duration = 60000;
+// const duration = 60000;
 
-console.log(subtractMilliseconds(startTime, duration).toISOString());
+// console.log(subtractMilliseconds(startTime, duration).toISOString());
+
+const travelDuration = 600000;
+console.log(convertMsToMin(travelDuration));
+
+const percent = 80;
+const newDureation = travelDuration * percent / 100
+
+console.log(convertMsToMin(newDureation));

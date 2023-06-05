@@ -11,7 +11,7 @@ const interval = 5 * 1000;
 function startProduction() {
   (async function checkProduction() {
     logger.info('------------ Start Production ------------ ');
-    const checkProductionDate = new Date().getTime();
+    const checkProductionDate = new Date();
     logger.info(' 1 - Get Data');
     const users = await getUsersData();
     logger.info(` 2 - Data Received`);

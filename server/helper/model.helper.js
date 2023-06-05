@@ -15,7 +15,7 @@ const { Planet } = require('../db/models/planet.model');
 const { Galaxy } = require('../db/models/galaxy.model');
 const { System } = require('../db/models/system.model');
 
-const { getNewDuration } = require('./utlis.helper');
+const { getNewDuration } = require('./utils.helper');
 
 const { ressources, buildings, costs, missions } = require('../constants/modelData');
 const { missionStatus } = require('enums');
@@ -180,7 +180,8 @@ async function createDefaultMissions(userId) {
           name: mission.name,
           type: mission.type,
           level: mission.level,
-          duration: minute * i,
+          travelDuration: minute / 3,
+          missionDuration: minute / 3,
           UserId: userId,
         });
       }),
@@ -390,9 +391,7 @@ async function startMission(missionId, actionDate) {
         id: missionId,
       },
     });
-
-    await mission.update({ ongoing: true, status: missionStatus.setup, startTime: actionDate });
-
+    await mission.update({ status: missionStatus.setup, startTime: actionDate });
     return mission;
   } catch (error) {
     logger.error('createmission', error);
@@ -413,13 +412,7 @@ async function progressMission(percent, missionId) {
   }
 }
 
-const subtractMilliseconds = (date, milliseconds) => {
-  const result = new Date(date);
-  result.setMilliseconds(result.getMilliseconds() - milliseconds);
-  return result;
-};
-
-async function comeBackMission(missionId, actionDate) {
+async function comeBackMission(missionId, comebackTime) {
   try {
     const mission = await Mission.findOne({
       where: {
@@ -427,23 +420,7 @@ async function comeBackMission(missionId, actionDate) {
       },
     });
 
-    // const duration = mission.duration;
-    // const startTime = new Date(mission.startTime).getTime();
-    // const checkProductionDate = actionDate;
-
-    // const backdate = startTime - duration;
-    // const diff = checkProductionDate - backdate;
-    // const percent = ((100 * diff) / duration - 100).toFixed(2);
-
-    // logger.warn('duration', mission.duration);
-    // logger.warn('startTime', startTime);
-    // logger.warn('checkProductionDate', checkProductionDate);
-    // logger.warn('percent', percent);
-    // const comebackTime = mission.startTime - mission.duration;
-
-    const comebackTime = subtractMilliseconds(mission.startTime, mission.duration);
-
-    await mission.update({ status: missionStatus.comeback, comebackTime }, { where: { id: missionId } });
+    await mission.update({ status: missionStatus.comeback, progress: 0, comebackTime }, { where: { id: missionId } });
   } catch (error) {
     logger.error('comeBackMission', error);
   }
@@ -451,7 +428,15 @@ async function comeBackMission(missionId, actionDate) {
 
 async function finishMission(missionId) {
   try {
-    await Mission.update({ ongoing: false, progress: 100, status: missionStatus.finish }, { where: { id: missionId } });
+    await Mission.update({ progress: 100, status: missionStatus.finish }, { where: { id: missionId } });
+  } catch (error) {
+    logger.error('finishMission', error);
+  }
+}
+
+async function destinationMission(missionId, destinationTime) {
+  try {
+    await Mission.update({ progress: 0, status: missionStatus.destination, destinationTime }, { where: { id: missionId } });
   } catch (error) {
     logger.error('finishMission', error);
   }
@@ -465,7 +450,7 @@ async function retreiveMission(missionId) {
       },
     });
 
-    await mission.update({ ongoing: false, progress: 100, status: missionStatus.retreived });
+    await mission.update({ progress: 100, status: missionStatus.retreived });
     return mission;
   } catch (error) {
     logger.error('retreiveMission', error);
@@ -496,4 +481,5 @@ module.exports = {
   comeBackMission,
   finishMission,
   retreiveMission,
+  destinationMission,
 };

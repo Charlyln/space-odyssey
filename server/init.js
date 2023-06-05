@@ -5,14 +5,8 @@ const { Planet } = require('./db/models/planet.model');
 const { System } = require('./db/models/system.model');
 const { Galaxy } = require('./db/models/galaxy.model');
 
-const { alpha_centauri_planets } = require('./constants/modelData');
-const {
-  generateSystems,
-  generatePlanets,
-  alpha_centauri_systems,
-  randomIntFromInterval,
-  solar_system_planets,
-} = require('./helper/utlis.helper');
+const { solar_system_planets, alpha_centauri_systems } = require('./constants/modelData');
+const { generateSystems, generatePlanets, randomIntFromInterval } = require('./helper/utils.helper');
 
 async function createInitData() {
   try {

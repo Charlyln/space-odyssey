@@ -5,7 +5,6 @@ const { startMission, comeBackMission, retreiveMission } = require('./model.help
 async function handleStartMission(action, actionDate) {
   try {
     const { missionId } = action.parameters;
-
     const mission = await startMission(missionId, actionDate);
     return mission;
   } catch (error) {

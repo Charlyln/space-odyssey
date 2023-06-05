@@ -1,6 +1,6 @@
 const logger = require('../../logger');
 const { progressMission, finishMission } = require('../../helper/model.helper');
-const { getPercentProgress, getComeBackPercentProgress } = require('../../helper/utlis.helper');
+const { getPercentProgress } = require('../../helper/utils.helper');
 const { missionStatus } = require('enums');
 
 async function checkComebackMissions(user, checkProductionDate) {
@@ -10,13 +10,12 @@ async function checkComebackMissions(user, checkProductionDate) {
 
     await Promise.all(
       comebackMissions.map(async (mission) => {
-        const percent = getComeBackPercentProgress(checkProductionDate, mission.comebackTime, mission.duration, mission.startTime);
-
-        // if (percent >= 100) {
-        //   await finishMission(mission.id);
-        // } else {
-        //   await progressMission(percent, mission.id);
-        // }
+        const percent = getPercentProgress(mission.comebackTime, mission.travelDuration, checkProductionDate);
+        if (percent >= 100) {
+          await finishMission(mission.id);
+        } else {
+          await progressMission(percent, mission.id);
+        }
       }),
     );
   } catch (error) {
