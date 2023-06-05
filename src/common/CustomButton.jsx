@@ -1,8 +1,8 @@
 import './custombutton.css';
 
-export default function CustomButton({ name, color }) {
+export default function CustomButton({ name, color, onClick }) {
   return (
-    <button className='cybr_btn' style={{ '--primary-hue': color }}>
+    <button className='cybr_btn' style={{ '--primary-hue': color }} onClick={onClick} >
       {name}
       <span aria-hidden>_</span>
       <span aria-hidden className='cybr_btn__glitch'>
