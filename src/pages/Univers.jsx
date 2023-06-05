@@ -8,13 +8,13 @@ import GalaxyItem from '../common/GalaxyItem';
 
 function Univers() {
   const { store } = useContext(Context);
-  const { server } = store;
+  const { user, server } = store;
   const [displayHeader, setdisplayHeader] = useState(true);
 
   return (
     <PageContainer>
       {server.galaxies.map((galaxy) => (
-        <GalaxyItem galaxy={galaxy} setdisplayHeader={setdisplayHeader} />
+        <GalaxyItem key={galaxy.id} galaxy={galaxy} setdisplayHeader={setdisplayHeader} user={user} />
       ))}
     </PageContainer>
   );

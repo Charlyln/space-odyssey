@@ -6,12 +6,12 @@ import GalaxyItem from '../common/GalaxyItem';
 
 function Galaxy() {
   const { store } = useContext(Context);
-  const { server } = store;
+  const { user, server } = store;
   const [displayHeader, setdisplayHeader] = useState(true);
 
   return (
     <PageContainer>
-      <GalaxyItem show galaxy={server.galaxies[0]} setdisplayHeader={setdisplayHeader} />
+      <GalaxyItem show galaxy={server.galaxies[0]} setdisplayHeader={setdisplayHeader} user={user} />
     </PageContainer>
   );
 }

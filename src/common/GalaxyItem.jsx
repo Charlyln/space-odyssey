@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import Collapse from '@mui/material/Collapse';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import SolarSystemItem from './SolarSystemItem';
+import useSelectedElement from '../utils/customHooks/useSelectedElement';
 
 const icon = (
   <Paper sx={{ m: 1 }} elevation={4}>
@@ -26,8 +27,9 @@ const icon = (
     </Box>
   </Paper>
 );
-function GalaxyItem({ galaxy, setdisplayHeader, show }) {
+function GalaxyItem({ galaxy, setdisplayHeader, show, user }) {
   const [systems, setsystems] = React.useState(show ? galaxy.Systems : []);
+  const [elementSelected, setElementSelected] = useSelectedElement();
 
   const handleChange = () => {
     setsystems((prev) => {
@@ -64,6 +66,9 @@ function GalaxyItem({ galaxy, setdisplayHeader, show }) {
                 sunSize={system.sunSize}
                 defaultScale={0.3}
                 setdisplayHeader={setdisplayHeader}
+                basePlanet={user.Planet}
+                setElementSelected={setElementSelected}
+                elementSelected={elementSelected}
               />
             </Collapse>
           ))}

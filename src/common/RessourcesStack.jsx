@@ -5,7 +5,16 @@ export default function RessourcesStack({ ressources, size, square, onClick, foo
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {ressources?.map((ressource) => (
-        <RessourceItem onClick={onClick} key={ressource.id} ressource={ressource} size={size} square={square} footer={footer} disabled />
+        <RessourceItem
+          key={ressource.id}
+          onClick={onClick}
+          key={ressource.id}
+          ressource={ressource}
+          size={size}
+          square={square}
+          footer={footer}
+          disabled
+        />
       ))}
     </div>
   );

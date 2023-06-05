@@ -38,6 +38,8 @@ export default function PageHeader({
         />
 
         <CardContent style={{ width: '100%', padding: '6px 8px' }}>
+
+          
           <Typography component='div' variant='h5' style={{ fontFamily: 'monospace' }}>
             {title}
           </Typography>
