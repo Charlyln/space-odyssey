@@ -54,6 +54,7 @@ export default function PageHeader({
               <Typography variant='subtitle1' color='text.secondary' component='div'>
                 {elementSelected.name}
               </Typography>
+
               {children}
 
               {headerInfosTitle && (

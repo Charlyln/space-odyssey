@@ -38,8 +38,12 @@ const links = [
     name: 'Planet',
   },
   {
+    to: '/startSystem',
+    name: 'Star System',
+  },
+  {
     to: '/galaxy',
-    name: 'Solar System',
+    name: 'Galaxy',
   },
   {
     to: '/shipyard',
