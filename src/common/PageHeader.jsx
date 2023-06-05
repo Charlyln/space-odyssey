@@ -48,14 +48,25 @@ export default function PageHeader({
               </Typography>
               {children}
 
-              <PageHeaderLayout>
-                <PageHeaderInfos title={headerInfosTitle} infos={getInfos(elementSelected)} imgParams={elementSelected.production} />
-                <PageHeaderCosts costs={costs} elementName={elementSelected.name} />
-              </PageHeaderLayout>
+              {headerInfosTitle && (
+                <PageHeaderLayout>
+                  <PageHeaderInfos title={headerInfosTitle} infos={getInfos(elementSelected)} imgParams={elementSelected.production} />
+                  <PageHeaderCosts costs={costs} elementName={elementSelected.name} />
+                </PageHeaderLayout>
+              )}
 
-              <HeaderAction>
-                <CustomButton onClick={() => action(elementSelected)} name={actionName} color={500} width={120} height={40} fontSize={15} />
-              </HeaderAction>
+              {actionName && (
+                <HeaderAction>
+                  <CustomButton
+                    onClick={() => action(elementSelected)}
+                    name={actionName}
+                    color={500}
+                    width={120}
+                    height={40}
+                    fontSize={15}
+                  />
+                </HeaderAction>
+              )}
             </>
           )}
         </CardContent>

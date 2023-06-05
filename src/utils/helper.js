@@ -33,9 +33,21 @@ import spaceshipIcon from '../assets/ressources/spaceship.webp';
 import cargoIcon from '../assets/ressources/cargo.webp';
 import galaxyIcon from '../assets/ressources/galaxy.webp';
 import waveIcon from '../assets/ressources/wave.webp';
+import JKCS_041 from '../assets/planets/JKCS-041.jpeg';
+import SPT0346_52 from '../assets/planets/SPT0346-52.jpeg';
+import A1689_zD1 from '../assets/planets/A1689-zD1.jpeg';
 
 export const getImg = (name) => {
   switch (name) {
+    case 'JKCS-041':
+      return JKCS_041;
+
+    case 'SPT0346-52':
+      return SPT0346_52;
+
+    case 'A1689-zD1':
+      return A1689_zD1;
+
     case 'defence':
       return defence;
 
