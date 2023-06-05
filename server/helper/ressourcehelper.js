@@ -13,6 +13,22 @@ async function updateRessource(data, ressourceId) {
   }
 }
 
+async function incrementRessource(value, ressourceId) {
+  try {
+    await Ressource.increment('value', { by: value, where: { id: ressourceId } });
+  } catch (error) {
+    logger.error('incrementRessource', error);
+  }
+}
+
+async function decrementRessource(value, ressourceId) {
+  try {
+    await Ressource.increment('value', { by: -value, where: { id: ressourceId } });
+  } catch (error) {
+    logger.error('decrementRessource', error);
+  }
+}
+
 async function updateBuilding(data, buildingId) {
   try {
     await Building.update({ ...data }, { where: { id: buildingId } });
@@ -55,7 +71,7 @@ async function checkAvailableRessources(building, userId) {
       if (checker(reponses)) {
         await Promise.all(
           reponses.map(async (reponse) => {
-            await updateRessource({ value: reponse.value }, reponse.ressourceId);
+            await decrementRessource(reponse.value, reponse.ressourceId);
           }),
         );
         return true;
@@ -74,4 +90,6 @@ module.exports = {
   updateBuilding,
   checkAvailableRessources,
   updateState,
+  incrementRessource,
+  decrementRessource,
 };

@@ -1,14 +1,21 @@
 const logger = require('../../logger');
-const { Ressource } = require('../../db/models/ressource.model');
+const { decrementRessource } = require('../../helper/ressourcehelper');
 
 async function checkConsumed(user) {
   try {
-    const workinguildings = user.Buildings.filter((building) => building.level > 0);
+    const workingbuildings = user.Buildings.filter((building) => building.level > 0);
+    const workingPeople = user.Ressources.find((ressource) => ressource.name === 'people');
+    const foodRessource = user.Ressources.find((ressource) => ressource.name === 'food');
 
-    if (workinguildings.length > 0) {
-      const ressource = await Ressource.findOne({ where: { name: 'energy' } });
-      console.log(ressource.value - workinguildings.length);
-      await ressource.update({ value: ressource.value - workinguildings.length });
+    if (workingbuildings.length > 0) {
+      const energyRessource = user.Ressources.find((ressource) => ressource.name === 'energy');
+      const consumed = workingbuildings.length;
+      await decrementRessource(consumed, energyRessource.id);
+    }
+
+    if (workingPeople.value > 0) {
+      const consumed = workingPeople.value;
+      await decrementRessource(consumed, foodRessource.id);
     }
   } catch (error) {
     logger.error('checkConsumed', error);
