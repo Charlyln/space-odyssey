@@ -76,6 +76,9 @@ export default function PageHeader({
                   width={120}
                   height={40}
                   fontSize={15}
+                  primary={'rgb(129, 199, 132)'}
+                  secondary={'#406441'}
+                  textColor={'#121212'}
                 />
               )}
 
@@ -87,6 +90,9 @@ export default function PageHeader({
                 height={40}
                 fontSize={15}
                 disabled={disabledAction}
+                primary={'rgb(129, 199, 132)'}
+                secondary={'#406441'}
+                textColor={'#121212'}
               />
             </HeaderAction>
           )}

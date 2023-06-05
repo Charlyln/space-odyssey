@@ -42,10 +42,10 @@ function Inventory() {
         <>
           <ButtonGroup style={{ position: 'absolute', top: 10, right: 10 }} size='small' variant='outlined'>
             <Button variant={tradType === 'Buy' ? 'contained' : 'outlined'} onClick={() => setTradType('Buy')}>
-              Buy
+              Buying
             </Button>
             <Button variant={tradType === 'Sell' ? 'contained' : 'outlined'} onClick={() => setTradType('Sell')}>
-              Sell
+              Selling
             </Button>
           </ButtonGroup>
           <ContainerList height={287}>
@@ -101,20 +101,22 @@ function Inventory() {
         </PageContent>
       ) : (
         <>
-          <PageContent bgColor={'unset'} borderLess >
+          <PageContent bgColor={'unset'} borderLess>
             <TradeItem ressource={user.Ressources[0]} action={() => {}} money={money} />
           </PageContent>
           <PageContent bgColor={'unset'}>
-            <div style={{ padding: '2px' }}>
-              <CardStack
-                cardSize={'70px'}
-                array={[...user.Ressources, ...user.Ressources, ...user.Ressources, ...user.Ressources, ...user.Ressources]}
-                cardGetter={getFooter}
-                disabledCard={true}
-                onSelect={() => {}}
-                square
-              />
-            </div>
+            <ContainerList height={300}>
+              <div style={{ padding: '2px' }}>
+                <CardStack
+                  cardSize={'70px'}
+                  array={[...user.Ressources, ...user.Ressources, ...user.Ressources, ...user.Ressources, ...user.Ressources]}
+                  cardGetter={getFooter}
+                  disabledCard={true}
+                  onSelect={() => {}}
+                  square
+                />
+              </div>
+            </ContainerList>
           </PageContent>
         </>
       )}
