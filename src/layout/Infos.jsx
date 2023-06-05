@@ -1,17 +1,46 @@
-import React, { useContext } from 'react';
-import { Alert, Drawer, Stack, Collapse, IconButton, Divider } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Alert, Drawer, Stack, Collapse, IconButton, Divider, List } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
 import { History } from '@mui/icons-material';
-import { Context } from '../utils/AppContext';
+import { styled } from '@mui/material/styles';
+import { socket } from '../utils/socket';
+
+const ContainerStyle = styled(List)(() => ({
+  overflow: 'auto',
+  padding: '6px',
+  '&::-webkit-scrollbar': {
+    width: 5,
+    backgroundColor: 'transparent',
+  },
+  '&::-webkit-scrollbar-track': {
+    WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.3)',
+    backgroundColor: 'transparent',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,.3)',
+    backgroundColor: '#555',
+  },
+}));
 
 export default function Infos({ width }) {
-  const { store, setStore } = useContext(Context);
+  const [infos, setInfos] = useState([]);
+
+  useEffect(() => {
+    function onInfoEvent(value) {
+      setInfos((prevState) => [value, ...prevState]);
+    }
+
+    socket.on('info', onInfoEvent);
+
+    return () => {
+      socket.off('info', onInfoEvent);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const clearInfos = () => {
-    setStore((prevState) => ({
-      ...prevState,
-      infos: [],
-    }));
+    setInfos([]);
   };
 
   return (
@@ -34,17 +63,17 @@ export default function Infos({ width }) {
       </Stack>
 
       <Divider />
-      <Stack sx={{ width: '100%', padding: '5px' }}>
+      <ContainerStyle>
         <TransitionGroup>
-          {store.user.Infos.map((info) => (
+          {infos.map((info) => (
             <Collapse key={info.id}>
-              <Alert style={{ margin: '2px 0' }} key={info.id} variant='outlined' severity={info.severity}>
+              <Alert style={{ margin: '2px 0', padding: '0px 5px' }} key={info.id} variant='outlined' severity={info.severity}>
                 {info.message}
               </Alert>
             </Collapse>
           ))}
         </TransitionGroup>
-      </Stack>
+      </ContainerStyle>
     </Drawer>
   );
 }

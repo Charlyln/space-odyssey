@@ -1,4 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
+const moment = require('moment');
 
 const { Info } = require('../db/models/info.model');
 
@@ -52,9 +53,11 @@ async function checkRessources(user) {
     }),
   );
 
+  const time = moment().format('D MMM 2480 HH:mm');
+
   if (global.socketIds[user.id]) {
     global.io.to(global.socketIds[user.id]).emit('userData', userData);
-    global.io.to(global.socketIds[user.id]).emit('ressources', userData.Ressources);
+    global.io.to(global.socketIds[user.id]).emit('ressources', { ressources: userData.Ressources, time });
   }
 }
 

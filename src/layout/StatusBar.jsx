@@ -36,6 +36,8 @@ const ressourceItems = [
     width: 60,
     height: 60,
   },
+  {},
+  { name: 'time' },
   {
     name: 'people',
     width: 60,
@@ -65,6 +67,7 @@ const ressourceItems = [
 
 function StatusBar({ menuWidth, infosWidth }) {
   const [ressources, setRessources] = useState([]);
+  const [time, setTime] = useState('');
 
   const getRessourceValue = (ressourceName) => {
     try {
@@ -81,7 +84,8 @@ function StatusBar({ menuWidth, infosWidth }) {
 
   useEffect(() => {
     function onRessourcesEvent(data) {
-      setRessources(data);
+      setRessources(data.ressources);
+      setTime(data.time);
     }
 
     socket.on('ressources', onRessourcesEvent);
@@ -99,8 +103,37 @@ function StatusBar({ menuWidth, infosWidth }) {
         if (!ressource.name) {
           return <div key={i} style={{ width: 60 }}></div>;
         }
+
+        if (ressource.name === 'time') {
+          return (
+            <div key={i} style={{ width: '200px', height: '78px' }}>
+              <Card
+                style={{ borderRadius: 0, width: '200px', height: '78px', border: 'solid 1px grey', position: 'relative' }}
+                variant='outlined'
+              >
+                <div
+                  style={{
+                    padding: 0,
+                    textAlign: 'center',
+                    position: 'absolute',
+                    margin: 0,
+                    top: '50%',
+                    left: '50%',
+                    '-ms-transform': 'translate(-50%, -50%)',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                >
+                  <Typography style={{ fontFamily: 'monospace', fontSize: 'initial' }} >
+                    {time}
+                  </Typography>
+                </div>
+              </Card>
+            </div>
+          );
+        }
+
         return (
-          <div key={ressource.name} style={{ marginLeft: i === 7 ? 'auto' : 'unset', padding: '0px 2px' }}>
+          <div key={ressource.name} style={{ marginLeft: i === 9 ? 'auto' : 'unset', padding: '0px 2px' }}>
             <Card style={{ borderRadius: 0, width: 60, border: 'solid 1px grey' }} variant='outlined'>
               <CardMedia
                 sx={{ height: ressource.height, width: ressource.width, margin: 'auto' }}
