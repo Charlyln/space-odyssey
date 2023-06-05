@@ -1,7 +1,8 @@
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import Router from './Router';
+import Layout from './Layout';
+import AppContext from './utils/AppContext';
 
 const theme = createTheme({
   palette: {
@@ -11,9 +12,11 @@ const theme = createTheme({
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router />
-    </ThemeProvider>
+    <AppContext>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Layout />
+      </ThemeProvider>
+    </AppContext>
   );
 }

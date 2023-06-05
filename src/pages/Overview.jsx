@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardMedia, Typography, Grid, CardContent, Box } from '@mui/material';
+import { Card, Typography, Grid, CardContent, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
@@ -32,17 +32,17 @@ function Overview() {
     <Grid container alignItems='center'>
       {items.map((item) => (
         <Grid item xs={4} key={item.name} sx={{ padding: 1 }}>
-          <Card style={{ borderRadius: 0, border: 'solid 1px turquoise' }}>
+          <Card style={{ border: 'solid 1px' }}>
             <CardContent>
               <Typography sx={{ fontSize: 14 }} color='text.secondary'>
                 {item.name}
               </Typography>
 
               <Grid container alignItems='center' sx={{ padding: 1 }}>
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                   Steel mine
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={8}>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Box sx={{ width: '100%', mr: 1 }}>
                       <BorderLinearProgress variant='determinate' value={50} />

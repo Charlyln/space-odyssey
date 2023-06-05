@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Toolbar, Box } from '@mui/material';
 
 import Overview from '../pages/Overview';
