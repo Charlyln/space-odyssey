@@ -32,7 +32,7 @@ export default function PageHeader({
       <Card style={{ display: 'flex', height, position: 'relative', backgroundColor: 'unset' }} variant='outlined'>
         <CardMedia
           component='img'
-          sx={{ width: elementSelected ? imgWidth : '400px' }}
+          sx={{ width: imgWidth || '400px' }}
           image={elementSelected ? getImg(elementSelected.name) : getImg(imageName)}
           alt={title}
         />

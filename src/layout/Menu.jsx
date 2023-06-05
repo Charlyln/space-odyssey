@@ -39,7 +39,7 @@ const links = [
   },
   {
     to: '/galaxy',
-    name: 'System',
+    name: 'Solar System',
   },
   {
     to: '/shipyard',

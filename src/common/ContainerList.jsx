@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 const ContainerStyle = styled(List)(({ height }) => ({
   overflow: 'auto',
   height: height,
+  width: '100%',
   padding: '6px',
   '&::-webkit-scrollbar': {
     width: 5,
@@ -21,5 +22,5 @@ const ContainerStyle = styled(List)(({ height }) => ({
 }));
 
 export default function ContainerList({ height, children }) {
-  return <ContainerStyle height={'300px'}>{children}</ContainerStyle>;
+  return <ContainerStyle height={height ? `${height}px` : '300px'}>{children}</ContainerStyle>;
 }
