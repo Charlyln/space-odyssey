@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../sequelize');
 
-const { startMoney } = require('../../constants/game');
+const { startMoney } = require('enums/game');
 
 const Money = sequelize.define('Money', {
   id: {

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Typography, IconButton } from '@mui/material';
-import { actionTypes } from 'enums';
+import { actionTypes } from 'enums/type';
 import { Context } from '../utils/AppContext';
 import axios from 'axios';
 import { hostname, port } from '../utils/config';

@@ -3,12 +3,12 @@ const { checkFacilitiesStart } = require('./checkFacilitiesStart');
 const { checkFacilitiesProgress } = require('./checkFacilitiesProgress');
 const { checkFacilitiesFinish } = require('./checkFacilitiesFinish');
 
-async function checkFacilities(user, checkDate) {
+async function checkFacilities(user, checkTime) {
   logger.info('   Check Facilities');
 
-  await checkFacilitiesStart(user, checkDate);
-  await checkFacilitiesProgress(user, checkDate);
-  await checkFacilitiesFinish(user, checkDate);
+  await checkFacilitiesStart(user, checkTime);
+  await checkFacilitiesProgress(user, checkTime);
+  await checkFacilitiesFinish(user, checkTime);
 }
 
 module.exports = {

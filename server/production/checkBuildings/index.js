@@ -2,10 +2,10 @@ const logger = require('../../logger');
 const { checkFacilities } = require('./checkFacilities');
 const { checkSpaceships } = require('./checkSpaceships');
 
-async function checkBuildings(user, checkDate) {
+async function checkBuildings(user, checkTime) {
   logger.info('Check Buildings');
-  await checkSpaceships(user, checkDate);
-  await checkFacilities(user, checkDate);
+  await checkSpaceships(user, checkTime);
+  await checkFacilities(user, checkTime);
 }
 
 module.exports = {

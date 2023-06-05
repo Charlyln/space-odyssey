@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
-import { actionTypes } from 'enums';
+import { actionTypes } from 'enums/type';
 
 import { Context } from '../utils/AppContext';
 import { hostname, port } from '../utils/config';

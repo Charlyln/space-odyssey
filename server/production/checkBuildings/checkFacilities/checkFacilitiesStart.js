@@ -1,9 +1,9 @@
-const { facilitiesStatus } = require('enums');
+const { facilitiesStatus } = require('enums/status');
 const { sendInfo } = require('../../../helper/model.helper');
 const { checkAvailableRessources, updateBuilding } = require('../../../helper/model.helper');
 const logger = require('../../../logger');
 
-async function checkFacilitiesStart(user, checkDate) {
+async function checkFacilitiesStart(user, checkTime) {
   logger.info('      Check Start');
   try {
     const setupBuildings = user.Buildings.filter((building) => building.status === facilitiesStatus.setup);
@@ -21,7 +21,7 @@ async function checkFacilitiesStart(user, checkDate) {
           // wait until ressources
         }
       } else {
-        await updateBuilding({ status: facilitiesStatus.upgrading, startTime: checkDate }, building.id);
+        await updateBuilding({ status: facilitiesStatus.upgrading, startTime: checkTime }, building.id);
         const message = `${building.name} start upgrading`;
         await sendInfo(user.id, 'info', message, 'upgrading');
       }

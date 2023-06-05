@@ -18,7 +18,8 @@ import PageContent from '../common/PageContent';
 import MissionsList from '../common/MissionsList';
 import { colors } from '../utils/constants';
 import CustomButtonGroup from '../common/CustomButtonGroup';
-import { missionStatus, actionTypes } from 'enums';
+import { actionTypes } from 'enums/type';
+import { missionStatus } from 'enums/status';
 
 const header = '250px';
 const footer = `50px`;
