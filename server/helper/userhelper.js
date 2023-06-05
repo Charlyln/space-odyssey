@@ -12,15 +12,19 @@ const { State } = require('../db/models/state.model');
 const { Cost } = require('../db/models/cost.model');
 const { Trade } = require('../db/models/trade.model');
 
+const { Planet } = require('../db/models/planet.model');
+const { Galaxy } = require('../db/models/galaxy.model');
+const { System } = require('../db/models/system.model');
+
 const { ressources, buildings, costs } = require('../constants/modelData');
 
 // const userOptions = {
 //   order: [
 //     [{ model: Info }, 'createdAt', 'DESC'],
 //     [{ model: Trade }, 'createdAt', 'DESC'],
-//     [{ model: Building }, 'order', 'ASC'],
+// //     [{ model: Building }, 'order', 'ASC'],
 //     [{ model: Spaceship }, 'createdAt', 'ASC'],
-//     [{ model: Ressource }, 'name', 'ASC'],
+// //     [{ model: Ressource }, 'name', 'ASC'],
 //   ],
 //   include: [
 //     {
@@ -62,20 +66,16 @@ async function getUserData(userId) {
   try {
     const user = await User.findOne({
       where: { id: userId },
-      order: [
-        [{ model: Info }, 'createdAt', 'DESC'],
-        [{ model: Trade }, 'createdAt', 'DESC'],
-        [{ model: Building }, 'order', 'ASC'],
-        [{ model: Spaceship }, 'createdAt', 'ASC'],
-        [{ model: Ressource }, 'name', 'ASC'],
-      ],
+      order: [],
       include: [
         {
           model: Ressource,
+          order: [['name', 'ASC']],
           separate: true,
         },
         {
           model: Building,
+          order: [['order', 'ASC']],
           separate: true,
         },
         {
@@ -84,6 +84,7 @@ async function getUserData(userId) {
         },
         {
           model: Info,
+          order: [['createdAt', 'DESC']],
           separate: true,
         },
         {
@@ -92,6 +93,7 @@ async function getUserData(userId) {
         },
         {
           model: Spaceship,
+          order: [['createdAt', 'ASC']],
           separate: true,
           include: [
             {
@@ -105,6 +107,7 @@ async function getUserData(userId) {
         },
         {
           model: Trade,
+          order: [['createdAt', 'DESC']],
           separate: true,
         },
       ],
@@ -119,20 +122,16 @@ async function getUserData(userId) {
 async function getUsersData() {
   try {
     const users = await User.findAll({
-      order: [
-        [{ model: Info }, 'createdAt', 'DESC'],
-        [{ model: Trade }, 'createdAt', 'DESC'],
-        [{ model: Building }, 'order', 'ASC'],
-        [{ model: Spaceship }, 'createdAt', 'ASC'],
-        [{ model: Ressource }, 'name', 'ASC'],
-      ],
+      order: [],
       include: [
         {
           model: Ressource,
+          order: [['name', 'ASC']],
           separate: true,
         },
         {
           model: Building,
+          order: [['order', 'ASC']],
           separate: true,
         },
         {
@@ -141,6 +140,7 @@ async function getUsersData() {
         },
         {
           model: Info,
+          order: [['createdAt', 'DESC']],
           separate: true,
         },
         {
@@ -149,6 +149,7 @@ async function getUsersData() {
         },
         {
           model: Spaceship,
+          order: [['createdAt', 'ASC']],
           separate: true,
           include: [
             {
@@ -162,6 +163,7 @@ async function getUsersData() {
         },
         {
           model: Trade,
+          order: [['createdAt', 'DESC']],
           separate: true,
         },
       ],
@@ -170,6 +172,18 @@ async function getUsersData() {
     return users;
   } catch (error) {
     logger.error('getUsersData', error);
+  }
+}
+
+async function getServerData() {
+  try {
+    const galaxies = await Galaxy.findAll();
+    const systems = await System.findAll();
+    const planets = await Planet.findAll();
+
+    return { galaxies, systems, planets };
+  } catch (error) {
+    logger.error('getServerData', error);
   }
 }
 
@@ -263,4 +277,5 @@ module.exports = {
   getCosts,
   getUsersData,
   sendInfo,
+  getServerData,
 };

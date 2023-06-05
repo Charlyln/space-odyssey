@@ -276,8 +276,59 @@ const costs = [
   },
 ];
 
+const galaxies = [
+  {
+    name: 'Milky Way',
+  },
+  {
+    name: 'Andromeda',
+  },
+];
+
+const systems = [
+  {
+    name: 'Solar System',
+  },
+  {
+    name: 'Alpha Centauri',
+  },
+];
+
+const planets = [
+  {
+    name: 'Alf Cen B b',
+    temperature: 23,
+    danger: 'medium',
+    size: 25,
+    orbit: 250,
+    speed: 30,
+    color: '#9f4e17',
+  },
+  {
+    name: 'HIP 70890 c',
+    temperature: 37,
+    danger: 1,
+    size: 40,
+    orbit: 500,
+    speed: 40,
+    color: '#4c4c77',
+  },
+  {
+    name: 'HD 128621 c',
+    temperature: -12,
+    danger: 'low',
+    size: 55,
+    orbit: 380,
+    speed: 20,
+    color: 'grey',
+  },
+];
+
 module.exports = {
   ressources,
   buildings,
   costs,
+  galaxies,
+  systems,
+  planets,
 };
