@@ -3,18 +3,90 @@ import { Context } from '../utils/AppContext';
 
 import PageHeader from '../common/PageHeader';
 import PageContainer from '../common/PageContainer';
+import { hostname, port } from '../utils/config';
+import ContainerList from '../common/ContainerList';
 
 import '../common/css/galaxy.css';
 import useSelectedElement from '../utils/customHooks/useSelectedElement';
 import SolarSystemItem from '../common/SolarSystemItem';
+import axios from 'axios';
+import { Stack, Typography } from '@mui/material';
 
 function Galaxy() {
   const { store } = useContext(Context);
-  const { server } = store;
+  const { user } = store;
   const [elementSelected, setElementSelected] = useSelectedElement();
   const [displayHeader, setdisplayHeader] = useState(true);
+  // const [missions, setMissions] = useState(user.Missions);
+  const system = user?.Planet?.System;
 
-  const system = server?.galaxies[0]?.Systems[1];
+  const getHeader = () => {
+    const missions = user.Missions.filter((mission) => mission.type === 'Rescue');
+
+    console.log(missions, user.Missions);
+    try {
+      if (elementSelected) {
+        return (
+          <>
+            <Stack direction='row' spacing={1} justifyContent='center' alignItems='center'>
+              <div
+                className='planet'
+                id={`planet${elementSelected.name}`}
+                style={{
+                  width: `50px`,
+                  height: `50px`,
+                  backgroundColor: `${elementSelected.color}`,
+                  boxShadow: `0 0 ${30}px ${elementSelected.color}`,
+                  borderRadius: '50%',
+                  // position: 'relative',
+                }}
+              />
+
+              <ContainerList height={100}>
+                {missions.map((mission) => (
+                  <>
+                    <Typography variant='button' color='text.secondary' component='div'>
+                      {mission.type}
+                    </Typography>
+                  </>
+                ))}
+              </ContainerList>
+            </Stack>
+          </>
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const sendMission = async (item) => {
+    try {
+      const body = { userId: user.id, type: 'SendMission', parameters: { planetId: elementSelected.id } };
+      const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
+
+      console.log(response.data);
+
+      // setStore((prevState) => {
+      //   const newState = [...prevState.user.Buildings];
+      //   const index = newState.findIndex((building) => building.id === response.data.id);
+
+      //   if (index !== -1) {
+      //     newState[index] = response.data;
+
+      //     return {
+      //       ...prevState,
+      //       user: {
+      //         ...prevState.user,
+      //         Buildings: newState,
+      //       },
+      //     };
+      //   }
+      // });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <PageContainer>
@@ -24,8 +96,10 @@ function Galaxy() {
           imgWidth={'200px'}
           imageName={'solar_system'}
           title={'Star System'}
-          elementSelected={elementSelected}
-          setElementSelected={setElementSelected}
+          getChild={getHeader}
+          action={sendMission}
+          actionName={'Send'}
+          displayButton={elementSelected}
         />
       )}
 
@@ -37,6 +111,8 @@ function Galaxy() {
         sunSize={system.sunSize}
         defaultScale={0.3}
         setdisplayHeader={setdisplayHeader}
+        setElementSelected={setElementSelected}
+        elementSelected={elementSelected}
       />
     </PageContainer>
   );

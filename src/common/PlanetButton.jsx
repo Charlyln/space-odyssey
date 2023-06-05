@@ -1,12 +1,14 @@
 import React from 'react';
 import { IconButton, Tooltip } from '@mui/material';
+import { getIcon } from '../utils/helper';
 
-export default function PlanetButton({ planet, name, scale, selectItem, selectedItem }) {
+export default function PlanetButton({ planet, name, scale, selectItem, selectedItem, basePlanet }) {
   const { size, color } = planet;
+  const isBasePlanet = basePlanet.id === planet.id;
 
   return (
     <Tooltip title={planet.name}>
-      <IconButton selected onClick={() => selectItem(planet)}>
+      <IconButton onClick={() => selectItem(planet)}>
         <div
           className='planet'
           id={`planet${name}`}
@@ -19,6 +21,13 @@ export default function PlanetButton({ planet, name, scale, selectItem, selected
             position: 'relative',
           }}
         >
+          {isBasePlanet && (
+            <img
+              style={{ width: '30px', height: '30px', position: 'absolute', top: '8px', right: '-10px' }}
+              src={getIcon('basePlanet')}
+              alt={'basePlanet'}
+            />
+          )}
           <div
             className='planetBorder'
             style={{
