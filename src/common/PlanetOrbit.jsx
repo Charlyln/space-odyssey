@@ -1,7 +1,9 @@
 import React from 'react';
 
-export default function PlanetOrbit({ planet, name, scale }) {
+export default function PlanetOrbit({ planet, name, scale, selectedItem }) {
   const { size, orbit, speed, color } = planet;
+
+  console.log(selectedItem?.size, planet?.size);
 
   return (
     <>
@@ -35,6 +37,7 @@ export default function PlanetOrbit({ planet, name, scale }) {
             marginLeft: `${-((size * scale) / 2)}px`,
             backgroundColor: `${color}`,
             boxShadow: `0 0 ${4}px ${color}`,
+            border: selectedItem?.size === planet?.size ? 'solid 2px red' : 'none',
           }}
         />
       </div>
