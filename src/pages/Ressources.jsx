@@ -9,6 +9,7 @@ import PageHeader from '../common/PageHeader';
 import PageContainer from '../common/PageContainer';
 import CardProgress from '../common/CardProgress';
 import useSelectedElement from '../utils/customHooks/useSelectedElement';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 
 function Ressources() {
   const { store, setStore } = useContext(Context);
@@ -39,6 +40,32 @@ function Ressources() {
       });
     } catch (error) {
       // setdisabledAction(false);
+      console.log(error);
+    }
+  };
+
+  const cancel = async (item) => {
+    try {
+      const body = { userId: user.id, type: 'CancelBuilding', parameters: { buildingId: item.id } };
+      const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
+
+      if (response.data) {
+        setStore((prevState) => {
+          const newState = [...prevState.user.Buildings];
+          const index = newState.findIndex((building) => building.id === response.data.id);
+          if (index !== -1) {
+            newState[index] = response.data;
+            return {
+              ...prevState,
+              user: {
+                ...prevState.user,
+                Buildings: newState,
+              },
+            };
+          }
+        });
+      }
+    } catch (error) {
       console.log(error);
     }
   };
@@ -81,31 +108,35 @@ function Ressources() {
         headerInfosTitle={`Infos`}
         getInfos={getInfos}
         disabledAction={find?.upgrading}
+        enableCancelAction={find?.waiting}
+        cancelAction={cancel}
+        cancelActionName={'cancel'}
       />
 
       <Grid item xs={12}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {user.Buildings.map((item, i) => (
             <div key={item.name} style={{ paddingRight: '10px' }}>
-              <Card
-                style={{ width: '150px', marginTop: '10px', opacity: item.upgrading ? 0.3 : 1 }}
-                variant='outlined'
-                onClick={() => setElementSelected(item)}
-              >
+              <Card style={{ width: '150px', marginTop: '10px' }} variant='outlined' onClick={() => setElementSelected(item)}>
                 <CardActionArea>
                   <CardMedia
-                    style={{ margin: 'auto', height: '150px', width: '150px' }}
+                    style={{ margin: 'auto', height: '150px', width: '150px', opacity: item.upgrading ? 0.3 : 1 }}
                     component='img'
                     image={getImg(item.name)}
                     alt={item.name}
                   />
 
-                  <div style={{ height: '20px' }}>
+                  <div style={{ height: '20px', textAlign: item.waiting && 'center' }}>
                     {item.progress !== 0 ? (
                       <CardProgress variant='determinate' progress={item.progress} height={20} />
+                    ) : item.waiting ? (
+                      <>
+                        <ScheduleIcon style={{ color: 'orange', width: '20px', height: '20px' }} />
+                      </>
                     ) : (
                       <>
                         <img style={{ width: '20px' }} src={getImg(item.production)} alt={item.name} />
+                        {item.waiting && <ScheduleIcon style={{ color: 'orange', width: '20px', height: '20px' }} />}
                         <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px' }} color='text.secondary'>
                           {item.level}
                         </Typography>

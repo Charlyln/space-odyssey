@@ -84,6 +84,8 @@ function StatusBar({ menuWidth, infosWidth }) {
 
   useEffect(() => {
     function onRessourcesEvent(data) {
+      console.log(data.ressources);
+
       setRessources(data.ressources);
       setTime(data.time);
     }
@@ -123,9 +125,7 @@ function StatusBar({ menuWidth, infosWidth }) {
                     transform: 'translate(-50%, -50%)',
                   }}
                 >
-                  <Typography style={{ fontFamily: 'monospace', fontSize: 'initial' }} >
-                    {time}
-                  </Typography>
+                  <Typography style={{ fontFamily: 'monospace', fontSize: 'initial' }}>{time}</Typography>
                 </div>
               </Card>
             </div>

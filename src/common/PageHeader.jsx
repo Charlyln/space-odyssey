@@ -21,6 +21,9 @@ export default function PageHeader({
   headerInfosTitle,
   getInfos,
   disabledAction,
+  enableCancelAction,
+  cancelAction,
+  cancelActionName,
 }) {
   return (
     <Grid item xs={12}>
@@ -58,6 +61,17 @@ export default function PageHeader({
 
               {actionName && (
                 <HeaderAction>
+                  {enableCancelAction && (
+                    <CustomButton
+                      onClick={() => cancelAction(elementSelected)}
+                      name={cancelActionName}
+                      color={30}
+                      width={120}
+                      height={40}
+                      fontSize={15}
+                    />
+                  )}
+
                   <CustomButton
                     onClick={() => action(elementSelected)}
                     name={actionName}

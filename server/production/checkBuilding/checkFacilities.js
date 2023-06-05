@@ -1,6 +1,6 @@
 const { Building } = require('../../db/models/building.model');
 const { sendInfo } = require('../../helper/userhelper');
-const { checkAvailableRessources } = require('../../helper/ressourcehelper');
+const { checkAvailableRessources, updateBuilding } = require('../../helper/ressourcehelper');
 
 async function checkFacilities(user) {
   try {
@@ -16,23 +16,9 @@ async function checkFacilities(user) {
             const updateProgress = newProgress >= 100 ? 100 : newProgress;
 
             if (newProgress < 110) {
-              await Building.update(
-                { progress: updateProgress },
-                {
-                  where: {
-                    id: building.id,
-                  },
-                },
-              );
+              await updateBuilding({ progress: updateProgress }, building.id);
             } else {
-              await Building.update(
-                { progress: 0, upgrading: false, level: building.level + 1 },
-                {
-                  where: {
-                    id: building.id,
-                  },
-                },
-              );
+              await updateBuilding({ progress: 0, upgrading: false, level: building.level + 1 }, building.id);
 
               const message = `${building.name} upgraded to level ${building.level} !`;
               await sendInfo(user.id, 'success', message);

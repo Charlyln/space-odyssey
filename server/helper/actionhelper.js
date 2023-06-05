@@ -14,6 +14,10 @@ async function handleActions(action) {
         response = await handleUpgradeBuilding(action);
         return response;
 
+      case 'CancelBuilding':
+        response = await handleCancelBuilding(action);
+        return response;
+
       case 'BuildSpaceship':
         response = await handleBuildSpaceship(action);
         return response;
@@ -39,6 +43,24 @@ async function handleUpgradeBuilding(action) {
     });
 
     building.update({ upgrading: true });
+    return building;
+  } catch (error) {
+    logger.error('UpgradeBuilding');
+  }
+}
+
+async function handleCancelBuilding(action) {
+  try {
+    const parameters = action.parameters;
+
+    const building = await Building.findOne({
+      where: { id: parameters.buildingId },
+    });
+
+    if (building.waiting) {
+      building.update({ waiting: false, upgrading: false });
+    }
+
     return building;
   } catch (error) {
     logger.error('UpgradeBuilding');
@@ -87,6 +109,7 @@ async function handleDeleteSpaceship(action) {
 
 module.exports = {
   handleUpgradeBuilding,
+  handleCancelBuilding,
   handleBuildSpaceship,
   handleDeleteSpaceship,
   handleActions,

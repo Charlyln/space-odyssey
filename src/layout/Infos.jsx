@@ -4,6 +4,7 @@ import { TransitionGroup } from 'react-transition-group';
 import { History } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { socket } from '../utils/socket';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 
 const ContainerStyle = styled(List)(() => ({
   overflow: 'auto',
@@ -67,7 +68,13 @@ export default function Infos({ width }) {
         <TransitionGroup>
           {infos.map((info) => (
             <Collapse key={info.id}>
-              <Alert style={{ margin: '2px 0', padding: '0px 5px' }} key={info.id} variant='outlined' severity={info.severity}>
+              <Alert
+                style={{ margin: '2px 0', padding: '0px 5px' }}
+                key={info.id}
+                variant='outlined'
+                severity={info.severity}
+                // icon={info.severity === 'warning' && <ScheduleIcon />}
+              >
                 {info.message}
               </Alert>
             </Collapse>
