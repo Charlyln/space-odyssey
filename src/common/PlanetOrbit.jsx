@@ -34,7 +34,7 @@ export default function PlanetOrbit({ planet, name, scale }) {
             marginTop: `${-((size * scale) / 2)}px`,
             marginLeft: `${-((size * scale) / 2)}px`,
             backgroundColor: `${color}`,
-            boxShadow: `0 0 ${(size * scale) / 2}px ${color}`,
+            boxShadow: `0 0 ${4}px ${color}`,
           }}
         />
       </div>
