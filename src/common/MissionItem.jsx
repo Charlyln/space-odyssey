@@ -1,6 +1,6 @@
 import { Button, ButtonGroup, Card, Collapse, Stack, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { getIcon } from '../utils/helper';
+import { getIcon } from '../utils/helpers/icons.helper';
 import { usePress } from 'react-aria';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';

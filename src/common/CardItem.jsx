@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Card, CardMedia, CardActionArea } from '@mui/material';
-import { getImg } from '../utils/helper';
+import { getImg } from '../utils/helpers/images.helper';
 
 export default function CardItem({ onClick, imgName, height, width, item, cardGetter, square, disabled }) {
   return (

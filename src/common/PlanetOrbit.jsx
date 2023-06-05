@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import React from 'react';
-import { getIcon } from '../utils/helper';
+import { getIcon } from '../utils/helpers/icons.helper';
 
 export default function PlanetOrbit({ planet, name, scale, selectedItem, displayOrbit, displayName, basePlanet }) {
   const { size, orbit, speed, color } = planet;

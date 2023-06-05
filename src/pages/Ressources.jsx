@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Typography } from '@mui/material';
 import { Context } from '../utils/AppContext';
 import { hostname, port } from '../utils/config';
-import { getImg } from '../utils/helper';
 
 import PageHeader from '../common/PageHeader';
 import PageContainer from '../common/PageContainer';
@@ -12,6 +11,7 @@ import useSelectedElement from '../utils/customHooks/useSelectedElement';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import PageContent from '../common/PageContent';
 import CardStack from '../common/CardStack';
+import { getIcon } from '../utils/helpers/icons.helper';
 
 function Ressources() {
   const { store, setStore } = useContext(Context);
@@ -103,7 +103,7 @@ function Ressources() {
           </>
         ) : (
           <>
-            <img style={{ width: '20px' }} src={getImg(element.production)} alt={element.name} />
+            <img style={{ width: '20px' }} src={getIcon(element.production)} alt={element.name} />
             {element.waiting && <ScheduleIcon style={{ color: 'orange', width: '20px', height: '20px' }} />}
             <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px', fontFamily: 'monospace' }} color='text.secondary'>
               {`${element.level}`}

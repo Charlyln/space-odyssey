@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardMedia, Typography, CardContent, Stack } from '@mui/material';
 
 import { socket } from '../utils/socket';
-import { getImg } from '../utils/helper';
+import { getIcon } from '../utils/helpers/icons.helper';
 import { fomatNumber } from '../utils/helpers/number.helper';
 
 const ressourceItems = [
@@ -87,7 +87,7 @@ function StatusBar({ menuWidth, infosWidth }) {
             <Card style={{ borderRadius: 0, width: ressource.width || 60, border: 'solid 1px grey', background: 'none' }} variant='outlined'>
               <CardMedia
                 sx={{ height: 60, width: ressource.iconWidth || 60, margin: 'auto' }}
-                image={getImg(ressource.name)}
+                image={getIcon(ressource.name)}
                 title={ressource.name}
               />
               <CardContent style={{ padding: 0, textAlign: 'center', height: '20px', marginTop: '-4px' }}>

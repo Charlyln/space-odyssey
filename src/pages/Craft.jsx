@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import { Context } from '../utils/AppContext';
-import { Card, CardMedia, Typography, CardContent, Stack } from '@mui/material';
+import { Typography, CardContent } from '@mui/material';
 
-import { getImg } from '../utils/helper';
 import { fomatNumber } from '../utils/helpers/number.helper';
 import CardStack from '../common/CardStack';
 import PageContent from '../common/PageContent';

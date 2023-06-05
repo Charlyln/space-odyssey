@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Alert, Card, CardContent, CardMedia, Grid, List, Typography } from '@mui/material';
-import { getImg } from '../utils/helper';
+import { getImg } from '../utils/helpers/images.helper';
 import { TransitionGroup } from 'react-transition-group';
 
 import Box from '@mui/material/Box';
