@@ -138,7 +138,7 @@ function Ressources() {
                         <img style={{ width: '20px' }} src={getImg(item.production)} alt={item.name} />
                         {item.waiting && <ScheduleIcon style={{ color: 'orange', width: '20px', height: '20px' }} />}
                         <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px' }} color='text.secondary'>
-                          {item.level}
+                         {`${item.level}`} 
                         </Typography>
                       </>
                     )}

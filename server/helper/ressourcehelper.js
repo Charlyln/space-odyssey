@@ -2,7 +2,6 @@ const logger = require('../logger');
 
 const { Ressource } = require('../db/models/ressource.model');
 const { Cost } = require('../db/models/cost.model');
-const { sendInfo } = require('./userhelper');
 const { Building } = require('../db/models/building.model');
 const { State } = require('../db/models/state.model');
 
@@ -36,29 +35,37 @@ async function checkAvailableRessources(building, userId) {
       where: { craft: building.name },
     });
 
-    let enoughtRessources = true;
-
-    const ressources = [];
-
     if (costs.length > 0) {
-      await Promise.all(
+      const reponses = await Promise.all(
         costs.map(async (cost) => {
           const ressource = await Ressource.findOne({
-            where: { name: cost.ressource },
+            where: { name: cost.ressource, UserId: userId },
           });
 
           if (ressource.value >= cost.value) {
-            ressources.push({ ressource, cost: cost.value });
+            return { response: true, value: ressource.value - cost.value, ressourceId: ressource.id };
           } else {
-            enoughtRessources = false;
+            return { response: false, value: ressource.value - cost.value, ressourceId: ressource.id };
           }
         }),
       );
 
-      return { enoughtRessources, ressources };
+      const checker = (arr) => arr.every((v) => v.response === true);
+
+      if (checker(reponses)) {
+        await Promise.all(
+          reponses.map(async (reponse) => {
+            await updateRessource({ value: reponse.value }, reponse.ressourceId);
+          }),
+        );
+        return true;
+      } else {
+        return false;
+      }
     }
   } catch (error) {
     logger.error('checkAvailableRessources', error);
+    return false;
   }
 }
 
