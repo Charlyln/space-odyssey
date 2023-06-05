@@ -60,20 +60,6 @@ app.use(actionsRoutes);
   await db.connect();
   await sequelize.connect();
 
-  // await sequelizer.sync();
-
-  // await sequelizer.authenticate();
-  // await sequelizer.drop();
-  // await sequelizer.sync();
-
-  // if (process.argv[2] === 'force') {
-  //   logger.info('Force Sync');
-  //   // await sequelizer.sync({ force: true });
-  // } else {
-  //   logger.info('Sweet Sync');
-  //   // await sequelizer.sync();
-  // }
-
   await createInitData();
   startProduction();
 })();

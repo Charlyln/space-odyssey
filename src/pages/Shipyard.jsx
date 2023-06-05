@@ -13,6 +13,9 @@ import PageContainer from '../common/PageContainer';
 import CardStack from '../common/CardStack';
 import CloseIcon from '@mui/icons-material/Close';
 import CardStackSmall from '../common/CardStackSmall';
+import PageHeaderLayout from '../common/PageHeaderLayout';
+import PageHeaderCosts from '../common/PageHeaderCosts';
+import PageHeaderInfos from '../common/PageHeaderInfos';
 
 function Shipyard() {
   const { store, setStore } = useContext(Context);
@@ -115,6 +118,8 @@ function Shipyard() {
 
   const buildingSpaceships = user.Spaceships.filter((spaceship) => spaceship?.State?.building);
 
+  console.log(elementSelected);
+
   return (
     <PageContainer>
       <PageHeader
@@ -130,7 +135,12 @@ function Shipyard() {
         headerInfosTitle={`Stats:`}
         getInfos={getInfos}
         displayButton={elementSelected}
-      />
+      >
+        <PageHeaderLayout>
+          <PageHeaderInfos title={`Stats`}></PageHeaderInfos>
+          <PageHeaderCosts costs={user.Costs} element={elementSelected} />
+        </PageHeaderLayout>
+      </PageHeader>
 
       <PageContent borderLess>
         <CardStack cardSize={'150px'} array={spaceships} onSelect={setElementSelected} cardGetter={getFooter} />

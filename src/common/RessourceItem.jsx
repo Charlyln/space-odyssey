@@ -15,10 +15,10 @@ export default function RessourceItem({ onClick, ressource, size, square, disabl
             </CardContent>
           )}
           <CardMedia
-            style={{ margin: 'auto', height: size, opacity: ressource.name ? 1 : 0.1 }}
-            component={ressource.name ? 'img' : 'div'}
-            image={getIcon(ressource.name)}
-            alt={ressource.name}
+            style={{ margin: 'auto', height: size, opacity: ressource.name || ressource.ressource ? 1 : 0.1 }}
+            component={ressource.name || ressource.ressource ? 'img' : 'div'}
+            image={getIcon(ressource.name || ressource.ressource)}
+            alt={ressource.name || ressource.ressource}
           />
           {footer && (
             <CardContent style={{ padding: 0, textAlign: 'center', height: '20px', marginTop: '-4px' }}>

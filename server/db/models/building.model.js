@@ -21,7 +21,7 @@ const Building = sequelize.define('Building', {
   output: {
     type: DataTypes.NUMBER(),
     allowNull: true,
-    defaultValue: 1000,
+    defaultValue: 10000,
   },
   level: {
     type: DataTypes.NUMBER(),

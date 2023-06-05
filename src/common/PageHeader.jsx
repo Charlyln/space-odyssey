@@ -32,7 +32,7 @@ export default function PageHeader({
       <Card style={{ display: 'flex', height, position: 'relative', backgroundColor: 'unset' }} variant='outlined'>
         <CardMedia
           component='img'
-          sx={{ width: imgWidth || '400px' }}
+          sx={{ width: imgWidth || '300px' }}
           image={elementSelected ? getImg(elementSelected.name) : getImg(imageName)}
           alt={title}
         />
@@ -54,13 +54,13 @@ export default function PageHeader({
               <Typography variant='subtitle1' color='text.secondary' component='div'>
                 {elementSelected.name}
               </Typography>
-
+              {/* 
               {headerInfosTitle && (
                 <PageHeaderLayout>
                   <PageHeaderInfos title={headerInfosTitle} infos={getInfos(elementSelected)} imgParams={elementSelected.production} />
                   <PageHeaderCosts costs={costs} elementName={elementSelected.name} />
                 </PageHeaderLayout>
-              )}
+              )} */}
 
               {children}
             </>

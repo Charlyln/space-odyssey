@@ -1,30 +1,8 @@
-import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
-import { getIcon } from '../utils/helpers/icons.helper';
+import RessourcesStack from './RessourcesStack';
 
-export default function PageHeaderCosts({ costs, elementName }) {
-  const costItems = costs.filter((cost) => cost.craft === elementName);
+export default function PageHeaderCosts({ costs, element }) {
+  const costItems = costs.filter((cost) => cost.craft === element.name);
   costItems.sort((a, b) => new Date(b.value) - new Date(a.value));
 
-  return (
-    <Grid item xs={6}>
-      <Typography variant='button' color='text.secondary' component='div'>
-        Costs:
-      </Typography>
-
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {costItems.map((costItem) => (
-          <div key={costItem.ressource} style={{ paddingRight: '4px' }}>
-            <Card variant='outlined' sx={{ height: '70px', width: '50px', borderRadius: 0 }}>
-              <CardMedia sx={{ height: '50px', width: '50px', margin: 'auto' }} image={getIcon(costItem.ressource)} title={'steel'} />
-              <CardContent style={{ padding: 0, textAlign: 'center', marginTop: '-5px' }}>
-                <Typography variant='caption' style={{ fontFamily: 'monospace', fontSize: 'initial' }}>
-                  {costItem.value}
-                </Typography>
-              </CardContent>
-            </Card>
-          </div>
-        ))}
-      </div>
-    </Grid>
-  );
+  return <RessourcesStack size={'52px'} ressources={costItems} disabledCard={true} onClick={() => {}} square footer />;
 }
