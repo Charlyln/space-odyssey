@@ -3,7 +3,7 @@ const { sendInfo } = require('../../../helper/model.helper');
 const { updateBuilding, increaseCosts, updateRessourceProduction } = require('../../../helper/model.helper');
 const logger = require('../../../logger');
 
-async function checkFacilitiesFinish(user, checkTime) {
+async function checkFacilitiesFinish(user) {
   logger.info('      Check Finish');
   try {
     const upgradingBuildings = user.Buildings.filter((building) => building.status === facilitiesStatus.upgraded);
@@ -13,7 +13,7 @@ async function checkFacilitiesFinish(user, checkTime) {
 
       const newLevel = building.level + 1;
       const multiplier = newLevel * newLevel;
-      const newOutput = building.output * multiplier;
+      const newOutput = building.base * multiplier;
       await updateBuilding(
         {
           progress: 0,

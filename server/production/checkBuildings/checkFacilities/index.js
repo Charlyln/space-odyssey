@@ -8,7 +8,7 @@ async function checkFacilities(user, checkTime) {
 
   await checkFacilitiesStart(user, checkTime);
   await checkFacilitiesProgress(user, checkTime);
-  await checkFacilitiesFinish(user, checkTime);
+  await checkFacilitiesFinish(user);
 }
 
 module.exports = {

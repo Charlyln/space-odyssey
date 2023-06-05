@@ -4,7 +4,7 @@ const { checkSpaceships } = require('./checkSpaceships');
 
 async function checkBuildings(user, checkTime) {
   logger.info('Check Buildings');
-  await checkSpaceships(user, checkTime);
+  await checkSpaceships(user);
   await checkFacilities(user, checkTime);
 }
 

@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const { facilitiesStatus } = require('../../../enums/status');
 const { sequelize } = require('../../sequelize');
 
 const Building = sequelize.define('Building', {
@@ -19,10 +20,14 @@ const Building = sequelize.define('Building', {
     type: DataTypes.STRING(),
     allowNull: true,
   },
+  base: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
   output: {
     type: DataTypes.NUMBER(),
     allowNull: true,
-    defaultValue: 10000,
+    defaultValue: 0,
   },
   level: {
     type: DataTypes.NUMBER(),
@@ -32,7 +37,7 @@ const Building = sequelize.define('Building', {
   status: {
     type: DataTypes.STRING(),
     allowNull: true,
-    defaultValue: 'created',
+    defaultValue: facilitiesStatus.created,
   },
   progress: {
     type: DataTypes.NUMBER(),
