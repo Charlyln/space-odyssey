@@ -5,15 +5,7 @@ const { Building } = require('../db/models/building.model');
 const { Spaceship } = require('../db/models/spaceship.model');
 const { State } = require('../db/models/state.model');
 
-const {
-  incrementRessource,
-  decrementMoney,
-  createTrade,
-  createMission,
-  launchMission,
-  comeBackMission,
-  retreiveMission,
-} = require('./model.helper');
+const { incrementRessource, decrementMoney, createTrade, startMission, comeBackMission, retreiveMission } = require('./model.helper');
 
 async function handleActions(action) {
   try {
@@ -23,35 +15,35 @@ async function handleActions(action) {
 
     switch (action.type) {
       case 'UpgradeBuilding':
-        response = await handleUpgradeBuilding(action);
+        response = await handleUpgradeBuilding(action, actionDate);
         return response;
 
       case 'CancelBuilding':
-        response = await handleCancelBuilding(action);
+        response = await handleCancelBuilding(action, actionDate);
         return response;
 
       case 'BuildSpaceship':
-        response = await handleBuildSpaceship(action);
+        response = await handleBuildSpaceship(action, actionDate);
         return response;
 
       case 'DeleteSpaceship':
-        response = await handleDeleteSpaceship(action);
+        response = await handleDeleteSpaceship(action, actionDate);
         return response;
 
       case 'BuyRessource':
-        response = await handleBuyRessource(action);
+        response = await handleBuyRessource(action, actionDate);
         return response;
 
-      case 'LaunchMission':
-        response = await handleLaunchMission(action, actionDate);
+      case 'StartMission':
+        response = await handleStartMission(action, actionDate);
         return response;
 
       case 'ComeBackMission':
-        response = await handleComeBackMission(action);
+        response = await handleComeBackMission(action, actionDate);
         return response;
 
       case 'RetreiveMission':
-        response = await handleRetreiveMission(action);
+        response = await handleRetreiveMission(action, actionDate);
         return response;
 
       default:
@@ -70,7 +62,7 @@ async function handleUpgradeBuilding(action) {
       where: { id: parameters.buildingId },
     });
 
-    await building.update({ upgrading: true });
+    await building.update({ upgrading: true, startTime: actionDate });
     return building;
   } catch (error) {
     logger.error('UpgradeBuilding');
@@ -159,22 +151,22 @@ async function handleBuyRessource(action) {
   }
 }
 
-async function handleLaunchMission(action, actionDate) {
+async function handleStartMission(action, actionDate) {
   try {
     const { missionId } = action.parameters;
 
-    const mission = await launchMission(missionId, actionDate);
+    const mission = await startMission(missionId, actionDate);
     return mission;
   } catch (error) {
-    logger.error('LaunchMission', error);
+    logger.error('StartMission', error);
   }
 }
 
-async function handleComeBackMission(action) {
+async function handleComeBackMission(action, actionDate) {
   try {
     const { missionId } = action.parameters;
 
-    const mission = await comeBackMission(missionId);
+    const mission = await comeBackMission(missionId, actionDate);
     return mission;
   } catch (error) {
     logger.error('handleComeBackMission', error);
@@ -199,7 +191,6 @@ module.exports = {
   handleDeleteSpaceship,
   handleActions,
   handleBuyRessource,
-  handleLaunchMission,
   handleComeBackMission,
   handleRetreiveMission,
 };

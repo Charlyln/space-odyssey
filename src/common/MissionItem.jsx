@@ -11,6 +11,7 @@ import MissionProgress from './MissionProgress';
 import PageContent from './PageContent';
 import LongPressButton from './LongPressButton';
 import LaunchingProgress from './LaunchingProgress';
+import { missionStatus } from 'enums/status';
 
 export default function MissionItem({ index, mission, launchMission, retreiveMission, comeBackMission, setElementSelected, planets }) {
   const levelArray = Array.from(Array(mission.level).keys());
@@ -22,7 +23,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
 
   const getButton = () => {
     switch (mission.status) {
-      case 'created':
+      case missionStatus.created:
         return (
           <LongPressButton
             style={{ marginRight: '10px', marginLeft: 'auto', position: 'absolute', bottom: '10px', right: '10px' }}
@@ -34,7 +35,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
           />
         );
 
-      case 'setup':
+      case missionStatus.setup:
         if (progress < 50) {
           return (
             <CustomButton
@@ -49,7 +50,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
           return '';
         }
 
-      case 'finish':
+      case missionStatus.finish:
         return (
           <>
             {/* <LongPressButton
@@ -78,7 +79,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
 
   const getMissionBody = () => {
     switch (mission.status) {
-      case 'created':
+      case missionStatus.created:
         return (
           <Stack direction='row' spacing={1} alignItems='center' style={{ padding: '6px' }}>
             <Typography variant='subtitle1' color='text.secondary' component='div' style={{ marginLeft: '30px' }}>{`Distance: ${fomatNumber(
@@ -94,8 +95,8 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
           </Stack>
         );
 
-      case 'setup':
-      case 'finish':
+      case missionStatus.setup:
+      case missionStatus.finish:
         return (
           <>
             <MissionProgress progress={progress} status={mission.status} margin={'10px 50px'} />
@@ -110,7 +111,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
           </>
         );
 
-      case 'retreived':
+      case missionStatus.retreived:
         return (
           <Card
             variant='outlined'
@@ -172,7 +173,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
           square
         />
 
-        {mission.status === 'created' && (
+        {mission.status === missionStatus.created && (
           <>
             <Typography
               variant='subtitle1'

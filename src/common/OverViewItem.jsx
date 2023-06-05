@@ -15,6 +15,7 @@ import { TransitionGroup } from 'react-transition-group';
 import moment from 'moment';
 import { styled } from '@mui/material/styles';
 import MissionProgress from './MissionProgress';
+import { missionStatus } from 'enums/status';
 
 export default function OverviewItem({ item, height }) {
   return (
@@ -37,7 +38,7 @@ export default function OverviewItem({ item, height }) {
                 <TransitionGroup>
                   {item.tasks.map((task) => (
                     <Collapse key={task.id}>
-                      {task.ongoing || task.status === 'finish' ? (
+                      {task.ongoing || task.status === missionStatus.finish ? (
                         <MissionProgress progress={task.progress} status={task.status} margin={'2px 0px'} />
                       ) : (
                         <Stack direction='row' spacing={1} alignItems='center' style={{ padding: '0px' }}>

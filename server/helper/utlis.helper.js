@@ -3,6 +3,23 @@ const { v4: uuidv4 } = require('uuid');
 
 const { ressources, buildings, costs } = require('../constants/modelData');
 
+function padTo2Digits(num) {
+  return num.toString().padStart(2, '0');
+}
+
+function convertMsToTime(milliseconds) {
+  let seconds = Math.floor(milliseconds / 1000);
+  let minutes = Math.floor(seconds / 60);
+  let hours = Math.floor(minutes / 60);
+
+  seconds = seconds % 60;
+  minutes = minutes % 60;
+
+  hours = hours % 24;
+
+  return `${padTo2Digits(hours)}h : ${padTo2Digits(minutes)} m : ${padTo2Digits(seconds)} s`;
+}
+
 function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -193,10 +210,50 @@ function generatePlanets(planetNbr, sunSize) {
   }
 }
 
+function getPercentProgress(startTime, duration, checkProductionDate) {
+  // const checkDate = checkProductionDate;
+  // const startTime = new Date(mission.startTime).getTime();
+  // const duration = mission.duration;
+  // const diff = checkDate - startTime;
+  // const pct = ((100 * diff) / duration).toFixed(2);
+  // logger.warn(pct)
+  // logger.warn('duaration', duarationDisplay);
+  // logger.warn('checkDate', checkDate);
+  // logger.warn('startTime', startTime);
+  // logger.warn('diff', diff);
+  // logger.warn('diffDisplay', diffDisplay);
+  // logger.warn('pct', pct, '%');
+  // const duarationDisplay = convertMsToTime(mission.duration);
+  // const duarationDisplay = convertMsToTime(mission.duration);
+  // const diffDisplay = convertMsToTime(diff);
+  // const checkDate = checkProductionDate;
+  // const startTime = new Date(mission.startTime).getTime();
+  // const duration = mission.duration;
+  // const diff = checkDate - startTime;
+
+  const diff = checkProductionDate - startTime;
+  const percent = ((100 * diff) / duration).toFixed(2);
+
+  logger.warn(`${percent}%`);
+
+  return percent;
+}
+
+function getNewDuration(startTime, duration, checkProductionDate) {
+  const diff = checkProductionDate - startTime;
+  // const durationRest = diff - duration;
+  logger.warn(convertMsToTime(diff));
+
+  return diff;
+}
+
 module.exports = {
   generateSystems,
   generatePlanets,
   alpha_centauri_systems,
   randomIntFromInterval,
   solar_system_planets,
+  getPercentProgress,
+  convertMsToTime,
+  getNewDuration,
 };

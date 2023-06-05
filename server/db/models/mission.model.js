@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const { missionStatus } = require('../../../enums/status');
 const { sequelize } = require('../../sequelize');
 
 const Mission = sequelize.define('Mission', {
@@ -32,9 +33,13 @@ const Mission = sequelize.define('Mission', {
   status: {
     type: DataTypes.STRING(),
     allowNull: true,
-    defaultValue: 'created',
+    defaultValue: missionStatus.created,
   },
   startTime: {
+    type: DataTypes.DATE(),
+    allowNull: true,
+  },
+  comebackTime: {
     type: DataTypes.DATE(),
     allowNull: true,
   },

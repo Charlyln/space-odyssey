@@ -3,6 +3,7 @@ import { LinearProgress, Stack } from '@mui/material';
 
 import CustomIcon from './CustomIcon';
 import PageContent from './PageContent';
+import { missionStatus } from 'enums/status';
 
 export default function MissionProgress({ progress, status, margin, style }) {
   return (
@@ -24,7 +25,7 @@ export default function MissionProgress({ progress, status, margin, style }) {
           <>
             <div style={{ width: `${100 - (progress - 50) * 2}%` }}>
               <LinearProgress
-                color={progress >= 100 && status === 'finish' ? 'success' : 'primary'}
+                color={progress >= 100 && status === missionStatus.finish ? 'success' : 'primary'}
                 variant='buffer'
                 value={0}
                 valueBuffer={0}
@@ -34,7 +35,7 @@ export default function MissionProgress({ progress, status, margin, style }) {
             <CustomIcon size={30} icon={'spaceship'} style={{ transform: 'rotate(90deg)' }} />
 
             <div style={{ width: `${(progress - 50) * 2}%` }}>
-              <LinearProgress color={progress >= 100 && status === 'finish' ? 'success' : 'primary'} variant='determinate' value={100} />
+              <LinearProgress color={progress >= 100 && status === missionStatus.finish ? 'success' : 'primary'} variant='determinate' value={100} />
             </div>
           </>
         )}
