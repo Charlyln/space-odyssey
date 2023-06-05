@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Button, Card, Stack, Typography } from '@mui/material';
 import { getIcon } from '../utils/helpers/icons.helper';
-import { fomatNumber } from '../utils/helpers/number.helper';
+import { formatNumber } from '../utils/helpers/number.helper';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
@@ -43,7 +43,7 @@ export default function TradeHistoryItem({ trade }) {
             <CustomIcon size={50} icon={'money'} style={{ marginTop: '-12px', marginLeft: '-15px' }} />
 
             <Typography variant='button' style={{ fontFamily: 'monospace', marginLeft: 'auto' }}>
-              {fomatNumber(trade.price)}
+              {formatNumber(trade.price)}
             </Typography>
           </Card>
         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Card, CardContent, CardMedia, Typography, CardActionArea } from '@mui/material';
 import { getIcon } from '../utils/helpers/icons.helper';
-import { fomatNumber } from '../utils/helpers/number.helper';
+import { formatNumber } from '../utils/helpers/number.helper';
 
 export default function RessourceItem({ onClick, ressource, size, square, disabled, footer, header }) {
   return (
@@ -22,7 +22,7 @@ export default function RessourceItem({ onClick, ressource, size, square, disabl
           />
           {footer && (
             <CardContent style={{ padding: 0, textAlign: 'center', height: '20px', marginTop: '-4px' }}>
-              <Typography style={{ fontFamily: 'monospace', fontSize: 12, paddingTop: '2px' }}>{fomatNumber(ressource?.value)}</Typography>
+              <Typography style={{ fontFamily: 'monospace', fontSize: 12, paddingTop: '2px' }}>{formatNumber(ressource?.value)}</Typography>
             </CardContent>
           )}
         </CardActionArea>
