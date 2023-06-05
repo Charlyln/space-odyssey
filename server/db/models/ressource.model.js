@@ -10,6 +10,10 @@ const Ressource = sequelize.define('Ressource', {
     type: DataTypes.STRING(),
     allowNull: true,
   },
+  value: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
 });
 
 module.exports = {
