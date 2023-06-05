@@ -3,12 +3,20 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
+const db = require('./db');
+const sequelize = require('./sequelize');
+const { PORT } = require('./config');
+const logger = require('./logger');
+require('./db/models/associations');
 
 const app = express();
 
-const port = 5000;
-
 const server = http.createServer(app);
+
+(async () => {
+  await db.connect();
+  await sequelize.connect();
+})();
 
 app.get('/v1', function (req, res) {
   res.status(200).send('Space Odyssey API');
@@ -22,6 +30,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
 });
 
-server.listen(port, () => {
-  console.log(`Server started on port ${port}`);
+server.listen(PORT, () => {
+  logger.info(`Server started on PORT ${PORT}`);
 });
