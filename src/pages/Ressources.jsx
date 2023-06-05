@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { Card, Typography, Grid, CardMedia, CardActionArea } from '@mui/material';
 import { Context } from '../utils/AppContext';
@@ -11,15 +11,34 @@ import CardProgress from '../common/CardProgress';
 import useSelectedElement from '../utils/customHooks/useSelectedElement';
 
 function Ressources() {
-  const { store } = useContext(Context);
+  const { store, setStore } = useContext(Context);
   const { user, costs } = store;
   const [elementSelected, setElementSelected] = useSelectedElement();
+  // const [disabledAction, setdisabledAction] = useState(false);
 
   const upgrade = async (item) => {
     try {
       const body = { userId: user.id, type: 'UpgradeBuilding', parameters: { buildingId: item.id } };
-      await axios.post(`http://${hostname}:${port}/v1/actions`, body);
+      const response = await axios.post(`http://${hostname}:${port}/v1/actions`, body);
+
+      setStore((prevState) => {
+        const newState = [...prevState.user.Buildings];
+        const index = newState.findIndex((building) => building.id === response.data.id);
+
+        if (index !== -1) {
+          newState[index] = response.data;
+
+          return {
+            ...prevState,
+            user: {
+              ...prevState.user,
+              Buildings: newState,
+            },
+          };
+        }
+      });
     } catch (error) {
+      // setdisabledAction(false);
       console.log(error);
     }
   };
@@ -45,6 +64,8 @@ function Ressources() {
     }
   };
 
+  const find = user.Buildings.find((building) => building.id === elementSelected?.id);
+
   return (
     <PageContainer>
       <PageHeader
@@ -59,13 +80,18 @@ function Ressources() {
         costs={costs}
         headerInfosTitle={`Infos`}
         getInfos={getInfos}
+        disabledAction={find?.upgrading}
       />
 
       <Grid item xs={12}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {user.Buildings.map((item, i) => (
             <div key={item.name} style={{ paddingRight: '10px' }}>
-              <Card style={{ width: '150px', marginTop: '10px' }} variant='outlined' onClick={() => setElementSelected(item)}>
+              <Card
+                style={{ width: '150px', marginTop: '10px', opacity: item.upgrading ? 0.3 : 1 }}
+                variant='outlined'
+                onClick={() => setElementSelected(item)}
+              >
                 <CardActionArea>
                   <CardMedia
                     style={{ margin: 'auto', height: '150px', width: '150px' }}

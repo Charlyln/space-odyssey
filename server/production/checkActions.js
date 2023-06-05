@@ -6,10 +6,11 @@ const logger = require('../logger');
 
 async function checkActions(user) {
   try {
-    const actions = await Action.findAll({ where: { UserId: user.id }, order: [['createdAt', 'ASC']] });
+    // const actions = await Action.findAll({ where: { UserId: user.id }, order: [['createdAt', 'ASC']] });
+    const actions = user.Actions;
 
-    if (actions.length > 0) {
-      logger.info(`[${actions.length}] Actions stacked`);
+    if (actions > 0) {
+      logger.info(`[${actions}] Actions stacked`);
 
       await Promise.all(
         actions.map(async (action) => {

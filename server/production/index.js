@@ -1,17 +1,16 @@
-const { User } = require('../db/models/user.model');
-
 const { checkActions } = require('./checkActions');
 const { checkRessources } = require('./checkRessources');
 const { checkBuilding } = require('./checkBuilding');
+const { getUsersData } = require('../helper/userhelper');
 
 async function checkProduction() {
-  const users = await User.findAll();
+  const users = await getUsersData();
 
   await Promise.all(
     users.map(async (user) => {
       await checkActions(user);
-      await checkRessources(user);
       await checkBuilding(user);
+      await checkRessources(user);
     }),
   );
 }
@@ -19,7 +18,7 @@ async function checkProduction() {
 let checkInterval;
 
 async function startProduction() {
-  checkInterval = setInterval(checkProduction, 2000);
+  checkInterval = setInterval(checkProduction, 5000);
 }
 
 module.exports = {

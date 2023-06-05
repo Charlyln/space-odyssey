@@ -18,8 +18,6 @@ function Shipyard() {
   const { user, costs } = store;
   const [elementSelected, setElementSelected] = useSelectedElement();
 
-  const [disabled, setDisabled] = useState(false);
-
   const getSpaceshipNumber = (spaceshipName) => {
     const filter = user.Spaceships.filter((spaceship) => !spaceship.State.building && spaceship.name === spaceshipName);
 
@@ -49,17 +47,9 @@ function Shipyard() {
 
   const build = async () => {
     try {
-      if (!disabled) {
-        setDisabled(true);
-
-        const body = { userId: user.id, type: 'BuildSpaceship', parameters: { spaceship: elementSelected } };
-        await axios.post(`http://${hostname}:${port}/v1/actions`, body);
-
-        const timer = setTimeout(() => setDisabled(false), 1000);
-        return () => clearTimeout(timer);
-      }
+      const body = { userId: user.id, type: 'BuildSpaceship', parameters: { spaceship: elementSelected } };
+      await axios.post(`http://${hostname}:${port}/v1/actions`, body);
     } catch (error) {
-      setDisabled(false);
       console.log(error);
     }
   };

@@ -9,7 +9,7 @@ const ressources = [
   {
     name: 'gold',
     type: 'production',
-    value: 10,
+    value: 40,
     production: 0,
     storage: 50,
   },

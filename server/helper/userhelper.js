@@ -13,48 +13,67 @@ const { State } = require('../db/models/state.model');
 const { Cost } = require('../db/models/cost.model');
 const { ressources, buildings } = require('../constants/modelData');
 
+const userOptions = {
+  order: [
+    [{ model: Info }, 'createdAt', 'DESC'],
+    [{ model: Building }, 'order', 'ASC'],
+    [{ model: Spaceship }, 'createdAt', 'ASC'],
+  ],
+  include: [
+    {
+      model: Ressource,
+    },
+    {
+      model: Building,
+      include: [
+        {
+          model: State,
+        },
+      ],
+    },
+    {
+      model: Mission,
+    },
+    {
+      model: Info,
+    },
+    {
+      model: Research,
+    },
+    {
+      model: Spaceship,
+      include: [
+        {
+          model: State,
+        },
+      ],
+    },
+    {
+      model: Planet,
+    },
+  ],
+};
+
 async function getUserData(userId) {
   try {
     const user = await User.findOne({
       where: { id: userId },
-      order: [
-        [{ model: Info }, 'createdAt', 'DESC'],
-        [{ model: Building }, 'order', 'ASC'],
-        [{ model: Spaceship }, 'createdAt', 'ASC'],
-      ],
-      include: [
-        {
-          model: Ressource,
-        },
-        {
-          model: Building,
-        },
-        {
-          model: Mission,
-        },
-        {
-          model: Info,
-        },
-        {
-          model: Research,
-        },
-        {
-          model: Spaceship,
-          include: [
-            {
-              model: State,
-            },
-          ],
-        },
-        {
-          model: Planet,
-        },
-      ],
+      ...userOptions,
     });
 
     return user;
   } catch (error) {
     logger.error('getUserData', error);
+  }
+}
+
+async function getUsersData() {
+  try {
+    const user = await User.findAll(userOptions);
+
+    return user;
+  } catch (error) {
+    logger.error('getUsersData', error);
   }
 }
 
@@ -107,8 +126,31 @@ async function getCosts() {
   }
 }
 
+async function sendInfo(userId, severity, message) {
+  try {
+    const infoData = {
+      id: uuidv4(),
+      message,
+      severity,
+    };
+
+    global.io.to(global.socketIds[userId]).emit('info', {
+      ...infoData,
+    });
+
+    await Info.create({
+      ...infoData,
+      UserId: userId,
+    });
+  } catch (error) {
+    logger.error('getCosts', error);
+  }
+}
+
 module.exports = {
   getUserData,
   createUserData,
   getCosts,
+  getUsersData,
+  sendInfo,
 };
