@@ -4,7 +4,7 @@ const logger = require('../../logger');
 
 const buildingSpeed = 40;
 
-async function checkFacilities(user) {
+async function checkFacilities(user, checkProductionDate) {
   logger.info(' 8 -      Check Facilities');
   try {
     const userData = user;

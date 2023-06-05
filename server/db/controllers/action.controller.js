@@ -12,7 +12,7 @@ async function handle_action(req, res) {
     }
   } catch (error) {
     res.status(404).send({ error });
-    logger.info('Create Action Error');
+    logger.info('Handle Action Error');
   }
 }
 

@@ -6,18 +6,21 @@ const { checkRessources } = require('./checkRessources');
 const { checkBuildings } = require('./checkBuildings');
 const { checkMissions } = require('./checkMissions');
 
+const interval = 5 * 1000;
+
 function startProduction() {
   (async function checkProduction() {
     logger.info('------------ Start Production ------------ ');
+    const checkProductionDate = new Date().getTime();
     logger.info(' 1 - Get Data');
     const users = await getUsersData();
     logger.info(` 2 - Data Received`);
 
     await Promise.all(
       users.map(async (user) => {
-        await checkRessources(user);
-        await checkBuildings(user);
-        await checkMissions(user);
+        await checkRessources(user, checkProductionDate);
+        await checkBuildings(user, checkProductionDate);
+        await checkMissions(user, checkProductionDate);
       }),
     );
 
@@ -34,7 +37,7 @@ function startProduction() {
     logger.info('13 - Send New Data');
     logger.info('------------ Finish Production ------------ ');
 
-    setTimeout(checkProduction, 10000);
+    setTimeout(checkProduction, interval);
   })();
 }
 

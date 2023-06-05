@@ -19,6 +19,14 @@ const State = sequelize.define('State', {
     allowNull: true,
     defaultValue: 0,
   },
+  startTime: {
+    type: DataTypes.DATE(),
+    allowNull: true,
+  },
+  duration: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
 });
 
 module.exports = {

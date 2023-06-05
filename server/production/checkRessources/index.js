@@ -2,10 +2,10 @@ const logger = require('../../logger');
 const { checkConsumed } = require('./checkConsumed');
 const { checkProduced } = require('./checkProduced');
 
-async function checkRessources(user) {
+async function checkRessources(user, checkProductionDate) {
   logger.info(' 3 - Check Ressources');
-  await checkConsumed(user);
-  await checkProduced(user);
+  await checkConsumed(user, checkProductionDate);
+  await checkProduced(user, checkProductionDate);
 }
 
 module.exports = {

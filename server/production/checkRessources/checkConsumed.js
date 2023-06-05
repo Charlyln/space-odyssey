@@ -1,7 +1,7 @@
 const logger = require('../../logger');
 const { decrementRessource } = require('../../helper/model.helper');
 
-async function checkConsumed(user) {
+async function checkConsumed(user, checkProductionDate) {
   logger.info(' 4 -      Check Consumed');
   try {
     const workingbuildings = user.Buildings.filter((building) => building.level > 0);

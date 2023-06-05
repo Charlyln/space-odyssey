@@ -34,6 +34,14 @@ const Mission = sequelize.define('Mission', {
     allowNull: true,
     defaultValue: 'created',
   },
+  startTime: {
+    type: DataTypes.DATE(),
+    allowNull: true,
+  },
+  duration: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
 });
 
 module.exports = {

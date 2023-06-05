@@ -4,7 +4,7 @@ const { checkAvailableRessources, updateState } = require('../../helper/model.he
 
 const craftSpeed = 40;
 
-async function checkSpaceships(user) {
+async function checkSpaceships(user, checkProductionDate) {
   logger.info(' 7 -      Check Spaceships');
   try {
     const buildingSpaceships = user.Spaceships.filter((spaceship) => spaceship?.State?.building);

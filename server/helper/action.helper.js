@@ -19,6 +19,8 @@ async function handleActions(action) {
   try {
     let response;
 
+    const actionDate = new Date().getTime();
+
     switch (action.type) {
       case 'UpgradeBuilding':
         response = await handleUpgradeBuilding(action);
@@ -41,7 +43,7 @@ async function handleActions(action) {
         return response;
 
       case 'LaunchMission':
-        response = await handleLaunchMission(action);
+        response = await handleLaunchMission(action, actionDate);
         return response;
 
       case 'ComeBackMission':
@@ -157,12 +159,11 @@ async function handleBuyRessource(action) {
   }
 }
 
-async function handleLaunchMission(action) {
-  let parameters;
+async function handleLaunchMission(action, actionDate) {
   try {
     const { missionId } = action.parameters;
 
-    const mission = await launchMission(missionId);
+    const mission = await launchMission(missionId, actionDate);
     return mission;
   } catch (error) {
     logger.error('LaunchMission', error);
