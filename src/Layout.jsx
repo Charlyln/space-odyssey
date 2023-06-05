@@ -17,7 +17,8 @@ const menuWidth = 240;
 const infosWidth = 240;
 
 export default function Layout() {
-  const { setStore } = useContext(Context);
+  const { store, setStore } = useContext(Context);
+  const { user } = store;
   const [loading, setLoading] = useState(true);
   const [registered, setRegistered] = useState(false);
 
@@ -61,11 +62,11 @@ export default function Layout() {
 
   useEffect(() => {
     function onConnect() {
-      console.log('Connected');
+      // console.log('Connected');
     }
 
     function onDisconnect() {
-      console.log('Disconnected');
+      // console.log('Disconnected');
     }
 
     function onUserDataEvent(data) {
@@ -96,7 +97,7 @@ export default function Layout() {
     <Box>
       <StatusBar menuWidth={menuWidth} infosWidth={infosWidth} />
       <Divider />
-      <Menu width={menuWidth} />
+      <Menu width={menuWidth} userName={user.name} />
       <Pages menuWidth={menuWidth} infosWidth={infosWidth} />
       <Infos width={infosWidth} />
     </Box>

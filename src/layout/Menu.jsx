@@ -75,7 +75,7 @@ const ContainerStyle = styled(List)(() => ({
   },
 }));
 
-export default function Menu({ width }) {
+export default function Menu({ width, userName }) {
   let location = useLocation();
 
   return (
@@ -92,7 +92,7 @@ export default function Menu({ width }) {
       anchor='left'
     >
       <div>
-        <CustomButton name={'Charly'} width={200} height={50} fontSize={20} />
+        <CustomButton name={userName} width={200} height={50} fontSize={20} />
       </div>
       <Divider style={{ marginTop: '29px' }} />
       <ContainerStyle>
