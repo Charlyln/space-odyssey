@@ -1,25 +1,25 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../sequelize');
 
-const Battle = sequelize.define('Battle', {
+const Cost = sequelize.define('Cost', {
   id: {
     type: DataTypes.UUIDV4,
     primaryKey: true,
   },
-  name: {
+  value: {
+    type: DataTypes.NUMBER(),
+    allowNull: true,
+  },
+  ressource: {
     type: DataTypes.STRING(),
     allowNull: true,
   },
-  date: {
-    type: DataTypes.STRING(),
-    allowNull: true,
-  },
-  summary: {
+  craft: {
     type: DataTypes.STRING(),
     allowNull: true,
   },
 });
 
 module.exports = {
-  Battle,
+  Cost,
 };

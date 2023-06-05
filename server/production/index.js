@@ -19,7 +19,7 @@ async function checkProduction() {
 let checkInterval;
 
 async function startProduction() {
-  checkInterval = setInterval(checkProduction, 4000);
+  checkInterval = setInterval(checkProduction, 2000);
 }
 
 module.exports = {

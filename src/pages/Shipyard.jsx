@@ -32,7 +32,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 function Shipyard() {
   const {
-    store: { user },
+    store: { user, costs },
   } = useContext(Context);
 
   const [spaceshipSelected, setSpaceshipSelected] = useState(null);
@@ -63,6 +63,19 @@ function Shipyard() {
     }
   };
 
+  const getRessourceIcon = (ressourceName) => {
+    switch (ressourceName) {
+      case 'steel':
+        return steelIcon;
+
+      case 'gold':
+        return goldIcon;
+
+      default:
+        return steelIcon;
+    }
+  };
+
   const getSpaceshipNumber = (spaceshipName) => {
     const filter = user.Spaceships.filter((spaceship) => !spaceship.State.building && spaceship.name === spaceshipName);
 
@@ -90,6 +103,25 @@ function Shipyard() {
     }
   };
 
+  const getSpaceshipCosts = (spaceshipSelected) => {
+    const spaceshipCosts = costs.filter((cost) => cost.craft === spaceshipSelected.name);
+
+    return spaceshipCosts.map((spaceshipCost) => (
+      <div style={{ paddingRight: '4px' }}>
+        <Card variant='outlined' sx={{ height: '70px', width: '50px', borderRadius: 0 }}>
+          <CardMedia
+            sx={{ height: '50px', width: '50px', margin: 'auto' }}
+            image={getRessourceIcon(spaceshipCost.ressource)}
+            title={'steel'}
+          />
+          <CardContent style={{ padding: 0, textAlign: 'center', marginTop: '-5px' }}>
+            <Typography variant='caption'>{spaceshipCost.value}</Typography>
+          </CardContent>
+        </Card>
+      </div>
+    ));
+  };
+
   const build = async () => {
     try {
       if (!disabled) {
@@ -103,6 +135,15 @@ function Shipyard() {
       }
     } catch (error) {
       setDisabled(false);
+      console.log(error);
+    }
+  };
+
+  const destroy = async (spaceshipId) => {
+    try {
+      const body = { userId: user.id, type: 'DeleteSpaceship', parameters: { spaceshipId } };
+      await axios.post(`http://${hostname}:${port}/v1/actions`, body);
+    } catch (error) {
       console.log(error);
     }
   };
@@ -169,24 +210,7 @@ function Shipyard() {
                         Costs:
                       </Typography>
 
-                      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                        <div style={{ paddingRight: '4px' }}>
-                          <Card variant='outlined' sx={{ height: '70px', width: '50px', borderRadius: 0 }}>
-                            <CardMedia sx={{ height: '50px', width: '50px', margin: 'auto' }} image={steelIcon} title={'steel'} />
-                            <CardContent style={{ padding: 0, textAlign: 'center', marginTop: '-5px' }}>
-                              <Typography variant='caption'>{`100`}</Typography>
-                            </CardContent>
-                          </Card>
-                        </div>
-                        <div style={{ paddingRight: '4px' }}>
-                          <Card variant='outlined' sx={{ height: '70px', width: '50px', borderRadius: 0 }}>
-                            <CardMedia sx={{ height: '50px', width: '50px', margin: 'auto' }} image={goldIcon} title={'steel'} />
-                            <CardContent style={{ padding: 0, textAlign: 'center', marginTop: '-5px' }}>
-                              <Typography variant='caption'>{`50`}</Typography>
-                            </CardContent>
-                          </Card>
-                        </div>
-                      </div>
+                      <div style={{ display: 'flex', flexWrap: 'wrap' }}>{getSpaceshipCosts(spaceshipSelected)}</div>
                     </Grid>
                   </Grid>
 
@@ -229,14 +253,16 @@ function Shipyard() {
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             {buildingSpaceships.map((item, i) => (
               <div key={item.name} style={{ paddingLeft: i !== 0 && '10px' }}>
-                <Card style={{ width: '50px', marginTop: '10px' }} variant='outlined' onClick={() => selectSpaceship(item)}>
-                  <CardMedia
-                    style={{ margin: 'auto', height: '50px', width: '50px' }}
-                    component='img'
-                    image={getImg(item.name)}
-                    alt={item.name}
-                  />
-                  <BorderLinearProgress variant='determinate' value={item.State.progress} />
+                <Card style={{ width: '50px', marginTop: '10px' }} variant='outlined' onClick={() => destroy(item.id)}>
+                  <CardActionArea>
+                    <CardMedia
+                      style={{ margin: 'auto', height: '50px', width: '50px' }}
+                      component='img'
+                      image={getImg(item.name)}
+                      alt={item.name}
+                    />
+                    <BorderLinearProgress variant='determinate' value={item.State.progress} />
+                  </CardActionArea>
                 </Card>
               </div>
             ))}

@@ -79,7 +79,24 @@ async function handleBuildSpaceship(action) {
   }
 }
 
+async function handleDeleteSpaceship(action) {
+  try {
+    logger.info('handleDeleteSpaceship');
+
+    const parameters = JSON.parse(action.parameters);
+
+    await Spaceship.destroy({
+      where: {
+        id: parameters.spaceshipId,
+      },
+    });
+  } catch (error) {
+    logger.error('DeleteSpaceship', error);
+  }
+}
+
 module.exports = {
   handleUpgradeBuilding,
   handleBuildSpaceship,
+  handleDeleteSpaceship,
 };
