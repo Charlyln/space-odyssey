@@ -16,12 +16,10 @@ async function createInitData() {
       logger.info('Need to create init data');
 
       const milky_way = await Galaxy.create({
-        id: uuidv4(),
         name: 'Milky Way',
       });
 
       const solar_system = await System.create({
-        id: uuidv4(),
         name: 'Solar System',
         size: 800,
         sunSize: 200,
@@ -33,7 +31,6 @@ async function createInitData() {
       await Promise.all(
         solar_system_planets.map(async (planet) => {
           await Planet.create({
-            id: uuidv4(),
             name: planet.name,
             temperature: planet.temperature,
             size: planet.size,
@@ -49,7 +46,6 @@ async function createInitData() {
       await Promise.all(
         alpha_centauri_systems.map(async (system) => {
           const newSystem = await System.create({
-            id: uuidv4(),
             name: system.name,
             size: system.size,
             sunSize: system.sunSize,
@@ -65,7 +61,6 @@ async function createInitData() {
           await Promise.all(
             planets.map(async (planet) => {
               await Planet.create({
-                id: uuidv4(),
                 name: planet.name,
                 temperature: planet.temperature,
                 size: planet.size,
@@ -83,7 +78,6 @@ async function createInitData() {
       // Andromeda
 
       const andromeda = await Galaxy.create({
-        id: uuidv4(),
         name: 'Andromeda',
       });
 
@@ -92,7 +86,6 @@ async function createInitData() {
       await Promise.all(
         randomSystems.map(async (system) => {
           const newSystem = await System.create({
-            id: uuidv4(),
             name: system.systemName,
             size: system.size,
             sunSize: system.sunSize,
@@ -104,7 +97,6 @@ async function createInitData() {
           await Promise.all(
             system.planets.map(async (planet) => {
               await Planet.create({
-                id: uuidv4(),
                 name: planet.name,
                 temperature: planet.temperature,
                 size: planet.size,

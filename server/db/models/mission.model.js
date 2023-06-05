@@ -1,11 +1,14 @@
+const { v4: uuidv4 } = require('uuid');
 const { DataTypes } = require('sequelize');
-const { missionStatus } = require('../../../enums/index');
 const { sequelize } = require('../../sequelize');
+
+const { missionStatus } = require('../../../enums/index');
 
 const Mission = sequelize.define('Mission', {
   id: {
     type: DataTypes.UUIDV4,
     primaryKey: true,
+    defaultValue: uuidv4(),
   },
   name: {
     type: DataTypes.STRING(),

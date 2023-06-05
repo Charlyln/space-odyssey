@@ -176,7 +176,6 @@ async function updateState(data, stateId) {
 async function createTrade(ressource, price, quantity, status, type, userId) {
   try {
     const trade = await Trade.create({
-      id: uuidv4(),
       ressource: ressource,
       price: price,
       quantity: quantity,
@@ -198,7 +197,6 @@ async function createDefaultMissions(userId) {
     await Promise.all(
       missions.map(async (mission, i) => {
         await Mission.create({
-          id: uuidv4(),
           name: mission.name,
           type: mission.type,
           level: mission.level,
@@ -291,7 +289,6 @@ async function getServerData() {
 async function createUserData(name, basePlanetId) {
   try {
     const user = await User.create({
-      id: uuidv4(),
       name,
       PlanetId: basePlanetId,
     });
@@ -299,7 +296,6 @@ async function createUserData(name, basePlanetId) {
     await Promise.all(
       ressources.map(async (ressource) => {
         await Ressource.create({
-          id: uuidv4(),
           name: ressource.name,
           type: ressource.type,
           value: ressource.value,
@@ -316,7 +312,6 @@ async function createUserData(name, basePlanetId) {
       const colonistNbr = 10;
       for (let i = 0; i < colonistNbr; i++) {
         await Colonist.create({
-          id: uuidv4(),
           name: faker.person.fullName(),
           age: randomIntFromInterval(25, 50),
           UserId: user.id,
@@ -333,7 +328,6 @@ async function createUserData(name, basePlanetId) {
     await Promise.all(
       buildings.map(async (building) => {
         await Building.create({
-          id: uuidv4(),
           name: building.name,
           type: building.type,
           production: building.production,
@@ -345,7 +339,6 @@ async function createUserData(name, basePlanetId) {
     await Promise.all(
       costs.map(async (cost) => {
         await Cost.create({
-          id: uuidv4(),
           craft: cost.craft,
           value: cost.value,
           ressource: cost.ressource,
@@ -372,7 +365,6 @@ async function getCosts() {
 async function sendInfo(userId, severity, message, icon) {
   try {
     const infoData = {
-      id: uuidv4(),
       message,
       severity,
       icon,
@@ -394,7 +386,6 @@ async function sendInfo(userId, severity, message, icon) {
 async function createMission(userId) {
   try {
     const mission = await Mission.create({
-      id: uuidv4(),
       type: 'Rescue',
       level: 1,
       UserId: userId,

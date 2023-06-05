@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../sequelize');
 
@@ -5,6 +6,7 @@ const State = sequelize.define('State', {
   id: {
     type: DataTypes.UUIDV4,
     primaryKey: true,
+    defaultValue: uuidv4(),
   },
   building: {
     type: DataTypes.BOOLEAN(),
