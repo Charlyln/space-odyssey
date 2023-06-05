@@ -23,6 +23,8 @@ import facilities from '../assets/headers/facilities.jpeg';
 import storage from '../assets/headers/storage.jpeg';
 import overview from '../assets/headers/overview.jpeg';
 import colony from '../assets/headers/colony.jpeg';
+import solar_system from '../assets/headers/solar_system.jpeg';
+import univers from '../assets/headers/univers.jpeg';
 import steelIcon from '../assets/ressources/steel.webp';
 import goldIcon from '../assets/ressources/gold.webp';
 import platinumIcon from '../assets/ressources/platinum2.webp';
@@ -38,15 +40,28 @@ import waveIcon from '../assets/ressources/wave.webp';
 import JKCS_041 from '../assets/planets/JKCS-041.jpeg';
 import SPT0346_52 from '../assets/planets/SPT0346-52.jpeg';
 import A1689_zD1 from '../assets/planets/A1689-zD1.jpeg';
-
 import colonyscientist from '../assets/colony/colonyfood.jpeg';
 import colonyressource from '../assets/colony/colonyressource.jpeg';
 import colonyexplorer from '../assets/colony/colonyexplorer2.jpeg';
 import colonyfood from '../assets/colony/colonyscientist.jpeg';
 import colonysoldier from '../assets/colony/colonysoldier.jpeg';
+import andromeda from '../assets/galaxies/andromeda.jpeg';
+import milyway from '../assets/galaxies/milyway.jpeg';
 
 export const getImg = (name) => {
   switch (name) {
+    case 'Andromeda':
+      return andromeda;
+
+    case 'Milky Way':
+      return milyway;
+
+    case 'univers':
+      return univers;
+
+    case 'solar_system':
+      return solar_system;
+
     case 'colonysoldier':
       return colonysoldier;
 

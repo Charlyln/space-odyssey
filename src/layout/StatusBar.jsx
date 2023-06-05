@@ -84,7 +84,7 @@ function StatusBar({ menuWidth, infosWidth }) {
 
         return (
           <div key={ressource.name} style={{ marginLeft: i === 9 ? 'auto' : 'unset', padding: '0px 2px' }}>
-            <Card style={{ borderRadius: 0, width: ressource.width || 60, border: 'solid 1px grey' }} variant='outlined'>
+            <Card style={{ borderRadius: 0, width: ressource.width || 60, border: 'solid 1px grey', background: 'none' }} variant='outlined'>
               <CardMedia
                 sx={{ height: 60, width: ressource.iconWidth || 60, margin: 'auto' }}
                 image={getImg(ressource.name)}

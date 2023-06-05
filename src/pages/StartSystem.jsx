@@ -14,13 +14,15 @@ function Galaxy() {
   const [elementSelected, setElementSelected] = useSelectedElement();
   const [displayHeader, setdisplayHeader] = useState(true);
 
+  const system = server?.galaxies[0]?.Systems[1];
+
   return (
     <PageContainer>
       {displayHeader && (
         <PageHeader
-          height={'110px'}
+          height={'200px'}
           imgWidth={'200px'}
-          imageName={'galaxy'}
+          imageName={'solar_system'}
           title={'Star System'}
           elementSelected={elementSelected}
           setElementSelected={setElementSelected}
@@ -28,13 +30,13 @@ function Galaxy() {
       )}
 
       <SolarSystemItem
-        planets={[]}
-        sunColor={'#fae20a'}
-        sunShadowColor={'orange'}
-        size={1000}
-        sunSize={200}
+        planets={system?.Planets}
+        sunColor={system.sunColor}
+        sunShadowColor={system.sunShadow}
+        size={system.size}
+        sunSize={system.sunSize}
+        defaultScale={0.3}
         setdisplayHeader={setdisplayHeader}
-        defaultScale={0.5}
       />
     </PageContainer>
   );

@@ -56,7 +56,7 @@ async function createInitData() {
         alpha_centauri_systems.map(async (system) => {
           const newSystem = await System.create({
             id: uuidv4(),
-            name: system.systemName,
+            name: system.name,
             size: system.size,
             sunSize: system.sunSize,
             sunColor: system.sunColor,
