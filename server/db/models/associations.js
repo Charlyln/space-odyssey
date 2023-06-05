@@ -12,6 +12,7 @@ const { Planet } = require('./planet.model');
 const { Galaxy } = require('./galaxy.model');
 
 const { State } = require('./state.model');
+const { Cost } = require('./cost.model');
 
 const options = {
   constraints: false,
@@ -44,10 +45,15 @@ Spaceship.belongsTo(User, options);
 User.hasMany(Planet, options);
 Planet.belongsTo(User, options);
 
-// Others
+User.hasMany(Cost, options);
+Cost.belongsTo(User, options);
 
-Galaxy.hasMany(Planet, options);
-Planet.belongsTo(Galaxy, options);
+// Others
 
 Spaceship.hasOne(State, options);
 State.belongsTo(Spaceship, options);
+
+// Common
+
+Galaxy.hasMany(Planet, options);
+Planet.belongsTo(Galaxy, options);

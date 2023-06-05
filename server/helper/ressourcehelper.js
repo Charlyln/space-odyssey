@@ -45,6 +45,19 @@ async function updateState(data, stateId) {
   }
 }
 
+async function increaseCosts(costs) {
+  try {
+    await Promise.all(
+      costs.map(async (cost) => {
+        console.log(cost.value);
+        await Cost.increment('value', { by: 10, where: { id: cost.id } });
+      }),
+    );
+  } catch (error) {
+    logger.error('increaseCosts', error);
+  }
+}
+
 async function checkAvailableRessources(building, userId) {
   try {
     const costs = await Cost.findAll({
@@ -59,9 +72,9 @@ async function checkAvailableRessources(building, userId) {
           });
 
           if (ressource.value >= cost.value) {
-            return { response: true, value: ressource.value - cost.value, ressourceId: ressource.id };
+            return { response: true, value: cost.value, ressourceId: ressource.id };
           } else {
-            return { response: false, value: ressource.value - cost.value, ressourceId: ressource.id };
+            return { response: false, value: cost.value, ressourceId: ressource.id };
           }
         }),
       );
@@ -92,4 +105,5 @@ module.exports = {
   updateState,
   incrementRessource,
   decrementRessource,
+  increaseCosts,
 };
