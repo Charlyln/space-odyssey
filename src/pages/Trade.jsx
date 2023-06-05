@@ -25,6 +25,8 @@ function Inventory() {
   const [trades, setTrades] = useState(user.Trades);
   const [tradType, setTradType] = useState('buying');
 
+  console.log(user.Ressources);
+
   const tradeRessources = user.Ressources.filter(
     (ressource) => ressource.name !== 'people' && ressource.name !== 'money' && ressource.name !== 'energy',
   );

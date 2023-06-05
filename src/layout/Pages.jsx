@@ -35,7 +35,7 @@ export const pages = [
   { path: '/shipyard', element: <Shipyard />, name: 'Shipyard' },
   { path: '/missions', element: <Missions />, name: 'Missions' },
   { path: '/inventory', element: <Inventory />, name: 'Inventory' },
-  { path: '/craft', element: <Craft />, name: 'Craft' },
+  { path: '/craft', element: <Craft />, name: 'Refining' },
   { path: '/trade', element: <Trade />, name: 'Trade' },
   { path: '/history', element: <History />, name: 'History' },
 ];

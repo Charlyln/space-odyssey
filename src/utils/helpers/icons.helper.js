@@ -13,6 +13,8 @@ import cargo from '../../assets/icons/ressources/cargo.webp';
 import galaxy from '../../assets/icons/ressources/galaxy.webp';
 import wave from '../../assets/icons/ressources/wave.webp';
 import antimatter from '../../assets/icons/ressources/antimatter.webp';
+import chromatic from '../../assets/icons/ressources/chromatic.webp';
+import sub1 from '../../assets/icons/ressources/sub1.webp';
 
 // Products
 
@@ -42,8 +44,23 @@ import basePlanet from '../../assets/icons/missions/basePlanet.webp';
 import arrival from '../../assets/icons/missions/arrival.webp';
 import baseMission from '../../assets/icons/missions/baseMission.webp';
 
+// Tools
+
+import refiner from '../../assets/icons/tools/refiner.webp';
+import empty from '../../assets/icons/tools/empty.webp';
+
 export const getIcon = (name) => {
   switch (name) {
+
+    case 'sub1':
+      return sub1;
+
+    case 'chromatic':
+      return chromatic;
+
+    case 'refiner':
+      return refiner;
+
     case 'baseMission':
       return baseMission;
 
@@ -141,6 +158,6 @@ export const getIcon = (name) => {
       return galaxy;
 
     default:
-      return mission;
+      return empty;
   }
 };
