@@ -60,6 +60,7 @@ function Galaxy() {
                 speed={planet.speed}
                 name={planet.name}
                 color={planet.color}
+                key={planet.name}
               />
             ))}
           </div>

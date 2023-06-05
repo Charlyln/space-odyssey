@@ -1,0 +1,16 @@
+import React from 'react';
+
+import { Card, CardMedia, CardActionArea } from '@mui/material';
+import { getImg } from '../utils/helper';
+
+export default function CardItem({ onClick, imgName, height, width }) {
+  return (
+    <div style={{ paddingRight: '10px' }}>
+      <Card style={{ width, marginTop: '10px' }} variant='outlined' onClick={onClick}>
+        <CardActionArea>
+          <CardMedia style={{ margin: 'auto', height, width }} component='img' image={getImg(imgName)} alt={imgName} />
+        </CardActionArea>
+      </Card>
+    </div>
+  );
+}

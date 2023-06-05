@@ -5,6 +5,10 @@
   margin: auto;
   overflow: hidden;
 }
+/* 
+body img {
+  opacity: 0; */
+/* } */
 
 .orbit {
   border: 1px dashed #666;

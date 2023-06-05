@@ -12,7 +12,7 @@ export default function PageHeaderCosts({ costs, elementName }) {
 
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {costItems.map((costItem) => (
-          <div style={{ paddingRight: '4px' }}>
+          <div key={costItem.ressource} style={{ paddingRight: '4px' }}>
             <Card variant='outlined' sx={{ height: '70px', width: '50px', borderRadius: 0 }}>
               <CardMedia sx={{ height: '50px', width: '50px', margin: 'auto' }} image={getImg(costItem.ressource)} title={'steel'} />
               <CardContent style={{ padding: 0, textAlign: 'center', marginTop: '-5px' }}>
