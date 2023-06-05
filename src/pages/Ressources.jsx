@@ -41,7 +41,8 @@ function Ressources() {
 
   const upgrade = async (item) => {
     try {
-      await axios.put(`http://${hostname}:${port}/v1/buildings/${item.id}`);
+      const body = { userId: user.id, type: 'UpgradeBuilding', parameters: { buildingId: item.id } };
+      await axios.post(`http://${hostname}:${port}/v1/actions`, body);
     } catch (error) {
       console.log(error);
     }

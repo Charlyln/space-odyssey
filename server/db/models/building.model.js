@@ -14,6 +14,10 @@ const Building = sequelize.define('Building', {
     type: DataTypes.STRING(),
     allowNull: true,
   },
+  production: {
+    type: DataTypes.STRING(),
+    allowNull: true,
+  },
   enable: {
     type: DataTypes.BOOLEAN(),
     allowNull: true,

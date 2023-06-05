@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Card, Typography, Grid, CardMedia, Box, CardContent, CardActionArea, Button } from '@mui/material';
+import { Card, Typography, Grid, CardMedia, CardContent, CardActionArea } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { Context } from '../utils/AppContext';
@@ -16,13 +16,8 @@ import cargo from '../assets/spaceships/cargo.jpeg';
 import crawler from '../assets/spaceships/crawler.jpeg';
 import shipyard from '../assets/spaceships/shipyard.jpeg';
 
-import steelIcon from '../assets/ressources/steel.png';
-import goldIcon from '../assets/ressources/gold.png';
-import peopleIcon from '../assets/ressources/people.png';
-import spaceshipIcon from '../assets/ressources/spaceship.png';
-import CrystalIcon from '../assets/ressources/crystal.png';
-import energyIcon from '../assets/ressources/energy.png';
-import foodIcon from '../assets/ressources/food.png';
+import steelIcon from '../assets/ressources/steel.webp';
+import goldIcon from '../assets/ressources/gold.webp';
 import { spaceships } from '../utils/constants';
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
@@ -114,7 +109,7 @@ function Shipyard() {
 
   const selectSpaceship = (spaceship) => {
     try {
-      if (spaceshipSelected && spaceshipSelected?.id === spaceship.id) {
+      if (spaceshipSelected && spaceshipSelected?.name === spaceship.name) {
         setSpaceshipSelected(null);
       } else {
         setSpaceshipSelected(spaceship);
@@ -207,7 +202,7 @@ function Shipyard() {
         <Grid item xs={12}>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             {spaceships.map((item, i) => (
-              <div key={item.name} style={{ paddingLeft: i !== 0 && '10px' }}>
+              <div key={item.name} style={{ paddingRight: '10px' }}>
                 <Card style={{ width: '150px', marginTop: '10px' }} variant='outlined' onClick={() => selectSpaceship(item)}>
                   <CardActionArea>
                     <CardMedia

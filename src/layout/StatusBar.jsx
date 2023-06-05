@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Card, CardMedia, Typography, CardContent, Stack } from '@mui/material';
 
 import { Context } from '../utils/AppContext';
@@ -15,6 +15,8 @@ import spaceshipIcon from '../assets/ressources/spaceship.webp';
 import cargoIcon from '../assets/ressources/cargo.webp';
 import galaxyIcon from '../assets/ressources/galaxy.webp';
 import waveIcon from '../assets/ressources/wave.webp';
+
+import { socket } from '../utils/socket';
 
 const ressourceItems = [
   {
@@ -87,14 +89,12 @@ const ressourceItems = [
 ];
 
 function StatusBar({ menuWidth, infosWidth }) {
-  const {
-    store: { user },
-  } = useContext(Context);
+  const [ressources, setRessources] = useState([]);
 
   const getRessourceValue = (ressourceName) => {
     try {
-      const ressource = user.Ressources.find((ressource) => ressource.name === ressourceName);
-      if (ressource) {
+      const ressource = ressources.find((ressource) => ressource.name === ressourceName);
+      if (ressource && ressource.value > 0) {
         return ressource.value;
       } else {
         return '-';
@@ -103,6 +103,20 @@ function StatusBar({ menuWidth, infosWidth }) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    function onRessourcesEvent(data) {
+      setRessources(data);
+    }
+
+    socket.on('ressources', onRessourcesEvent);
+
+    return () => {
+      socket.off('ressources', onRessourcesEvent);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Stack direction='row' sx={{ width: `calc(100% - ${menuWidth + infosWidth}px)`, ml: `${menuWidth}px`, padding: '5px' }}>

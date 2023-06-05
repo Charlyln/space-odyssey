@@ -20,7 +20,7 @@ async function getUserData(userId) {
       order: [
         [{ model: Info }, 'createdAt', 'DESC'],
         [{ model: Building }, 'createdAt', 'ASC'],
-        [{ model: Spaceship }, 'attack', 'ASC'],
+        [{ model: Spaceship }, 'createdAt', 'ASC'],
       ],
       include: [
         {
@@ -88,6 +88,7 @@ async function createUserData(name) {
           id: uuidv4(),
           name: building.name,
           type: building.type,
+          production: building.production,
           UserId: user.id,
         });
       }),

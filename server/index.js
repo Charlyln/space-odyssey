@@ -9,7 +9,6 @@ const sequelize = require('./sequelize');
 const { PORT } = require('./config');
 const logger = require('./logger');
 const userRoutes = require('./db/routes/user.route');
-const buildingRoutes = require('./db/routes/building.route');
 const actionsRoutes = require('./db/routes/action.route');
 const { startProduction } = require('./production');
 
@@ -58,7 +57,6 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')));
 app.use(cors());
 app.use(express.json());
 app.use(userRoutes);
-app.use(buildingRoutes);
 app.use(actionsRoutes);
 
 app.get('*', (req, res) => {

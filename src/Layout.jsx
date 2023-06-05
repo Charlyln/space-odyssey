@@ -36,7 +36,6 @@ export default function Layout() {
         setStore((prevState) => ({
           ...prevState,
           user: userData.data,
-          socket,
         }));
 
         setLoading(false);
@@ -89,12 +88,14 @@ export default function Layout() {
     socket.on('disconnect', onDisconnect);
     socket.on('info', onInfoEvent);
     socket.on('userData', onUserDataEvent);
+    // socket.on('ressources', onUserDataEvent);
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
       socket.off('info', onInfoEvent);
       socket.off('userData', onUserDataEvent);
+      // socket.off('ressources', onUserDataEvent);
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -103,6 +104,8 @@ export default function Layout() {
   if (loading) return 'loading...';
 
   if (!registered) return <Login getUserData={getUserData} />;
+
+  console.log('app render');
 
   return (
     <Box>
