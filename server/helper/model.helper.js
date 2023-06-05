@@ -17,6 +17,89 @@ const { System } = require('../db/models/system.model');
 
 const { ressources, buildings, costs, missions } = require('../constants/modelData');
 
+const userOptions = {
+  include: [
+    {
+      model: Ressource,
+      order: [['name', 'ASC']],
+      separate: true,
+    },
+    {
+      model: Building,
+      order: [['order', 'ASC']],
+      separate: true,
+    },
+    {
+      model: Mission,
+      separate: true,
+    },
+    {
+      model: Info,
+      order: [['createdAt', 'DESC']],
+      separate: true,
+    },
+    {
+      model: Research,
+      separate: true,
+    },
+    {
+      model: Spaceship,
+      order: [['createdAt', 'ASC']],
+      separate: true,
+      include: [
+        {
+          model: State,
+        },
+      ],
+    },
+    {
+      model: Cost,
+      separate: true,
+    },
+    {
+      model: Trade,
+      order: [['createdAt', 'DESC']],
+      separate: true,
+    },
+    {
+      model: Planet,
+      include: [
+        {
+          model: System,
+          include: [
+            {
+              model: Planet,
+              separate: true,
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+async function getUserData(userId) {
+  try {
+    const user = await User.findOne({
+      where: { id: userId },
+      ...userOptions,
+    });
+
+    return user;
+  } catch (error) {
+    logger.error('getUserData', error);
+  }
+}
+
+async function getUsersData() {
+  try {
+    const users = await User.findAll(userOptions);
+    return users;
+  } catch (error) {
+    logger.error('getUsersData', error);
+  }
+}
+
 async function updateRessource(data, ressourceId) {
   try {
     await Ressource.update({ ...data }, { where: { id: ressourceId } });
@@ -81,39 +164,6 @@ async function createTrade(ressource, price, quantity, status, type, userId) {
   } catch (error) {
     logger.error('createTrade', error);
     throw new Error('Create Trade Error');
-  }
-}
-
-async function createMission(userId) {
-  try {
-    const mission = await Mission.create({
-      id: uuidv4(),
-      type: 'Rescue',
-      level: 1,
-      UserId: userId,
-    });
-
-    return mission;
-  } catch (error) {
-    logger.error('createmission', error);
-    throw new Error('Create mission Error');
-  }
-}
-
-async function launchMission(missionId) {
-  try {
-    const mission = await Mission.findOne({
-      where: {
-        id: missionId,
-      },
-    });
-
-    await mission.update({ ongoing: true, progress: 1, status: 'setup' });
-
-    return mission;
-  } catch (error) {
-    logger.error('createmission', error);
-    throw new Error('Create mission Error');
   }
 }
 
@@ -184,132 +234,6 @@ async function checkAvailableRessources(building, userId) {
   } catch (error) {
     logger.error('checkAvailableRessources', error);
     return false;
-  }
-}
-async function getUserData(userId) {
-  try {
-    const user = await User.findOne({
-      where: { id: userId },
-      order: [],
-      include: [
-        {
-          model: Ressource,
-          order: [['name', 'ASC']],
-          separate: true,
-        },
-        {
-          model: Building,
-          order: [['order', 'ASC']],
-          separate: true,
-        },
-        {
-          model: Mission,
-          separate: true,
-        },
-        {
-          model: Info,
-          order: [['createdAt', 'DESC']],
-          separate: true,
-        },
-        {
-          model: Research,
-          separate: true,
-        },
-        {
-          model: Spaceship,
-          order: [['createdAt', 'ASC']],
-          separate: true,
-          include: [
-            {
-              model: State,
-            },
-          ],
-        },
-        {
-          model: Cost,
-          separate: true,
-        },
-        {
-          model: Trade,
-          order: [['createdAt', 'DESC']],
-          separate: true,
-        },
-        {
-          model: Planet,
-          include: [
-            {
-              model: System,
-              include: [
-                {
-                  model: Planet,
-                  separate: true,
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    });
-
-    return user;
-  } catch (error) {
-    logger.error('getUserData', error);
-  }
-}
-
-async function getUsersData() {
-  try {
-    const users = await User.findAll({
-      order: [],
-      include: [
-        {
-          model: Ressource,
-          order: [['name', 'ASC']],
-          separate: true,
-        },
-        {
-          model: Building,
-          order: [['order', 'ASC']],
-          separate: true,
-        },
-        {
-          model: Mission,
-          separate: true,
-        },
-        {
-          model: Info,
-          order: [['createdAt', 'DESC']],
-          separate: true,
-        },
-        {
-          model: Research,
-          separate: true,
-        },
-        {
-          model: Spaceship,
-          order: [['createdAt', 'ASC']],
-          separate: true,
-          include: [
-            {
-              model: State,
-            },
-          ],
-        },
-        {
-          model: Cost,
-          separate: true,
-        },
-        {
-          model: Trade,
-          order: [['createdAt', 'DESC']],
-          separate: true,
-        },
-      ],
-    });
-
-    return users;
-  } catch (error) {
-    logger.error('getUsersData', error);
   }
 }
 
@@ -421,6 +345,55 @@ async function sendInfo(userId, severity, message, icon) {
   }
 }
 
+async function createMission(userId) {
+  try {
+    const mission = await Mission.create({
+      id: uuidv4(),
+      type: 'Rescue',
+      level: 1,
+      UserId: userId,
+    });
+
+    return mission;
+  } catch (error) {
+    logger.error('createmission', error);
+    throw new Error('Create mission Error');
+  }
+}
+
+async function launchMission(missionId) {
+  try {
+    const mission = await Mission.findOne({
+      where: {
+        id: missionId,
+      },
+    });
+
+    await mission.update({ ongoing: true, progress: 1, status: 'setup' });
+
+    return mission;
+  } catch (error) {
+    logger.error('createmission', error);
+    throw new Error('Create mission Error');
+  }
+}
+
+async function incrementMission(value, missionId) {
+  try {
+    await Mission.increment('progress', { by: value, where: { id: missionId } });
+  } catch (error) {
+    logger.error('incrementMission', error);
+  }
+}
+
+async function finishMission(missionId) {
+  try {
+    await Mission.update({ ongoing: false, progress: 100, status: 'finish' }, { where: { id: missionId } });
+  } catch (error) {
+    logger.error('finishMission', error);
+  }
+}
+
 module.exports = {
   updateRessource,
   updateBuilding,
@@ -440,4 +413,6 @@ module.exports = {
   createMission,
   launchMission,
   createDefaultMissions,
+  incrementMission,
+  finishMission,
 };

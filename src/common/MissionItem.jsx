@@ -5,11 +5,14 @@ import CustomIcon from './CustomIcon';
 import RessourcesStack from './RessourcesStack';
 import PageContent from './PageContent';
 
-export default function OngoingMissionItem({ index, mission, action, setElementSelected, planet, planets }) {
+export default function MissionItem({ index, mission, action, setElementSelected, planets }) {
   const levelArray = Array.from(Array(mission.level).keys());
   const disableLevel = Array.from(Array(5 - mission.level).keys());
 
   const progress = mission.progress;
+  const isToLaunch = !mission.ongoing && mission.progress === 0;
+  const isOngoing = mission.ongoing;
+  const isFinish = !mission.ongoing && mission.progress >= 100;
 
   return (
     <Card
@@ -26,7 +29,7 @@ export default function OngoingMissionItem({ index, mission, action, setElementS
         <CustomIcon size={50} icon={mission.type} style={{ marginLeft: '30px' }} />
         <Typography style={{ fontFamily: 'monospace' }}>{`${mission.type}`}</Typography>
 
-        {progress < 50 && (
+        {/* {progress < 50 && (
           <CustomButton
             onClick={() => action(mission)}
             name={'come back'}
@@ -38,10 +41,10 @@ export default function OngoingMissionItem({ index, mission, action, setElementS
             textColor={'#121212'}
             style={{ marginRight: '10px', marginLeft: 'auto' }}
           />
-        )}
+        )} */}
       </Stack>
 
-      <PageContent style={{ margin: '10px 50px' }}>
+      {/* <PageContent style={{ margin: '10px 50px' }}>
         <Stack direction='row' spacing={1} alignItems='center'>
           <CustomIcon size={40} icon={'baseMission'} />
 
@@ -71,20 +74,20 @@ export default function OngoingMissionItem({ index, mission, action, setElementS
 
           <CustomIcon size={40} icon={'arrival'} style={{ marginLeft: 'auto' }} />
         </Stack>
-      </PageContent>
+      </PageContent> */}
 
-      <Stack direction='row' spacing={1} alignItems='center' style={{ padding: '6px' }}>
+      {/* <Stack direction='row' spacing={1} alignItems='center' style={{ padding: '6px' }}>
         <Typography
           variant='subtitle1'
           color='text.secondary'
           component='div'
           style={{ marginLeft: '30px' }}
         >{`Remaining Time: ${'00:34:30'}`}</Typography>
-      </Stack>
+      </Stack> */}
 
       <Stack direction='row' spacing={1} alignItems='center' style={{ padding: '6px' }}>
-        <Typography variant='subtitle1' color='text.secondary' component='div' style={{ marginLeft: '30px' }}>{`Looted:`}</Typography>
-        <RessourcesStack size={'50px'} ressources={[{ name: 'fuelprod' }, { name: 'superoxyde' }]} square />
+        {/* <Typography variant='subtitle1' color='text.secondary' component='div' style={{ marginLeft: '30px' }}>{`Looted:`}</Typography>
+        <RessourcesStack size={'50px'} ressources={[{ name: 'fuelprod' }, { name: 'superoxyde' }]} square /> */}
         <Typography color='text.secondary' component='div' variant='subtitle1' style={{ marginLeft: 'auto' }}>{`Level:`}</Typography>
         <Stack direction='row' alignItems='center' style={{ marginRight: '30px' }}>
           {levelArray.map((level) => (

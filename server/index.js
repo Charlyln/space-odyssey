@@ -75,7 +75,7 @@ app.use(actionsRoutes);
   // }
 
   await createInitData();
-  // startProduction();
+  startProduction();
 })();
 
 app.get('*', (req, res) => {
