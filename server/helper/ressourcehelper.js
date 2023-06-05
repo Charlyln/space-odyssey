@@ -1,9 +1,11 @@
 const logger = require('../logger');
+const { v4: uuidv4 } = require('uuid');
 
 const { Ressource } = require('../db/models/ressource.model');
 const { Cost } = require('../db/models/cost.model');
 const { Building } = require('../db/models/building.model');
 const { State } = require('../db/models/state.model');
+const { Trade } = require('../db/models/trade.model');
 
 async function updateRessource(data, ressourceId) {
   try {
@@ -29,6 +31,14 @@ async function decrementRessource(value, ressourceId) {
   }
 }
 
+async function decrementMoney(price, userId) {
+  try {
+    await Ressource.increment('value', { by: -price, where: { UserId: userId, name: 'money' } });
+  } catch (error) {
+    logger.error('decrementMoney', error);
+  }
+}
+
 async function updateBuilding(data, buildingId) {
   try {
     await Building.update({ ...data }, { where: { id: buildingId } });
@@ -42,6 +52,25 @@ async function updateState(data, stateId) {
     await State.update({ ...data }, { where: { id: stateId } });
   } catch (error) {
     logger.error('updateState', error);
+  }
+}
+
+async function createTrade(ressource, price, quantity, status, type, userId) {
+  try {
+    const trade = await Trade.create({
+      id: uuidv4(),
+      ressource: ressource,
+      price: price,
+      quantity: quantity,
+      status: status,
+      type: type,
+      UserId: userId,
+    });
+
+    return trade;
+  } catch (error) {
+    logger.error('createTrade', error);
+    throw new Error('Create Trade Error');
   }
 }
 
@@ -106,4 +135,6 @@ module.exports = {
   incrementRessource,
   decrementRessource,
   increaseCosts,
+  decrementMoney,
+  createTrade,
 };

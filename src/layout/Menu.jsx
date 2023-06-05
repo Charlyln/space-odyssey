@@ -51,7 +51,7 @@ const links = [
   },
   {
     to: '/trade',
-    name: 'Trade',
+    name: 'Galactic Trade',
   },
   {
     to: '/history',

@@ -45,7 +45,6 @@ export default function Layout() {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };
@@ -69,7 +68,6 @@ export default function Layout() {
     }
 
     function onUserDataEvent(data) {
-      console.log(data);
       setStore((prevState) => ({
         ...prevState,
         user: data,

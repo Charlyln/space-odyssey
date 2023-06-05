@@ -129,6 +129,7 @@ function Shipyard() {
         costs={user.Costs}
         headerInfosTitle={`Stats:`}
         getInfos={getInfos}
+        displayButton={elementSelected}
       />
 
       <PageContent borderLess>

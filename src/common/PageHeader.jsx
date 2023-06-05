@@ -24,6 +24,8 @@ export default function PageHeader({
   enableCancelAction,
   cancelAction,
   cancelActionName,
+  getChild,
+  displayButton,
 }) {
   return (
     <Grid item xs={12}>
@@ -35,10 +37,12 @@ export default function PageHeader({
           alt={title}
         />
 
-        <CardContent style={{ width: '100%' }}>
+        <CardContent style={{ width: '100%', padding: '6px 8px' }}>
           <Typography component='div' variant='h5' style={{ fontFamily: 'monospace' }}>
             {title}
           </Typography>
+
+          {getChild && getChild()}
 
           {elementSelected && (
             <>
@@ -58,32 +62,32 @@ export default function PageHeader({
                   <PageHeaderCosts costs={costs} elementName={elementSelected.name} />
                 </PageHeaderLayout>
               )}
-
-              {actionName && (
-                <HeaderAction>
-                  {enableCancelAction && (
-                    <CustomButton
-                      onClick={() => cancelAction(elementSelected)}
-                      name={cancelActionName}
-                      color={30}
-                      width={120}
-                      height={40}
-                      fontSize={15}
-                    />
-                  )}
-
-                  <CustomButton
-                    onClick={() => action(elementSelected)}
-                    name={actionName}
-                    color={500}
-                    width={120}
-                    height={40}
-                    fontSize={15}
-                    disabled={disabledAction}
-                  />
-                </HeaderAction>
-              )}
             </>
+          )}
+
+          {displayButton && actionName && (
+            <HeaderAction>
+              {enableCancelAction && (
+                <CustomButton
+                  onClick={() => cancelAction(elementSelected)}
+                  name={cancelActionName}
+                  color={30}
+                  width={120}
+                  height={40}
+                  fontSize={15}
+                />
+              )}
+
+              <CustomButton
+                onClick={() => action(elementSelected)}
+                name={actionName}
+                color={500}
+                width={120}
+                height={40}
+                fontSize={15}
+                disabled={disabledAction}
+              />
+            </HeaderAction>
           )}
         </CardContent>
       </Card>

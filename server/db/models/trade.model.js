@@ -1,12 +1,12 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../sequelize');
 
-const Ressource = sequelize.define('Ressource', {
+const Trade = sequelize.define('Trade', {
   id: {
     type: DataTypes.UUIDV4,
     primaryKey: true,
   },
-  name: {
+  ressource: {
     type: DataTypes.STRING(),
     allowNull: true,
   },
@@ -14,24 +14,20 @@ const Ressource = sequelize.define('Ressource', {
     type: DataTypes.STRING(),
     allowNull: true,
   },
-  value: {
-    type: DataTypes.NUMBER(),
-    allowNull: true,
-  },
-  production: {
-    type: DataTypes.NUMBER(),
-    allowNull: true,
-  },
-  storage: {
-    type: DataTypes.NUMBER(),
-    allowNull: true,
-  },
   price: {
     type: DataTypes.NUMBER(),
-    allowNull: true,
+    allowNull: false,
+  },
+  quantity: {
+    type: DataTypes.NUMBER(),
+    allowNull: false,
+  },
+  status: {
+    type: DataTypes.STRING(),
+    allowNull: false,
   },
 });
 
 module.exports = {
-  Ressource,
+  Trade,
 };

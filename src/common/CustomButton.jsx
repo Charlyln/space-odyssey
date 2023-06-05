@@ -1,6 +1,6 @@
 import './css/custombutton.css';
 
-export default function CustomButton({ name, color, onClick, width, height, fontSize, disabled }) {
+export default function CustomButton({ name, color, onClick, width, height, fontSize, disabled, alone, style }) {
   return (
     <button
       className='cybr_btn'
@@ -12,6 +12,7 @@ export default function CustomButton({ name, color, onClick, width, height, font
         '--font-size': `${fontSize}px`,
         opacity: disabled ? 0.3 : 1,
         '--primary': disabled ? null : 'hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 1%))',
+        ...style,
       }}
       onClick={onClick}
     >
@@ -23,9 +24,12 @@ export default function CustomButton({ name, color, onClick, width, height, font
           <span aria-hidden className='cybr_btn__glitch'>
             {name}
           </span>
-          <span aria-hidden className='cybr_btn__tag'>
-            R25
-          </span>
+
+          {!alone && (
+            <span aria-hidden className='cybr_btn__tag'>
+              R25
+            </span>
+          )}
         </>
       )}
     </button>

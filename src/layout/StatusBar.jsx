@@ -3,6 +3,7 @@ import { Card, CardMedia, Typography, CardContent, Stack } from '@mui/material';
 
 import { socket } from '../utils/socket';
 import { getImg } from '../utils/helper';
+import { fomatNumber } from '../utils/helpers/number.helper';
 
 const ressourceItems = [
   { name: 'money', iconWidth: 120, width: 140 },
@@ -51,7 +52,7 @@ function StatusBar({ menuWidth, infosWidth }) {
     try {
       const ressource = ressources.find((ressource) => ressource.name === ressourceName);
       if (ressource && ressource.value > 0) {
-        return ressource.value;
+        return fomatNumber(ressource.value);
       } else {
         return '-';
       }
@@ -90,7 +91,9 @@ function StatusBar({ menuWidth, infosWidth }) {
                 title={ressource.name}
               />
               <CardContent style={{ padding: 0, textAlign: 'center', height: '20px', marginTop: '-4px' }}>
-                <Typography style={{ fontFamily: 'monospace', fontSize: 'initial' }}>{getRessourceValue(ressource.name)}</Typography>
+                <Typography style={{ fontFamily: 'monospace', fontSize: 12, paddingTop: '2px' }}>
+                  {getRessourceValue(ressource.name)}
+                </Typography>
               </CardContent>
             </Card>
           </div>
