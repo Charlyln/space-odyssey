@@ -1,13 +1,20 @@
 import React, { useContext } from 'react';
-import { Card, Typography, Grid, CardContent, Box, CardHeader, CardMedia, Button } from '@mui/material';
+import { Card, Typography, Grid, CardContent, Box, CardHeader, CardMedia, Button, CardActionArea } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { Context } from '../utils/AppContext';
-import ForwardIcon from '@mui/icons-material/Forward';
-import steelMineIcon from '../assets/steelmine.png';
-import goldMineIcon from '../assets/goldmine.png';
+import steelIcon from '../assets/ressources/steel.webp';
+import goldIcon from '../assets/ressources/gold.webp';
+import platinumIcon from '../assets/ressources/platinum2.webp';
+import crystalIcon from '../assets/ressources/crystal.webp';
 import axios from 'axios';
 import { hostname, port } from '../utils/config';
+
+import ressources from '../assets/ressources/ressources.jpeg';
+import factory from '../assets/facilities/factory.jpeg';
+import factory2 from '../assets/facilities/factory2.jpeg';
+import farm from '../assets/facilities/farm.jpeg';
+// import energy from '../assets/facilities/energy.jpeg';
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -26,16 +33,39 @@ function Ressources() {
     store: { user },
   } = useContext(Context);
 
-  const getImg = (buildingName) => {
-    switch (buildingName) {
+  const getImg = (building) => {
+    switch (building.name) {
       case 'Steel mine':
-        return steelMineIcon;
+        return factory;
 
-      case 'Gold mine':
-        return goldMineIcon;
+      case 'Gold Mine':
+        return factory2;
+
+      case 'Biosphere Farm':
+        return farm;
 
       default:
-        return steelMineIcon;
+        return factory;
+    }
+  };
+
+  const getRessourceIcons = (building) => {
+    console.log(building.production);
+    switch (building.production) {
+      case 'steel':
+        return <img style={{ width: '25px' }} src={steelIcon} alt={building.production} />;
+
+      case 'gold':
+        return <img style={{ width: '25px' }} src={goldIcon} alt={building.production} />;
+
+      case 'platinum':
+        return <img style={{ width: '25px' }} src={platinumIcon} alt={building.production} />;
+
+      case 'crystal':
+        return <img style={{ width: '25px' }} src={crystalIcon} alt={building.production} />;
+
+      default:
+        return <div style={{ width: '25px', height: '7px' }}></div>;
     }
   };
 
@@ -49,9 +79,45 @@ function Ressources() {
   };
 
   return (
-    <Grid container alignItems='center'>
-      {user.Buildings.map((item) => (
-        <Grid item xs={4} key={item.name} sx={{ padding: 1 }}>
+    <Grid container alignItems='center' sx={{ padding: 1 }}>
+      <Grid item xs={12}>
+        <Card style={{ display: 'flex', height: '250px', position: 'relative', backgroundColor: 'unset' }} variant='outlined'>
+          <CardMedia component='img' sx={{ width: '400px' }} image={ressources} alt='Shipyard' />
+
+          <CardContent style={{ width: '100%' }}>
+            <Typography component='div' variant='h5'>
+              Ressources
+            </Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+
+      <Grid item xs={12}>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {user.Buildings.map((item, i) => (
+            <div key={item.name} style={{ paddingRight: '10px' }}>
+              <Card style={{ width: '150px', marginTop: '10px' }} variant='outlined' onClick={() => {}}>
+                <CardActionArea>
+                  <CardMedia
+                    style={{ margin: 'auto', height: '150px', width: '150px' }}
+                    component='img'
+                    image={getImg(item)}
+                    alt={item.name}
+                  />
+                  {getRessourceIcons(item)}
+
+                  <Typography sx={{ fontSize: 14, float: 'right', marginRight: '5px' }} color='text.secondary'>
+                    {item.level}
+                  </Typography>
+                </CardActionArea>
+              </Card>
+            </div>
+          ))}
+        </div>
+      </Grid>
+
+      {/* {user.Buildings.map((item) => (
+        <Grid item xs={3} key={item.name} sx={{ padding: 1 }}>
           <Card style={{ border: item.upgrading ? 'solid 1px grey' : 'solid 1px' }}>
             <CardHeader
               title={item.name}
@@ -92,7 +158,7 @@ function Ressources() {
             </CardContent>
           </Card>
         </Grid>
-      ))}
+      ))} */}
     </Grid>
   );
 }

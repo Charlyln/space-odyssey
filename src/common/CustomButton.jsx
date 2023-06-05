@@ -1,4 +1,4 @@
-import './custombutton.css';
+import './css/custombutton.css';
 
 export default function CustomButton({ name, color, onClick, width, height, fontSize, disabled }) {
   return (

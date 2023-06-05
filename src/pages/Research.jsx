@@ -1,11 +1,14 @@
 import React from 'react';
-import { Grid } from '@mui/material';
+
+import PageHeader from '../common/PageHeader';
+import ResearchImg from '../assets/headers/research.jpeg';
+import PageContainer from '../common/PageContainer';
 
 function Research() {
   return (
-    <Grid container alignItems='center' sx={{ padding: 1 }}>
-      Research
-    </Grid>
+    <PageContainer>
+      <PageHeader height={'350px'} imgWidth={'400px'} image={ResearchImg} imageName={'Research'} title={'Research'} />
+    </PageContainer>
   );
 }
 
