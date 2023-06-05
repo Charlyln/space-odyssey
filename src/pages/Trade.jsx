@@ -13,6 +13,12 @@ import RessourcesStack from '../common/RessourcesStack';
 import TradeItem from '../common/TradeItem';
 import CustomButtonGroup from '../common/CustomButtonGroup';
 
+const header = '250px';
+const buttonsHeight = '54px';
+const itemHeight = '62px';
+
+const body = `calc(100vh - (110px + ${header} + ${buttonsHeight}))`;
+
 function Inventory() {
   const { store } = useContext(Context);
   const { user } = store;
@@ -54,7 +60,7 @@ function Inventory() {
   const getButtons = () => {
     try {
       return (
-        <Stack direction='row' alignItems='center'>
+        <Stack direction='row' alignItems='center' style={{ paddingTop: '8px' }}>
           <CustomButtonGroup value={tradType} buttons={buttons} onChange={setTradType} style={{ marginLeft: 'auto' }} />
         </Stack>
       );
@@ -88,29 +94,30 @@ function Inventory() {
   return (
     <PageContainer>
       <PageHeader
-        height={'300px'}
+        height={header}
         imgWidth={'400px'}
         imageName={'trade'}
         title={'Galactic Trade'}
         // action={buy}
         // actionName={'buy'}
         getChild={getTrades}
-        // displayButton={ressources.length > 0}
       />
-
-      <PageContent borderLess>{getButtons()}</PageContent>
+      <PageContent height={buttonsHeight} borderLess>
+        {getButtons()}
+      </PageContent>
 
       {tradType === 'buying' ? (
-        <PageContent bgColor={'unset'}>
-          <TradeList height={550} action={buy} ressources={tradeRessources} money={money.value} />
+        <PageContent height={body} bgColor={'unset'}>
+          <TradeList height={body} action={buy} ressources={tradeRessources} money={money.value} />
         </PageContent>
       ) : (
         <>
-          <PageContent bgColor={'unset'} borderLess>
-            <TradeItem ressource={user.Ressources[0]} action={() => {}} money={money} />
+          <PageContent height={itemHeight} bgColor={'unset'} borderLess>
+            <TradeItem height={itemHeight} ressource={user.Ressources[0]} action={() => {}} money={money} />
           </PageContent>
-          <PageContent bgColor={'unset'}>
-            <ContainerList height={300}>
+
+          <PageContent bgColor={'unset'} height={`calc(${body} - ${itemHeight})`}>
+            <ContainerList height={`calc(${body} - ${itemHeight})`}>
               <div style={{ padding: '2px' }}>
                 <RessourcesStack size={'70px'} ressources={user.Ressources} disabledCard={true} onClick={() => {}} square footer />
               </div>

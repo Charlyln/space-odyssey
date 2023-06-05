@@ -14,14 +14,15 @@ function SolarSystemItem({
   setElementSelected,
   elementSelected,
   disableButtons,
-  basePlanet
+  basePlanet,
+  height
 }) {
   const [scale, setScale] = useState(defaultScale || 0.3);
   const [displayOrbit, setDisplayOrbit] = useState(false);
   const [displayName, setDisplayName] = useState(false);
 
   return (
-    <PageContent bgColor={'black'}>
+    <PageContent bgColor={'black'} height={height}>
       <SolarSystem
         scale={scale}
         planets={planets}

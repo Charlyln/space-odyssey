@@ -7,6 +7,7 @@ import { fomatNumber } from '../utils/helpers/number.helper';
 import CustomButton from './CustomButton';
 import CustomIcon from './CustomIcon';
 import RessourcesStack from './RessourcesStack';
+import MissionProgress from './MissionProgress';
 import PageContent from './PageContent';
 
 export default function MissionItem({ index, mission, launchMission, retreiveMission, comeBackMission, setElementSelected, planets }) {
@@ -81,46 +82,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
       case 'finish':
         return (
           <>
-            <PageContent style={{ margin: '10px 50px' }}>
-              <Stack direction='row' spacing={1} alignItems='center'>
-                <CustomIcon size={40} icon={'baseMission'} />
-
-                {progress <= 50 ? (
-                  <>
-                    <div style={{ width: `${progress * 2}%` }}>
-                      <LinearProgress variant='determinate' value={100} />
-                    </div>
-                    <CustomIcon size={30} icon={'spaceship'} style={{ transform: 'rotate(-90deg)' }} />
-                    <div style={{ width: `${100 - progress * 2}%` }}>
-                      <LinearProgress style={{ transform: 'rotate(180deg)' }} variant='buffer' value={0} valueBuffer={0} />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div style={{ width: `${100 - (progress - 50) * 2}%` }}>
-                      <LinearProgress
-                        color={progress >= 100 && mission.status === 'finish' ? 'success' : 'primary'}
-                        variant='buffer'
-                        value={0}
-                        valueBuffer={0}
-                      />
-                    </div>
-
-                    <CustomIcon size={30} icon={'spaceship'} style={{ transform: 'rotate(90deg)' }} />
-
-                    <div style={{ width: `${(progress - 50) * 2}%` }}>
-                      <LinearProgress
-                        color={progress >= 100 && mission.status === 'finish' ? 'success' : 'primary'}
-                        variant='determinate'
-                        value={100}
-                      />
-                    </div>
-                  </>
-                )}
-
-                <CustomIcon size={40} icon={'arrival'} style={{ marginLeft: 'auto' }} />
-              </Stack>
-            </PageContent>
+            <MissionProgress progress={progress} status={mission.status} margin={'10px 50px'} />
             <Stack direction='row' spacing={1} alignItems='center' style={{ padding: '6px' }}>
               <Typography
                 variant='subtitle1'

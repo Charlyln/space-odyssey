@@ -11,7 +11,7 @@ async function checkOngoingMissions(user) {
         if (mission.progress > 99) {
           await finishMission(mission.id);
         } else {
-          await incrementMission(5, mission.id);
+          await incrementMission(1, mission.id);
         }
       }),
     );

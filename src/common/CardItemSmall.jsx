@@ -10,7 +10,7 @@ export default function CardItemSmall({ imgName, width, item, cardGetter }) {
       <Card style={{ width, marginTop: '10px', position: 'relative' }} variant='outlined'>
         <CardMedia style={{ margin: 'auto', height: width, width }} component='img' image={getImg(item.name)} alt={imgName} />
         {cardGetter && cardGetter(item)}
-        <CardProgress variant='determinate' progress={item?.State?.progress} height={10} />
+        <CardProgress progress={item?.State?.progress} height={10} />
       </Card>
     </div>
   );

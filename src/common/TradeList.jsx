@@ -23,7 +23,7 @@ const ContainerStyle = styled(List)(({ height }) => ({
 
 export default function TradeList({ height, action, ressources, money }) {
   return (
-    <ContainerStyle height={`calc(100vh - ${height}px)`}>
+    <ContainerStyle height={height}>
       {ressources.map((ressource) => (
         <TradeItem key={ressource.id} ressource={ressource} action={action} money={money} />
       ))}

@@ -34,7 +34,7 @@ function startProduction() {
     logger.info('13 - Send New Data');
     logger.info('------------ Finish Production ------------ ');
 
-    setTimeout(checkProduction, 5000);
+    setTimeout(checkProduction, 10000);
   })();
 }
 

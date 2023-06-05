@@ -28,7 +28,7 @@ function InfosList({ height }) {
 
   return (
     <ContainerStyle height={height}>
-      <TransitionGroup>
+      <TransitionGroup >
         {store.user.Infos.map((info) => (
           <Collapse key={info.id}>
             <Alert

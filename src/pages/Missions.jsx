@@ -19,6 +19,10 @@ import MissionsList from '../common/MissionsList';
 import { colors } from '../utils/constants';
 import CustomButtonGroup from '../common/CustomButtonGroup';
 
+const header = '250px';
+const footer = `50px`;
+const body = `calc(100vh - (110px + ${header} + ${footer}))`;
+
 function Missions() {
   const { store } = useContext(Context);
   const { user } = store;
@@ -84,7 +88,7 @@ function Missions() {
   const getButtons = () => {
     try {
       return (
-        <Stack direction='row' alignItems='center'>
+        <Stack direction='row' alignItems='center' style={{ height: footer }}>
           <Typography component='div' variant='h5' style={{ fontFamily: 'monospace' }}>
             {`Missions`}
           </Typography>
@@ -183,11 +187,25 @@ function Missions() {
 
   return (
     <PageContainer>
-      <PageHeader height={'270px'} imgWidth={'200px'} imageName={'missions'} getChild={getHeader} />
+      {/* <PageHeader height={'270px'} imgWidth={'200px'} imageName={'missions'} getChild={getHeader} /> */}
+
+      <SolarSystemItem
+        height={header}
+        planets={system?.Planets}
+        sunColor={system.sunColor}
+        sunShadowColor={system.sunShadow}
+        size={system.size}
+        sunSize={system.sunSize}
+        defaultScale={0.3}
+        setElementSelected={setElementSelected}
+        elementSelected={elementSelected}
+        disableButtons
+        basePlanet={user.Planet}
+      />
 
       <PageContent borderLess>{getButtons()}</PageContent>
       <PageContent bgColor={'unset'}>
-        <ContainerList height={450}>
+        <ContainerList height={body}>
           <MissionsList
             type={type}
             missions={missions}
