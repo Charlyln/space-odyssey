@@ -10,12 +10,11 @@ import RessourcesStack from './RessourcesStack';
 import MissionProgress from './MissionProgress';
 import PageContent from './PageContent';
 import LongPressButton from './LongPressButton';
+import LaunchingProgress from './LaunchingProgress';
 
 export default function MissionItem({ index, mission, launchMission, retreiveMission, comeBackMission, setElementSelected, planets }) {
   const levelArray = Array.from(Array(mission.level).keys());
   const disableLevel = Array.from(Array(5 - mission.level).keys());
-
-  console.log('render');
 
   const progress = mission.progress;
 
@@ -23,17 +22,13 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
     switch (mission.status) {
       case 'created':
         return (
-          // <CustomButton
-          //   onClick={() => launchMission(mission)}
-          //   label={'launch'}
-          //   color={'green'}
-          //   size={'small'}
-          //   style={{ marginRight: '10px', marginLeft: 'auto' }}
-          // />
-
           <LongPressButton
+            style={{ marginRight: '10px', marginLeft: 'auto', position: 'absolute', bottom: '10px', right: '10px' }}
+            type={'launch'}
+            label={'launch'}
             onStart={() => launchMission(mission)}
-            style={{ marginLeft: 'auto', position: 'relative', height: '80px', width: '200px' }}
+            color={'green'}
+            size={'small'}
           />
         );
 
@@ -45,7 +40,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
               label={'come back'}
               color={'red'}
               size={'small'}
-              style={{ marginRight: '10px', marginLeft: 'auto' }}
+              style={{ marginRight: '10px', marginLeft: 'auto', position: 'absolute', bottom: '10px', right: '10px' }}
             />
           );
         } else {
@@ -54,13 +49,24 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
 
       case 'finish':
         return (
-          <CustomButton
-            onClick={() => retreiveMission(mission)}
-            label={'retreive'}
-            color={'green'}
-            size={'small'}
-            style={{ marginRight: '10px', marginLeft: 'auto' }}
-          />
+          <>
+            {/* <LongPressButton
+              style={{ marginRight: '10px', marginLeft: 'auto', position: 'absolute', bottom: '10px', right: '10px' }}
+              type={'retreive'}
+              label={'retreive'}
+              onStart={() => launchMission(mission)}
+              color={'green'}
+              size={'small'}
+            /> */}
+
+            <CustomButton
+              onClick={() => retreiveMission(mission)}
+              label={'retreive'}
+              color={'green'}
+              size={'small'}
+              style={{ marginRight: '10px', marginLeft: 'auto', position: 'absolute', bottom: '10px', right: '10px' }}
+            />
+          </>
         );
 
       default:
@@ -128,7 +134,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
   return (
     <Card
       variant='outlined'
-      style={{ backgroundColor: 'unset', marginBottom: '10px' }}
+      style={{ backgroundColor: 'unset', marginBottom: '10px', height: '260px', position: 'relative' }}
       onMouseEnter={() => setElementSelected(planets[index])}
       onMouseLeave={() => setElementSelected(planets[index])}
     >
@@ -149,7 +155,6 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
             <CustomIcon style={{ opacity: 0.1 }} key={level} size={25} icon={'level'} />
           ))}
         </Stack>
-        {getButton()}
       </Stack>
 
       {getMissionBody()}
@@ -171,11 +176,13 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
               variant='subtitle1'
               color='text.secondary'
               component='div'
-              style={{ marginLeft: 'auto' }}
+              style={{ marginLeft: '100px' }}
             >{`Fuel required:`}</Typography>
-            <RessourcesStack size={'50px'} ressources={[{ id: 'warpcell', name: 'warpcell', value: 1 }]} square footer />
+            <RessourcesStack size={'50px'} ressources={[{ id: 'warpcell', name: 'warpcell' }]} square />
           </>
         )}
+
+        {getButton()}
       </Stack>
     </Card>
   );
