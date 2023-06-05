@@ -203,6 +203,66 @@ const costs = [
     value: 270000,
     ressource: 'crystal',
   },
+  {
+    craft: 'Steel Mine',
+    value: 50,
+    ressource: 'steel',
+  },
+  {
+    craft: 'Steel Mine',
+    value: 20,
+    ressource: 'gold',
+  },
+  {
+    craft: 'Gold Mine',
+    value: 50,
+    ressource: 'steel',
+  },
+  {
+    craft: 'Gold Mine',
+    value: 20,
+    ressource: 'gold',
+  },
+  {
+    craft: 'Platinum Synthesizer',
+    value: 500,
+    ressource: 'steel',
+  },
+  {
+    craft: 'Platinum Synthesizer',
+    value: 200,
+    ressource: 'gold',
+  },
+  {
+    craft: 'Crystal Synthesizer',
+    value: 500,
+    ressource: 'steel',
+  },
+  {
+    craft: 'Crystal Synthesizer',
+    value: 200,
+    ressource: 'gold',
+  },
+  {
+    craft: 'Solar Plant',
+    value: 50,
+    ressource: 'steel',
+  },
+  {
+    craft: 'Solar Plant',
+    value: 20,
+    ressource: 'gold',
+  },
+  {
+    craft: 'Biosphere Farm',
+    value: 50,
+    ressource: 'steel',
+  },
+  {
+    craft: 'Biosphere Farm',
+    value: 20,
+    ressource: 'gold',
+  },
 ];
 
 module.exports = {

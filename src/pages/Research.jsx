@@ -7,7 +7,7 @@ import PageContainer from '../common/PageContainer';
 function Research() {
   return (
     <PageContainer>
-      <PageHeader height={'350px'} imgWidth={'400px'} image={ResearchImg} imageName={'Research'} title={'Research'} />
+      <PageHeader height={'350px'} imgWidth={'400px'} imageName={'research'} title={'Research'} />
     </PageContainer>
   );
 }
