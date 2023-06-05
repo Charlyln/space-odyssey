@@ -8,6 +8,7 @@ import Planet from '../pages/Planet';
 import Research from '../pages/Research';
 import Missions from '../pages/Missions';
 import Trade from '../pages/Trade';
+import Shipyard from '../pages/Shipyard';
 
 export default function Pages({ menuWidth, infosWidth }) {
   return (
@@ -19,6 +20,7 @@ export default function Pages({ menuWidth, infosWidth }) {
         <Route path='/research' element={<Research />} />
         <Route path='/missions' element={<Missions />} />
         <Route path='/trade' element={<Trade />} />
+        <Route path='/shipyard' element={<Shipyard />} />
       </Routes>
     </Box>
   );
