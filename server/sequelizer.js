@@ -14,11 +14,12 @@ if (process.env.DATABASE_URL) {
     },
   });
 } else {
-  module.exports = new Sequelize('database', 'username', 'password', {
+  module.exports = new Sequelize('db_name', 'root', 'Csvecora1', {
     host: 'localhost',
     dialect: 'mysql',
-    dialectOptions: {
-      socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
-    }
+    logging: false,
+    // dialectOptions: {
+    //   socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+    // }
   });
 }

@@ -72,21 +72,27 @@ async function getUserData(userId) {
       include: [
         {
           model: Ressource,
+          separate: true,
         },
         {
           model: Building,
+          separate: true,
         },
         {
           model: Mission,
+          separate: true,
         },
         {
           model: Info,
+          separate: true,
         },
         {
           model: Research,
+          separate: true,
         },
         {
           model: Spaceship,
+          separate: true,
           include: [
             {
               model: State,
@@ -95,9 +101,11 @@ async function getUserData(userId) {
         },
         {
           model: Cost,
+          separate: true,
         },
         {
           model: Trade,
+          separate: true,
         },
       ],
     });
@@ -121,35 +129,40 @@ async function getUsersData() {
       include: [
         {
           model: Ressource,
+          separate: true,
         },
         {
           model: Building,
+          separate: true,
         },
         {
           model: Mission,
+          separate: true,
         },
         {
           model: Info,
+          separate: true,
         },
         {
           model: Research,
+          separate: true,
         },
         {
           model: Spaceship,
+          separate: true,
           include: [
             {
               model: State,
             },
           ],
         },
-        // {
-        //   model: Planet,
-        // },
         {
           model: Cost,
+          separate: true,
         },
         {
           model: Trade,
+          separate: true,
         },
       ],
     });

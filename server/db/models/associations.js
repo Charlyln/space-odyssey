@@ -1,5 +1,4 @@
 const { User } = require('./user.model');
-
 const { Ressource } = require('./ressource.model');
 const { Building } = require('./building.model');
 const { Mission } = require('./mission.model');
@@ -7,10 +6,8 @@ const { Info } = require('./info.model');
 const { Action } = require('./action.model');
 const { Research } = require('./research.model');
 const { Spaceship } = require('./spaceship.model');
-
 const { Planet } = require('./planet.model');
 const { Galaxy } = require('./galaxy.model');
-
 const { State } = require('./state.model');
 const { Cost } = require('./cost.model');
 const { Trade } = require('./trade.model');
@@ -61,3 +58,19 @@ State.belongsTo(Spaceship, options);
 
 Galaxy.hasMany(Planet, options);
 Planet.belongsTo(Galaxy, options);
+
+(async () => {
+  await User.sync();
+  await Ressource.sync();
+  await Building.sync();
+  await Mission.sync();
+  await Info.sync();
+  await Action.sync();
+  await Research.sync();
+  await Spaceship.sync();
+  await Planet.sync();
+  await Galaxy.sync();
+  await State.sync();
+  await Cost.sync();
+  await Trade.sync();
+})();
