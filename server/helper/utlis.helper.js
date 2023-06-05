@@ -1,11 +1,12 @@
 const logger = require('../logger');
 const { v4: uuidv4 } = require('uuid');
 
-const { ressources, buildings, costs } = require('../constants/modelData');
-
 function padTo2Digits(num) {
   return num.toString().padStart(2, '0');
 }
+
+const dangers = ['low', 'medium', 'high'];
+const planetsColors = ['#a9a293', '#be7730', '#464f90', '#ed6f3e', '#8c7c65', '#cba941', '#94dcf0', '#0072a6'];
 
 function convertMsToTime(milliseconds) {
   let seconds = Math.floor(milliseconds / 1000);
@@ -41,8 +42,6 @@ function makeid(length) {
   }
   return result;
 }
-const dangers = ['low', 'medium', 'high'];
-const planetsColors = ['#a9a293', '#be7730', '#464f90', '#ed6f3e', '#8c7c65', '#cba941', '#94dcf0', '#0072a6'];
 
 const alpha_centauri_systems = [
   {
@@ -210,41 +209,36 @@ function generatePlanets(planetNbr, sunSize) {
   }
 }
 
-function getPercentProgress(startTime, duration, checkProductionDate) {
-  // const checkDate = checkProductionDate;
-  // const startTime = new Date(mission.startTime).getTime();
-  // const duration = mission.duration;
-  // const diff = checkDate - startTime;
-  // const pct = ((100 * diff) / duration).toFixed(2);
-  // logger.warn(pct)
-  // logger.warn('duaration', duarationDisplay);
-  // logger.warn('checkDate', checkDate);
-  // logger.warn('startTime', startTime);
-  // logger.warn('diff', diff);
-  // logger.warn('diffDisplay', diffDisplay);
-  // logger.warn('pct', pct, '%');
-  // const duarationDisplay = convertMsToTime(mission.duration);
-  // const duarationDisplay = convertMsToTime(mission.duration);
-  // const diffDisplay = convertMsToTime(diff);
-  // const checkDate = checkProductionDate;
-  // const startTime = new Date(mission.startTime).getTime();
-  // const duration = mission.duration;
-  // const diff = checkDate - startTime;
-
-  const diff = checkProductionDate - startTime;
+function getPercentProgress(time, duration, checkTime) {
+  const diff = checkTime - time;
   const percent = ((100 * diff) / duration).toFixed(2);
-
   logger.warn(`${percent}%`);
-
   return percent;
 }
 
-function getNewDuration(startTime, duration, checkProductionDate) {
-  const diff = checkProductionDate - startTime;
-  // const durationRest = diff - duration;
-  logger.warn(convertMsToTime(diff));
+function getComeBackPercentProgress(checkTime, comebackTime, duration) {
+  console.log(typeof checkTime, typeof comebackTime);
 
-  return diff;
+  const checkTimeDate = new Date(checkTime);
+  const comebackTimeDate = new Date(comebackTime);
+
+  logger.warn('checkTimeDate', checkTimeDate.toISOString());
+  logger.warn('comebackTimeDate', comebackTimeDate.toISOString());
+
+  const diff = checkTimeDate - comebackTimeDate;
+  const percent = ((100 * diff) / duration - 100).toFixed(2);
+  logger.warn(`${percent}%`);
+  return percent;
+}
+
+function getNewDuration(comebacktime, startTime, duration) {
+  const diff = comebacktime - startTime;
+  const rest = duration - diff;
+  const newDuration = duration - rest;
+
+  logger.warn(convertMsToTime(newDuration));
+
+  return newDuration;
 }
 
 module.exports = {
@@ -256,4 +250,5 @@ module.exports = {
   getPercentProgress,
   convertMsToTime,
   getNewDuration,
+  getComeBackPercentProgress,
 };

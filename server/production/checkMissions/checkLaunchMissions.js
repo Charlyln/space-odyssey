@@ -7,7 +7,7 @@ async function checkLaunchMissions(user, checkProductionDate) {
   logger.info('10 -      Check Launch');
   try {
     const startingMissions = user.Missions.filter(
-      (mission) => mission.ongoing && mission.status === missionStatus.setup && mission.startTime && mission.progress === 0,
+      (mission) => mission.status === missionStatus.setup && mission.startTime && mission.progress === 0,
     );
 
     await Promise.all(

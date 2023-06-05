@@ -96,6 +96,7 @@ export default function MissionItem({ index, mission, launchMission, retreiveMis
         );
 
       case missionStatus.setup:
+      case missionStatus.comeback:
       case missionStatus.finish:
         return (
           <>
