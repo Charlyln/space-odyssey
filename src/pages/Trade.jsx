@@ -10,7 +10,7 @@ import PageContent from '../common/PageContent';
 import ContainerList from '../common/ContainerList';
 import TradeList from '../common/TradeList';
 import TradeHistoryItem from '../common/TradeHistoryItem';
-import { Button, ButtonGroup, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import RessourcesStack from '../common/RessourcesStack';
 import TradeItem from '../common/TradeItem';
 import CustomButtonGroup from '../common/CustomButtonGroup';
@@ -21,13 +21,12 @@ const itemHeight = '62px';
 
 const body = `calc(100vh - (110px + ${header} + ${buttonsHeight}))`;
 
-function Inventory() {
+function Trade() {
   const { store } = useContext(Context);
   const { user } = store;
   const [trades, setTrades] = useState(user.Trades);
   const [tradType, setTradType] = useState('buying');
 
-  console.log(user.Ressources);
 
   const tradeRessources = user.Ressources.filter(
     (ressource) => ressource.name !== 'people' && ressource.name !== 'money' && ressource.name !== 'energy',
@@ -133,4 +132,4 @@ function Inventory() {
   );
 }
 
-export default Inventory;
+export default Trade;

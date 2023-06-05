@@ -9,13 +9,13 @@ export default function PageHeaderInfos({ title, infos, imgParams }) {
         {title}
       </Typography>
 
+      {imgParams && <CustomIcon size={25} icon={imgParams} />}
+
       {infos.map((info) => (
         <Typography key={info.key} variant='subtitle2' color='text.secondary' component='div'>
           {`${info.key}: ${info.value}`}
         </Typography>
       ))}
-
-      {imgParams && <CustomIcon size={25} icon={imgParams} />}
     </Grid>
   );
 }

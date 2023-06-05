@@ -2,6 +2,7 @@ const logger = require('../logger');
 
 const { actionTypes } = require('../../enums');
 
+const { handleBuyRessource } = require('./ressource.helper');
 const { handleCancelBuilding, handleUpgradeBuilding } = require('./building.helper');
 const { handleBuildSpaceship, handleDeleteSpaceship } = require('./spaceship.helper');
 const { handleStartMission, handleComeBackMission, handleRetreiveMission } = require('./mission.helper');

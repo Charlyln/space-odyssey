@@ -1,6 +1,7 @@
 const logger = require('../logger');
 
 const { Building } = require('../db/models/building.model');
+const { facilitiesStatus } = require('enums');
 
 async function handleUpgradeBuilding(action) {
   try {
@@ -10,7 +11,7 @@ async function handleUpgradeBuilding(action) {
       where: { id: parameters.buildingId },
     });
 
-    await building.update({ upgrading: true });
+    await building.update({ status: facilitiesStatus.setup });
     return building;
   } catch (error) {
     logger.error('UpgradeBuilding', error);
