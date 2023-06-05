@@ -53,72 +53,74 @@ async function checkEngine() {
 let checkInterval;
 
 async function startCheck() {
-  const user = await User.create({
-    id: 1,
-  });
+  try {
+    const user = await User.create({
+      id: 1,
+    });
 
-  await Building.create({
-    id: uuidv4(),
-    name: 'Steel mine',
-    type: 'mine',
-    UserId: user.id,
-  });
+    await Building.create({
+      id: uuidv4(),
+      name: 'Steel mine',
+      type: 'mine',
+      UserId: user.id,
+    });
 
-  await Building.create({
-    id: uuidv4(),
-    name: 'Gold mine',
-    type: 'mine',
-    UserId: user.id,
-  });
+    await Building.create({
+      id: uuidv4(),
+      name: 'Gold mine',
+      type: 'mine',
+      UserId: user.id,
+    });
 
-  await Ressource.create({
-    id: uuidv4(),
-    name: 'steel',
-    value: 30,
-    UserId: user.id,
-  });
+    await Ressource.create({
+      id: uuidv4(),
+      name: 'steel',
+      value: 30,
+      UserId: user.id,
+    });
 
-  await Ressource.create({
-    id: uuidv4(),
-    name: 'gold',
-    value: 0,
-    UserId: user.id,
-  });
+    await Ressource.create({
+      id: uuidv4(),
+      name: 'gold',
+      value: 0,
+      UserId: user.id,
+    });
 
-  await Ressource.create({
-    id: uuidv4(),
-    name: 'people',
-    value: 10,
-    UserId: user.id,
-  });
+    await Ressource.create({
+      id: uuidv4(),
+      name: 'people',
+      value: 10,
+      UserId: user.id,
+    });
 
-  await Ressource.create({
-    id: uuidv4(),
-    name: 'spaceship',
-    value: 1,
-    UserId: user.id,
-  });
+    await Ressource.create({
+      id: uuidv4(),
+      name: 'spaceship',
+      value: 1,
+      UserId: user.id,
+    });
 
-  await Ressource.create({
-    id: uuidv4(),
-    name: 'food',
-    value: 10,
-    UserId: user.id,
-  });
+    await Ressource.create({
+      id: uuidv4(),
+      name: 'food',
+      value: 10,
+      UserId: user.id,
+    });
 
-  await Ressource.create({
-    id: uuidv4(),
-    name: 'energy',
-    value: 100,
-    UserId: user.id,
-  });
+    await Ressource.create({
+      id: uuidv4(),
+      name: 'energy',
+      value: 100,
+      UserId: user.id,
+    });
 
-  await Ressource.create({
-    id: uuidv4(),
-    name: 'plutonium',
-    value: 0,
-    UserId: user.id,
-  });
+    await Ressource.create({
+      id: uuidv4(),
+      name: 'plutonium',
+      value: 0,
+      UserId: user.id,
+    });
+  } catch (error) {}
 
   checkInterval = setInterval(checkEngine, 2000);
 }

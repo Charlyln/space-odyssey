@@ -26,8 +26,16 @@ const links = [
     name: 'Research',
   },
   {
+    to: '/defense',
+    name: 'Defense',
+  },
+  {
     to: '/planet',
     name: 'Planet',
+  },
+  {
+    to: '/galaxy',
+    name: 'Galaxy',
   },
   {
     to: '/spaceships',
@@ -38,8 +46,8 @@ const links = [
     name: 'Missions',
   },
   {
-    to: '/market',
-    name: 'Market',
+    to: '/trade',
+    name: 'Trade',
   },
 ];
 
