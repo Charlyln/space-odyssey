@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const config = {
-  PORT: 5000,
+  PORT: 8080,
   DBPATH: process.env.DBPATH || process.cwd() + '/db.sqlite',
 };
 
